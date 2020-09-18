@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--    Android BottomNavigationView 大于3个menu文字不显示:-->
+<!--    private boolean isShifting(int labelVisibilityMode, int childCount) {-->
+<!--        return labelVisibilityMode == -1 ? childCount > 3 : labelVisibilityMode == 0;-->
+<!--    }-->
+<!--    对于大于3个的TAB，会shifting。使用下面参数：-->
+<!--    bottom_navigation.setLabelVisibilityMode(1);-->
+
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/home"
-        android:title="首页" />
+        android:icon="@drawable/icon_navigation_home"
+        android:title="Main" />
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/add"
-        android:title="卡片" />
+        android:icon="@drawable/icon_navigation_add"
+        android:title="Add" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_report"-->
+<!--        android:icon="@drawable/icon_navigation_report"-->
+<!--        android:title="Report"/>-->
     <item
-        android:id="@+id/navigation_person"
-        android:icon="@drawable/user"
-        android:title="个人" />
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/icon_navigation_user"
+        android:title="Me" />
 </menu>

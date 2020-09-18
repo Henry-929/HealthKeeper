@@ -30,11 +30,15 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     //add library
     //noinspection GradleCompatible
-    implementation 'com.android.support:design:28.0.0'
+    compile'com.android.support:design:25.0.1'
+    //noinspection GradleCompatible
+    compile'com.android.support:support-v4:25.0.1'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.1.0-alpha05'
 
 }
