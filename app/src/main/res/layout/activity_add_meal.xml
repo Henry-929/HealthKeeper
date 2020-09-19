@@ -153,9 +153,60 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Breakfast"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <ListView
+            android:id="@+id/listView_breakfast"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lunch"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <ListView
+            android:id="@+id/listView_lunch"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dinner"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <ListView
+            android:id="@+id/listView_dinner"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp" />
+    </LinearLayout>
+
 
 
     <LinearLayout

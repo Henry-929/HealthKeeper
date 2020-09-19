@@ -30,7 +30,7 @@
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Add breakfast"
+            android:text="Add dinner"
             android:textColor="#fff"
             android:textSize="25sp" />
 
@@ -56,14 +56,14 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/editTextBreakfastName"
+            android:id="@+id/editTextDinnerName"
             android:layout_width="256dp"
             android:layout_height="61dp"
             android:ems="10"
             android:hint="Please enter food name"/>
 
         <ListView
-            android:id="@+id/listView_search_breakfast"
+            android:id="@+id/listView_search_dinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
