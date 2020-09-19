@@ -158,7 +158,7 @@
                         android:layout_toEndOf="@id/report_weight_bar"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/speech_bubble"/>
+                        app:srcCompat="@drawable/icon_bubble"/>
 
                     <TextView
                         android:id="@+id/report_current_weight"
@@ -245,7 +245,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
 
-                        app:srcCompat="@drawable/speech_bubble"/>
+                        app:srcCompat="@drawable/icon_bubble"/>
 
                     <TextView
                         android:id="@+id/report_current_BMI"
