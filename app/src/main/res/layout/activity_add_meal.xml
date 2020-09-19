@@ -186,7 +186,7 @@
         <ListView
             android:id="@+id/listView_lunch"
             android:layout_width="fill_parent"
-            android:layout_height="130dp" />
+            android:layout_height="130dp"/>
     </LinearLayout>
 
     <LinearLayout
