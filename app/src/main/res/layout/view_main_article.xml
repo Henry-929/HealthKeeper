@@ -25,16 +25,13 @@
             android:id="@+id/article_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/sampleArticleImage"/>
+            android:background="@drawable/sample_article_image"/>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The Australian Dietary Guidelines (the Guidelines) provide up-to-date
-            advice about the amount and kinds of foods that we need to eat for health and
-            wellbeing. The recommendations are based on scientific evidence, developed after
-            looking at good quality research." />
+            android:text="The Australian Dietary Guidelines (the Guidelines) provide up-to-date advice about the amount and kinds of foods that we need to eat for health and wellbeing. The recommendations are based on scientific evidence, developed after looking at good quality research." />
     </LinearLayout>
 
 </LinearLayout>
