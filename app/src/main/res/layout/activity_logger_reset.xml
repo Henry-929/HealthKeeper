@@ -16,7 +16,7 @@
             android:id="@+id/label_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please Sign Up"
+            android:text="Reset Your Password"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -27,64 +27,54 @@
         android:gravity="center"
         android:layout_marginTop="30dp">
 
-        <EditText
-            android:id="@+id/signup_username"
-            android:layout_width="260dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Username"
-            android:inputType="textPersonName"/>
+            android:text="What's your email address?"/>
 
         <EditText
-            android:id="@+id/signup_email"
+            android:id="@+id/reset_email"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="20dp"/>
+            android:inputType="textEmailAddress"/>
 
-        <EditText
-        android:id="@+id/signup_password"
-        android:layout_width="260dp"
+        <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:layout_marginTop="20dp"/>
+        android:text="What is your favourite movie?"/>
 
         <EditText
-            android:id="@+id/signup_password_confirm"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Confirm"
-            android:inputType="textPassword"
-            android:layout_marginTop="20dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textStyle="italic"
-            android:text="Security Question:"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="What is your favourite movie?"/>
-
-        <EditText
-            android:id="@+id/signup_security_code"
+            android:id="@+id/reset_security_code"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Answer"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"/>
 
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter your new password"/>
+
+        <EditText
+            android:id="@+id/reset_password"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"/>
+
+        <EditText
+            android:id="@+id/reset_password_confirm"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Confirm"
+            android:inputType="textPassword"/>
     </LinearLayout>
 
     <LinearLayout
@@ -98,14 +88,14 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_circle_shape"
-            android:text="Sign up"
+            android:text="Reset"
             android:textColor="#fff"/>
         <Button
             android:id="@+id/btn_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="sign in instead"
+            android:text="Sign in instead"
             android:background="null"/>
     </LinearLayout>
 </LinearLayout>

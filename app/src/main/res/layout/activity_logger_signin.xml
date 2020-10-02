@@ -16,7 +16,7 @@
             android:id="@+id/label_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please Sign in"
+            android:text="Please Sign In"
             android:textSize="30sp" />
     </LinearLayout>
 
