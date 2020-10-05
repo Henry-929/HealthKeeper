@@ -25,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
         RegisterInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //todo
+                //todo 
             }
         });
 
