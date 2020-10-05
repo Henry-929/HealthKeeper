@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button SignInBtn = findViewById(R.id.btn_sign_in);
         final Button SignUpBtn = findViewById(R.id.btn_sign_up);
         final Button ResetBtn = findViewById(R.id.btn_reset_password);
+        final Button testBtn = findViewById(R.id.btn_test_to_main);
 
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent resetpassword = new Intent(LoginActivity.this, ResetPasswordActivity.class);
                 LoginActivity.this.startActivity(resetpassword);
+            }
+        });
+
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(i);
             }
         });
     }

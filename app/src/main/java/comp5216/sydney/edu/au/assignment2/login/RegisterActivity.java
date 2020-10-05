@@ -32,8 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
         BackToSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent register = new Intent(RegisterActivity.this, LoginActivity.class);
-                RegisterActivity.this.startActivity(register);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                RegisterActivity.this.startActivity(intent);
             }
         });
     }
