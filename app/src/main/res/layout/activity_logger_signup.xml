@@ -28,7 +28,7 @@
         android:layout_marginTop="30dp">
 
         <EditText
-            android:id="@+id/signup_username"
+            android:id="@+id/logger_signup_username"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,7 +36,7 @@
             android:inputType="textPersonName"/>
 
         <EditText
-            android:id="@+id/signup_email"
+            android:id="@+id/logger_signup_email"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -45,7 +45,7 @@
             android:layout_marginTop="20dp"/>
 
         <EditText
-        android:id="@+id/signup_password"
+        android:id="@+id/_logger_signup_password"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -54,7 +54,7 @@
         android:layout_marginTop="20dp"/>
 
         <EditText
-            android:id="@+id/signup_password_confirm"
+            android:id="@+id/logger_signup_password_confirm"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -78,7 +78,7 @@
             android:text="What is your favourite movie?"/>
 
         <EditText
-            android:id="@+id/signup_security_code"
+            android:id="@+id/logger_signup_security_code"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"

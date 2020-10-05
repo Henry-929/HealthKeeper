@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageButton
-                android:id="@+id/btn_report_to_main"
+                android:id="@+id/btn_report_to_main_1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
@@ -42,6 +42,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_report_to_main_2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
@@ -177,7 +178,7 @@
                     app:srcCompat="@drawable/icon_bubble"/>
 
                 <TextView
-                    android:id="@+id/report_current_weight"
+                    android:id="@+id/report_display_current_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="59kg"
@@ -264,7 +265,7 @@
                     app:srcCompat="@drawable/icon_bubble"/>
 
                 <TextView
-                    android:id="@+id/report_current_BMI"
+                    android:id="@+id/report_display_current_BMI"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="20.4"
@@ -425,6 +426,7 @@
                         android:text="Breakfast" />
 
                     <TextView
+                        android:id="@+id/report_display_percent_breakfast"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -432,6 +434,7 @@
                         android:text="(0%)" />
 
                     <TextView
+                        android:id="@+id/report_display_status_breakfast"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -459,6 +462,7 @@
                         android:text="Lunch" />
 
                     <TextView
+                        android:id="@+id/report_display_percent_lunch"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -466,6 +470,7 @@
                         android:text="(0%)" />
 
                     <TextView
+                        android:id="@+id/report_display_status_lunch"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -493,6 +498,7 @@
                         android:text="Dinner" />
 
                     <TextView
+                        android:id="@+id/report_display_percent_dinner"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -500,6 +506,7 @@
                         android:text="(0%)" />
 
                     <TextView
+                        android:id="@+id/report_display_status_dinner"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -527,6 +534,7 @@
                         android:text="Other" />
 
                     <TextView
+                        android:id="@+id/report_display_percent_other"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -534,6 +542,7 @@
                         android:text="(0%)" />
 
                     <TextView
+                        android:id="@+id/report_display_status_other"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -623,6 +632,7 @@
                         android:text="Food" />
 
                     <TextView
+                        android:id="@+id/report_display_meal_number"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -630,6 +640,7 @@
                         android:text="-" />
 
                     <TextView
+                        android:id="@+id/report_display_meal_status"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -649,6 +660,7 @@
 </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_report_nutrient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
@@ -737,7 +749,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/report_nutrient_calorie_total"
+                            android:id="@+id/report_display_nutrient_calorie_total"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -745,7 +757,7 @@
                             android:layout_marginStart="80dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_calorie_goal"
+                            android:id="@+id/report_display_nutrient_calorie_goal"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -753,7 +765,7 @@
                             android:layout_marginStart="15dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_calorie_condition"
+                            android:id="@+id/report_display_nutrient_calorie_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -785,7 +797,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/report_nutrient_protein_total"
+                            android:id="@+id/report_display_nutrient_protein_total"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -793,7 +805,7 @@
                             android:layout_marginStart="80dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_protein_goal"
+                            android:id="@+id/report_display_nutrient_protein_goal"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -801,7 +813,7 @@
                             android:layout_marginStart="15dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_protein_condition"
+                            android:id="@+id/report_display_nutrient_protein_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -833,7 +845,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/report_nutrient_carbohydrate_total"
+                            android:id="@+id/report_display_nutrient_carbohydrate_total"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -841,7 +853,7 @@
                             android:layout_marginStart="80dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_carbohydrate_goal"
+                            android:id="@+id/report_display_nutrient_carbohydrate_goal"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -849,7 +861,7 @@
                             android:layout_marginStart="15dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_carbohydrate_condition"
+                            android:id="@+id/report_display_nutrient_carbohydrate_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -881,7 +893,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/report_nutrient_fiber_total"
+                            android:id="@+id/report_display_nutrient_fiber_total"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -889,7 +901,7 @@
                             android:layout_marginStart="80dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_fiber_goal"
+                            android:id="@+id/report_display_nutrient_fiber_goal"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -897,7 +909,7 @@
                             android:layout_marginStart="15dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_fiber_condition"
+                            android:id="@+id/report_display_nutrient_fiber_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -929,7 +941,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/report_nutrient_sugar_total"
+                            android:id="@+id/report_display_nutrient_sugar_total"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -937,7 +949,7 @@
                             android:layout_marginStart="80dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_sugar_goal"
+                            android:id="@+id/report_display_nutrient_sugar_goal"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -945,7 +957,7 @@
                             android:layout_marginStart="15dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_sugar_condition"
+                            android:id="@+id/report_display_nutrient_sugar_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -979,7 +991,7 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/report_nutrient_fat_total"
+                            android:id="@+id/report_display_nutrient_fat_total"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -987,7 +999,7 @@
                             android:layout_marginStart="80dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_fat_goal"
+                            android:id="@+id/report_display_nutrient_fat_goal"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -995,7 +1007,7 @@
                             android:layout_marginStart="15dp"
                             android:textSize="12sp"/>
                         <TextView
-                            android:id="@+id/report_nutrient_fat_condition"
+                            android:id="@+id/report_display_nutrient_fat_condition"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"

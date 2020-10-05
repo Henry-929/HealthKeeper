@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageButton
-                android:id="@+id/btn_cancel_add_breakfast"
+                android:id="@+id/other_btn_add_cancel"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
@@ -41,6 +41,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/other_btn_add_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
@@ -56,14 +57,14 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/editTextOtherName"
+            android:id="@+id/other_editText_search"
             android:layout_width="256dp"
             android:layout_height="61dp"
             android:ems="10"
             android:hint="Please enter food name"/>
 
         <ListView
-            android:id="@+id/listView_search_other"
+            android:id="@+id/other_listView_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

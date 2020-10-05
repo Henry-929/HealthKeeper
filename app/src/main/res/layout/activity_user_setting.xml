@@ -83,6 +83,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/setting_ll_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -116,6 +117,7 @@
                     android:layout_marginEnd="10dp"/>
 
                 <LinearLayout
+                    android:id="@+id/setting_ll_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -134,6 +136,38 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="Health Report"/>
+                    <ImageView
+                        android:layout_marginStart="40dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/icon_right"/>
+                </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorGrey"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+                <LinearLayout
+                    android:id="@+id/setting_ll_log_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/icon_setting_report"/>
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="Log Out"/>
                     <ImageView
                         android:layout_marginStart="40dp"
                         android:layout_width="20dp"

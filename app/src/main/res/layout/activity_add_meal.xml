@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageButton
-                android:id="@+id/btn_cancel_add"
+                android:id="@+id/meal_btn_add_cancel"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
@@ -42,6 +42,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/meal_btn_add_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
@@ -74,6 +75,7 @@
                     android:text="Intake"/>
 
                 <TextView
+                    android:id="@+id/meal_display_already_intake"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -99,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:text="Your can still intake "/>
                     <TextView
+                        android:id="@+id/meal_display_left_intake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1348"
@@ -143,6 +146,7 @@
                         android:text="Recommended intake: "/>
 
                     <TextView
+                        android:id="@+id/meal_display_total_intake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1946"/>

@@ -27,7 +27,7 @@
         android:gravity="center"
         android:layout_marginTop="30dp">
         <EditText
-            android:id="@+id/editTextTextUserName"
+            android:id="@+id/logger_signin_username"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -35,7 +35,7 @@
             android:inputType="textPersonName"/>
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/logger_signin_password"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"

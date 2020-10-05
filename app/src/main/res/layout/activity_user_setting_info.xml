@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageButton
-                android:id="@+id/btn_report_to_main"
+                android:id="@+id/profile_btn_edit_cancel"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
@@ -42,6 +42,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/profile_btn_edit_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
@@ -69,6 +70,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/profile_ll_edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -94,6 +96,7 @@
                         android:background="@color/colorGrey"/>
 
                     <TextView
+                        android:id="@+id/profile_display_name"
                         android:layout_marginStart="10dp"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -115,6 +118,7 @@
                     android:layout_marginEnd="10dp"/>
 
                 <LinearLayout
+                    android:id="@+id/profile_ll_edit_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -140,6 +144,7 @@
                         android:background="@color/colorGrey"/>
 
                     <TextView
+                        android:id="@+id/profile_display_gender"
                         android:layout_marginStart="10dp"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
@@ -161,6 +166,7 @@
                     android:layout_marginEnd="10dp"/>
 
                 <LinearLayout
+                    android:id="@+id/profile_ll_edit_height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -186,6 +192,7 @@
                         android:background="@color/colorGrey"/>
 
                     <TextView
+                        android:id="@+id/profile_display_height"
                         android:layout_marginStart="10dp"
                         android:layout_width="55dp"
                         android:layout_height="wrap_content"
@@ -213,6 +220,7 @@
                     android:layout_marginEnd="10dp"/>
 
                 <LinearLayout
+                    android:id="@+id/profile_ll_edit_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -238,6 +246,7 @@
                         android:background="@color/colorGrey"/>
 
                     <TextView
+                        android:id="@+id/profile_display_weight"
                         android:layout_marginStart="10dp"
                         android:layout_width="43dp"
                         android:layout_height="wrap_content"
@@ -265,6 +274,7 @@
                     android:layout_marginEnd="10dp"/>
 
                 <LinearLayout
+                    android:id="@+id/profile_ll_edit_birth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -290,6 +300,7 @@
                         android:background="@color/colorGrey"/>
 
                     <TextView
+                        android:id="@+id/profile_display_birth"
                         android:layout_marginStart="10dp"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"

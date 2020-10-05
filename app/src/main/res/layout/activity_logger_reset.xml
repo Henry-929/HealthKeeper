@@ -33,7 +33,7 @@
             android:text="What's your email address?"/>
 
         <EditText
-            android:id="@+id/reset_email"
+            android:id="@+id/logger_reset_email"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -47,7 +47,7 @@
         android:text="What is your favourite movie?"/>
 
         <EditText
-            android:id="@+id/reset_security_code"
+            android:id="@+id/logger_reset_security_code"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -61,7 +61,7 @@
             android:text="Please enter your new password"/>
 
         <EditText
-            android:id="@+id/reset_password"
+            android:id="@+id/logger_reset_password"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -69,7 +69,7 @@
             android:inputType="textPassword"/>
 
         <EditText
-            android:id="@+id/reset_password_confirm"
+            android:id="@+id/logger_reset_password_confirm"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
