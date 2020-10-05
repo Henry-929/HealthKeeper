@@ -50,7 +50,7 @@
             android:layout_marginStart="65dp"
             android:textSize="9sp"
             android:text="Forget your password?"
-            android:background="null"/>
+            android:background="@null"/>
     </LinearLayout>
 
     <LinearLayout
@@ -72,6 +72,6 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="Do not have account? Sign up!"
-            android:background="null"/>
+            android:background="@null"/>
     </LinearLayout>
 </LinearLayout>

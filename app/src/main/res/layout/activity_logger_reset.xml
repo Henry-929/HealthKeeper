@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:gravity="center">
         <TextView
             android:id="@+id/label_sign"
@@ -84,18 +84,18 @@
         android:gravity="center"
         android:layout_marginTop="30dp">
         <Button
-            android:id="@+id/btn_sign_in"
+            android:id="@+id/btn_reset_confirm"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_circle_shape"
             android:text="Reset"
             android:textColor="#fff"/>
         <Button
-            android:id="@+id/btn_sign_up"
+            android:id="@+id/btn_back_to_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="Sign in instead"
-            android:background="null"/>
+            android:background="@null"/>
     </LinearLayout>
 </LinearLayout>
