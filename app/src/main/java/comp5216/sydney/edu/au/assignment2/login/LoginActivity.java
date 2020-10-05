@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
+
+
 public class LoginActivity extends AppCompatActivity {
 
     //define login status
@@ -22,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logger_signin);
 
         //define user input name& password
-        //todo
+        //todo xxxxxx
         //define buttons
         final Button SignInBtn = findViewById(R.id.btn_sign_in);
         final Button SignUpBtn = findViewById(R.id.btn_sign_up);
