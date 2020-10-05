@@ -19,6 +19,8 @@
             android:label="register"/>
         <activity android:name=".login.ResetPasswordActivity"
             android:label="reset"/>
+        <activity android:name=".main.MainActivity"
+            android:label="main"/>
     </application>
 
 </manifest>
