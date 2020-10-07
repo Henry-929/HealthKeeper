@@ -87,31 +87,27 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:layout_gravity="center"
                         android:orientation="horizontal">
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="40dp"
                             android:layout_marginTop="5dp"
                             android:text="Now (Kg)"
                             android:textColor="#869d9d"
                             android:textSize="15sp" />
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="50dp"
+                            android:layout_marginStart="55dp"
                             android:layout_marginTop="5dp"
                             android:text="BMI"
                             android:textColor="#869d9d"
                             android:textSize="15sp" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -119,19 +115,18 @@
                         android:layout_height="2dp"
                         android:background="@color/colorGrey"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-
+                        android:layout_marginEnd="5dp"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
-
                         <TextView
                             android:id="@+id/main_display_user_weight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="45dp"
+                            android:layout_marginStart="35dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:text="50.0"
@@ -146,8 +141,6 @@
                             android:text="20.4"
                             android:textSize="20sp" />
                     </LinearLayout>
-
-
                 </LinearLayout>
 
                 <Button
@@ -176,8 +169,8 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:background="#fff"/>
+            android:layout_height="wrap_content"
+            android:background="#fff" />
     </LinearLayout>
 
 
