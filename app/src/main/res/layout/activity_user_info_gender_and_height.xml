@@ -1,92 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/label_gender_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
         android:text="What's your gender?"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="60dp"
+        android:textSize="30sp" />
 
-    <ImageButton
-        android:id="@+id/imageBtn_gender_male"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="120dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageButton
+            android:id="@+id/imageBtn_gender_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
+        <ImageButton
+            android:id="@+id/imageBtn_gender_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            tools:srcCompat="@tools:sample/avatars" />
+    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/imageBtn_gender_female"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        app:layout_constraintTop_toTopOf="@+id/imageBtn_gender_male"
-        app:layout_constraintStart_toEndOf="@+id/imageBtn_gender_male"
-        tools:srcCompat="@tools:sample/avatars" />
+
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/label_gander_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Male"/>
+
+        <TextView
+            android:id="@+id/label_gander_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:textSize="20sp"
+            android:layout_marginStart="140dp" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/label_gander_male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Male"
-        android:layout_marginStart="60dp"
-        app:layout_constraintTop_toBottomOf="@id/imageBtn_gender_male"
-        app:layout_constraintStart_toStartOf="@id/imageBtn_gender_male"/>
-
-    <TextView
-        android:id="@+id/label_gander_female"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Female"
-        android:layout_marginStart="60dp"
-        app:layout_constraintTop_toBottomOf="@id/imageBtn_gender_female"
-        app:layout_constraintStart_toStartOf="@id/imageBtn_gender_female"/>
-
-    <TextView
-        android:id="@+id/label_gander_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="What is your height?"
-        android:textSize="30sp"
-        android:layout_marginTop="300dp"
-        app:layout_constraintTop_toTopOf="@+id/label_gender_gender"
-        app:layout_constraintStart_toStartOf="@+id/label_gender_gender"/>
+        android:layout_gravity="center"
+        android:text="What's your height?"
+        android:layout_marginTop="60dp"
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/input_user_height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
         android:ems="10"
         android:hint="170.0cm"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/label_gander_height"
-        app:layout_constraintTop_toBottomOf="@+id/label_gander_height" />
+        android:inputType="number" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom|center">
+        <Button
+            android:id="@+id/btn_gender_to_birth"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            android:background="@drawable/btn_circle_shape"
+            android:text="Next"
+            android:textColor="#fff" />
+    </LinearLayout>
+</LinearLayout>
 
-    <Button
-        android:id="@+id/btn_gender_to_birth"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="112dp"
-        android:background="@drawable/btn_circle_shape"
-        android:text="Next"
-        android:textColor="#fff"
-        app:layout_constraintStart_toStartOf="@+id/label_gander_height"
-        app:layout_constraintTop_toBottomOf="@+id/label_gander_height" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
