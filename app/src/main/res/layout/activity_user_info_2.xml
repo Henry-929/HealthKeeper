@@ -79,12 +79,12 @@
         android:layout_height="fill_parent"
         android:gravity="bottom|center">
         <Button
-            android:id="@+id/btn_birth_to_name"
+            android:id="@+id/btn_birth_to_main"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="70dp"
             android:background="@drawable/btn_circle_shape"
-            android:text="Next"
+            android:text="click to start"
             android:textColor="#fff" />
     </LinearLayout>
 </LinearLayout>

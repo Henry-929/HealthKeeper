@@ -81,5 +81,13 @@
             android:textSize="12sp"
             android:text="直接去主界面"
             android:background="@null"/>
+
+        <Button
+            android:id="@+id/btn_test_to_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="直接去用户信息收集"
+            android:background="@null"/>
     </LinearLayout>
 </LinearLayout>

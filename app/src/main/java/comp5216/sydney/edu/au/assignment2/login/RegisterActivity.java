@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,15 +36,12 @@ public class RegisterActivity extends AppCompatActivity{
         final Button RegisterInBtn=findViewById(R.id.btn_register_in);;
         final Button BackToSignUpBtn = findViewById(R.id.btn_back_to_sign_in);
 
-
-
-
+        //get user input text
         Name=(EditText) findViewById(R.id.logger_signup_username);
         Email=(EditText) findViewById(R.id.logger_signup_email);
         Password=(EditText) findViewById(R.id._logger_signup_password);
         Confirm_password=(EditText) findViewById(R.id.logger_signup_password_confirm);
         Security=(EditText) findViewById(R.id.logger_signup_security_code);
-        //todo: get user login info
 
 
 
@@ -59,11 +57,8 @@ public class RegisterActivity extends AppCompatActivity{
         RegisterInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-
                 registerusers();
             }
-
-
                                          }
 
 
@@ -130,8 +125,6 @@ public class RegisterActivity extends AppCompatActivity{
         }
 
 
-
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -144,16 +137,17 @@ public class RegisterActivity extends AppCompatActivity{
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this,"Registered Successfully",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
+                                        Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        if ( i != null) {
+                                            RegisterActivity.this.startActivity(i);
+                                        }
                                     }
                                     else {
                                         Toast.makeText(RegisterActivity.this,"Register Failed",Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
-
-
-
                         }
                         else {
                             Toast.makeText(RegisterActivity.this,"Register Failed",Toast.LENGTH_LONG).show();
@@ -161,14 +155,5 @@ public class RegisterActivity extends AppCompatActivity{
                         // ...
                     }
                 });
-
-
-
-
     }
-
-
-
-
-
 }

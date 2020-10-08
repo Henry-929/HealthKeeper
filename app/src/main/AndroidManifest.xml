@@ -21,6 +21,10 @@
             android:label="reset"/>
         <activity android:name=".main.MainActivity"
             android:label="main"/>
+        <activity android:name=".main.InfoActivity_1"
+            android:label="info_collection_1"/>
+        <activity android:name=".main.InfoActivity_2"
+            android:label="info_collection_2"/>
     </application>
 
 </manifest>

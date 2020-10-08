@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.main.InfoActivity_1;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 
@@ -30,12 +31,15 @@ public class LoginActivity extends AppCompatActivity {
         final Button SignUpBtn = findViewById(R.id.btn_sign_up);
         final Button ResetBtn = findViewById(R.id.btn_reset_password);
         final Button testBtn = findViewById(R.id.btn_test_to_main);
+        final Button testBtn2 = findViewById(R.id.btn_test_to_info);
 
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(register);
+                if (register != null) {
+                    LoginActivity.this.startActivity(register);
+                }
             }
         });
 
@@ -55,7 +59,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent resetpassword = new Intent(LoginActivity.this, ResetPasswordActivity.class);
-                LoginActivity.this.startActivity(resetpassword);
+                if (resetpassword != null) {
+                    LoginActivity.this.startActivity(resetpassword);
+                }
             }
         });
 
@@ -63,7 +69,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                LoginActivity.this.startActivity(i);
+                if ( i != null) {
+                    LoginActivity.this.startActivity(i);
+                }
+            }
+        });
+
+        testBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(LoginActivity.this, InfoActivity_1.class);
+                if ( i != null) {
+                    LoginActivity.this.startActivity(i);
+                }
             }
         });
     }

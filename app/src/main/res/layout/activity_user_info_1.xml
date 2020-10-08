@@ -20,39 +20,47 @@
         android:padding="10dp"
         android:orientation="horizontal"
         android:gravity="center">
-        <ImageButton
-            android:id="@+id/imageBtn_gender_male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
-        <ImageButton
-            android:id="@+id/imageBtn_gender_female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            tools:srcCompat="@tools:sample/avatars" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal"
-        android:gravity="center">
-        <TextView
-            android:id="@+id/label_gander_male"
+        <LinearLayout
+            android:id="@+id/gender_ll_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Male"/>
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/imageBtn_gender_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/label_gander_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Male"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/label_gander_female"
+        <LinearLayout
+            android:id="@+id/gender_ll_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female"
-            android:textSize="20sp"
-            android:layout_marginStart="140dp" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/imageBtn_gender_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/label_gander_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textSize="20sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <TextView
