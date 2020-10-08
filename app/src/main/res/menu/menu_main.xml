@@ -14,13 +14,9 @@
         android:icon="@drawable/icon_navigation_home"
         android:title="Main" />
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_add"
         android:icon="@drawable/icon_navigation_add"
         android:title="Add" />
-<!--    <item-->
-<!--        android:id="@+id/navigation_report"-->
-<!--        android:icon="@drawable/icon_navigation_report"-->
-<!--        android:title="Report"/>-->
     <item
         android:id="@+id/navigation_user"
         android:icon="@drawable/icon_navigation_user"

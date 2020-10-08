@@ -26,10 +26,10 @@ public class InfoActivity_2 extends AppCompatActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent register = new Intent(InfoActivity_2.this, MainActivity.class);
-                //todo if 用户输入不为空
-                if (register != null) {
-                    InfoActivity_2.this.startActivity(register);
+            Intent intent = new Intent(InfoActivity_2.this, MainActivity.class);
+            //todo if 用户输入不为空
+                if (intent != null) {
+                    InfoActivity_2.this.startActivity(intent);
                 }
             }
         });

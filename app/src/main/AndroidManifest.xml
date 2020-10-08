@@ -25,6 +25,10 @@
             android:label="info_collection_1"/>
         <activity android:name=".main.InfoActivity_2"
             android:label="info_collection_2"/>
+        <activity android:name=".main.AddMealActivity"
+            android:label="add_meal"/>
+        <activity android:name=".main.UserActivity"
+            android:label="user_setting"/>
     </application>
 
 </manifest>

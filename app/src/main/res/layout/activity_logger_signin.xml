@@ -31,7 +31,7 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Username"
+            android:hint="Email"
             android:inputType="textPersonName"/>
 
         <EditText

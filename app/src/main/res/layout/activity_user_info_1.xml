@@ -28,11 +28,11 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="1">
-            <ImageButton
-                android:id="@+id/imageBtn_gender_male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+            <ImageView
+                android:id="@+id/image_gender_male"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="@drawable/icon_male" />
             <TextView
                 android:id="@+id/label_gander_male"
                 android:layout_width="wrap_content"
@@ -48,11 +48,11 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="1">
-            <ImageButton
-                android:id="@+id/imageBtn_gender_female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@tools:sample/avatars" />
+            <ImageView
+                android:id="@+id/image_gender_female"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="@drawable/icon_female" />
             <TextView
                 android:id="@+id/label_gander_female"
                 android:layout_width="wrap_content"

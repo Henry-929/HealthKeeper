@@ -44,8 +44,6 @@ public class RegisterActivity extends AppCompatActivity{
         Security=(EditText) findViewById(R.id.logger_signup_security_code);
 
 
-
-
         BackToSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -59,21 +57,8 @@ public class RegisterActivity extends AppCompatActivity{
             public void onClick(View v){
                 registerusers();
             }
-                                         }
-
-
-        );
-
-
-
-
-
-
-
+         });
     }
-
-
-
 
     public void registerusers(){
 
