@@ -27,12 +27,12 @@
         android:gravity="center"
         android:layout_marginTop="30dp">
         <EditText
-            android:id="@+id/logger_signin_username"
+            android:id="@+id/logger_signin_email"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textPersonName"/>
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/logger_signin_password"
