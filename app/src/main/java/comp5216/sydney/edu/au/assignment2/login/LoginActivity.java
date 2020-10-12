@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button SignUpBtn = findViewById(R.id.btn_sign_up);
         final Button ResetBtn = findViewById(R.id.btn_reset_password);
         final Button testBtn = findViewById(R.id.btn_test_to_main);
+        final Button testInfoBtn = findViewById(R.id.btn_test_to_info);
         Email=(EditText) findViewById(R.id.logger_signin_email) ;
         Password=(EditText) findViewById(R.id.logger_signin_password);
 
@@ -77,6 +78,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(i);
+            }
+        });
+
+        testInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, InfoActivity_1.class);
+                LoginActivity.this.startActivity(i);
+
             }
         });
     }

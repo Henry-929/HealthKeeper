@@ -23,7 +23,7 @@
 
         <LinearLayout
             android:id="@+id/gender_ll_male"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
@@ -33,12 +33,7 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:background="@drawable/icon_male" />
-            <TextView
-                android:id="@+id/label_gander_male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Male"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -48,21 +43,38 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/image_gender_female"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:background="@drawable/icon_female" />
-            <TextView
-                android:id="@+id/label_gander_female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Female"
-                android:textSize="20sp" />
+
+
         </LinearLayout>
-
     </LinearLayout>
-
+    <RadioGroup
+        android:id="@+id/gender_radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="60dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/label_gender_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Male"
+            android:checked="false"/>
+        <RadioButton
+            android:id="@+id/label_gender_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="Female"
+            android:textSize="20sp"
+            android:layout_marginLeft="110dp"/>
+    </RadioGroup>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,11 +96,12 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:gravity="bottom|center">
+
         <Button
             android:id="@+id/btn_gender_to_birth"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/btn_circle_shape"
             android:text="Next"
             android:textColor="#fff" />
