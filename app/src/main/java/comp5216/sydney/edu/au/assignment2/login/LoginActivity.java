@@ -9,12 +9,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseUserMetadata;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +32,10 @@ import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
+
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
     private EditText Email, Password;
 
     //define login status
@@ -39,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logger_signin);
         mAuth = FirebaseAuth.getInstance();
+        //databaseReference = FirebaseDatabase.getInstance().getReference()
+
         //define user input name& password
         //todo xxxxxx
         //define buttons
@@ -119,24 +129,50 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if (task.isSuccessful()){
-                    FirebaseUserMetadata metadata = mAuth.getCurrentUser().getMetadata();
-                    if (metadata.getCreationTimestamp() == metadata.getLastSignInTimestamp()) {
-                        Toast.makeText(LoginActivity.this,"Signed in successfully, please add your information!",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(LoginActivity.this, InfoActivity_1.class));
-                        // The user is new
-                    } else {
-                        Toast.makeText(LoginActivity.this,"Sign in successfully,welcome back!",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                        // This is an existing user
-                    }
+
+                    //从database中 【读取数据】
+                    databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot data: snapshot.getChildren()){
+
+                                if(data.getKey().equals("notFirstTime")){
+                                    if(data.getValue().equals("false")){
+                                        //是第一次登录，进入user info add界面
+
+                                        //进入user info add界面
+                                        //Toast.makeText(LoginActivity.this,"Signed in successfully, please add your information!",Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(LoginActivity.this, InfoActivity_1.class));
+                                        break;
+                                        // The user is new
+
+                                    }
+                                    else{
+                                        Toast.makeText(LoginActivity.this,"Sign in successfully,welcome back!",Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                        // This is an existing user
+
+                                    }
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                 }else{
                     Toast.makeText(LoginActivity.this,"Sign in failed, incorrect email or password!",Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 
     }
+
 }

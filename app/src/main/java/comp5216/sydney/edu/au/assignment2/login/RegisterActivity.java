@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity{
             public void onClick(View v){
                 registerusers();
             }
-         });
+        });
     }
 
     public void registerusers(){
