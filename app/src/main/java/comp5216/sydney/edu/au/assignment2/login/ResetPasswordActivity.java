@@ -33,7 +33,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
         ResetConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //todo
+                Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
+                ResetPasswordActivity.this.startActivity(intent);
             }
         });
 
