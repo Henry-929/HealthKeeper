@@ -2,36 +2,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:gravity="center|left"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/article_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="The Australian Dietary Guidelines"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/item_img_icon"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/sample_article_image"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/article_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/sample_article_image"/>
-
+        android:orientation="vertical" >
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/item_tv_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="The Australian Dietary Guidelines (the Guidelines) provide up-to-date advice about the amount and kinds of foods that we need to eat for health and wellbeing. The recommendations are based on scientific evidence, developed after looking at good quality research." />
+            android:layout_marginBottom="3dp"
+            android:maxLines="1"
+            android:text="title"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/item_tv_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="des"
+            android:textColor="#666666"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </LinearLayout>
+
