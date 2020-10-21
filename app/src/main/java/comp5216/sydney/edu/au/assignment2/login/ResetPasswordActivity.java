@@ -30,13 +30,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         Email=(EditText) findViewById(R.id.logger_reset_email);
 
-        ResetConfirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                //todo
-            }
-        });
-
         BackToSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){

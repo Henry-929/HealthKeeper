@@ -40,41 +40,6 @@
             android:hint="Email"
             android:inputType="textEmailAddress"/>
 
-        <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="What is your favourite movie?"/>
-
-        <EditText
-            android:id="@+id/logger_reset_security_code"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Answer"
-            android:inputType="textPersonName"/>
-
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Please enter your new password"/>
-
-        <EditText
-            android:id="@+id/logger_reset_password"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"/>
-
-        <EditText
-            android:id="@+id/logger_reset_password_confirm"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Confirm"
-            android:inputType="textPassword"/>
     </LinearLayout>
 
     <LinearLayout
