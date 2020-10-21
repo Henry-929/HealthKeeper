@@ -13,11 +13,14 @@ import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import android.widget.EditText;
@@ -26,6 +29,9 @@ import android.widget.Toast;
 public class RegisterActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private EditText Name,Email,Password,Confirm_password,Security;
+    private DatabaseReference databaseReference;
+
+    private static final String TAG = "RegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +62,37 @@ public class RegisterActivity extends AppCompatActivity{
             @Override
             public void onClick(View v){
                 registerusers();
+//                userlogin();
             }
         });
+    }
+
+
+    public void userlogin(){
+        String email=Email.getText().toString().trim();
+        String password=Password.getText().toString().trim();
+
+                mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            // ...
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     public void registerusers(){
@@ -122,6 +157,20 @@ public class RegisterActivity extends AppCompatActivity{
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
+                                        // send verification link
+                                        FirebaseUser fuser = mAuth.getCurrentUser();
+                                        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                            }
+                                        });
+
                                         Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                                         if ( i != null) {
@@ -140,5 +189,6 @@ public class RegisterActivity extends AppCompatActivity{
                         // ...
                     }
                 });
+
     }
 }

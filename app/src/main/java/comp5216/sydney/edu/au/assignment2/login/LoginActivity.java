@@ -2,13 +2,16 @@ package comp5216.sydney.edu.au.assignment2.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,10 +36,12 @@ import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 
 public class LoginActivity extends AppCompatActivity{
-
-    private FirebaseAuth mAuth;
+    TextView verifyMsg;
+    Button resendCode;
+    FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private EditText Email, Password;
+
 
     //define login status
     public final int LOGIN_SUCCESS_CODE = 100;
@@ -46,7 +51,6 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logger_signin);
-        mAuth = FirebaseAuth.getInstance();
         //databaseReference = FirebaseDatabase.getInstance().getReference()
 
         //define user input name& password
@@ -60,11 +64,42 @@ public class LoginActivity extends AppCompatActivity{
         Email=(EditText) findViewById(R.id.logger_signin_email) ;
         Password=(EditText) findViewById(R.id.logger_signin_password);
 
-        SignUpBtn.setOnClickListener(new View.OnClickListener() {
+        resendCode = findViewById(R.id.resendCode);
+        verifyMsg = findViewById(R.id.verifyMsg);
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+
+        SignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(register);
+            public void onClick(View v) {
+                if(!user.isEmailVerified()) {
+                    Toast.makeText(LoginActivity.this, "Failed!!!", Toast.LENGTH_SHORT).show();
+
+
+                    verifyMsg.setVisibility(View.VISIBLE);
+                    resendCode.setVisibility(View.VISIBLE);
+
+                    Toast.makeText(LoginActivity.this, "Please verify email.", Toast.LENGTH_SHORT).show();
+                    resendCode.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(final View v) {
+                            // send verification link
+                            user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(v.getContext(), "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("tag", "onFailure: Email not sent " + e.getMessage());
+                                }
+                            });
+                        }
+                    });
+                }
+                userlogin();
             }
         });
 
@@ -72,6 +107,14 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 userlogin();
+            }
+        });
+
+        SignUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
+                LoginActivity.this.startActivity(register);
             }
         });
 
