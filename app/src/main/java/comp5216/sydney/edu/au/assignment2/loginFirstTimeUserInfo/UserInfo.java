@@ -1,10 +1,10 @@
-package comp5216.sydney.edu.au.assignment2.main;
+package comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo;
 
 
 import java.util.HashMap;
 
 public class UserInfo {
-    public String gender,birthday,height,weight;
+    public String gender,birthday,height,weight,bmi;
 
 
     public UserInfo(String gender,String height){
@@ -12,6 +12,7 @@ public class UserInfo {
         this.height = height;
         this.weight = "null";
         this.birthday = "null";
+        this.bmi = "null";
     }
     public UserInfo(String gender,String birthday,String height,String weight){
         //this.username = username;
@@ -19,6 +20,7 @@ public class UserInfo {
         this.birthday = birthday;
         this.height = height;
         this.weight = weight;
+        this.bmi = bmi;
     }
 
 

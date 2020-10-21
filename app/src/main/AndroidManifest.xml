@@ -21,13 +21,13 @@
             android:label="reset"/>
         <activity android:name=".main.MainActivity"
             android:label="main"/>
-        <activity android:name=".main.InfoActivity_1"
+        <activity android:name=".loginFirstTimeUserInfo.InfoActivity_1"
             android:label="info_collection_1"/>
-        <activity android:name=".main.InfoActivity_2"
+        <activity android:name=".loginFirstTimeUserInfo.InfoActivity_2"
             android:label="info_collection_2"/>
-        <activity android:name=".main.AddMealActivity"
+        <activity android:name=".addMeal.AddMealActivity"
             android:label="add_meal"/>
-        <activity android:name=".main.UserActivity"
+        <activity android:name=".userSetting.UserActivity"
             android:label="user_setting"/>
     </application>
 

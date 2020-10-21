@@ -1,4 +1,4 @@
-package comp5216.sydney.edu.au.assignment2.main;
+package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.os.Bundle;
 

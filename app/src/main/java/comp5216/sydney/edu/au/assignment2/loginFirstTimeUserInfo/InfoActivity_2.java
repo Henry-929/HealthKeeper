@@ -1,4 +1,4 @@
-package comp5216.sydney.edu.au.assignment2.main;
+package comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,15 +18,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class InfoActivity_2 extends AppCompatActivity {
 
     public static String uid;
 
     private EditText Birthday,Weight;
-    public String weight,birthday;//用于数据库存储的String值
+    public String weight,height,bmi,birthday;//用于数据库存储的String值
 
     DatabaseReference databaseReference,databaseSetTrue;
     @Override
@@ -96,7 +99,7 @@ public class InfoActivity_2 extends AppCompatActivity {
                             for(DataSnapshot d: snapshot.getChildren()){
                                 //d.getKey()是userInfo的key
 
-                                String userInfo_Key = d.getKey();
+                                final String userInfo_Key = d.getKey();
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
                                     //将 birthday 写入数据库
                                     databaseReference.child("Users").child(uid)
@@ -106,6 +109,51 @@ public class InfoActivity_2 extends AppCompatActivity {
                                     databaseReference.child("Users").child(uid)
                                             .child(userInfo_Key).child("weight").setValue(weight);
 
+                                    //将 bmi写入数据库
+                                    //先获取 height- 再计算bmi- 再将bmi写入数据库
+                                    databaseReference.child("Users").child(uid)
+                                            .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot d: dataSnapshot.getChildren()) {
+                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                                                String d_Key = d.getKey();
+                                                if (d_Key.equals("height")) {
+                                                    height = d.getValue().toString();
+
+                                                    //计算bmi
+                                                    //将String转Double,并保留2位小数：
+                                                    DecimalFormat df = new DecimalFormat("0.00");
+
+                                                    //将weight height的String转换为double
+                                                    double d_weight = Double.parseDouble(weight);
+                                                    weight = df.format(d_weight);
+
+                                                    double d_height = Double.parseDouble(height);
+                                                    d_height = d_height/100;
+
+                                                    //计算BMI
+                                                    //BMI = (kg) / (m)x(m)
+                                                    double d_bmi = d_weight / (d_height*d_height);
+                                                    //bmi = Float.toString(f_bmi);
+                                                    //DecimalFormat decimalFormat= new  DecimalFormat( ".00" ); //构造方法的字符格式这里如果小数不足2位,会以0补足.
+                                                    bmi =df.format(d_bmi); //format 返回的是字符串
+
+                                                    //将bmi写入数据库
+                                                    databaseReference.child("Users").child(uid)
+                                                            .child(userInfo_Key).child("bmi").setValue(bmi);
+
+
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
 
                                     //从database中 写入数据/更新数据
                                     //将数据库中的notFirstTime更新为"true"

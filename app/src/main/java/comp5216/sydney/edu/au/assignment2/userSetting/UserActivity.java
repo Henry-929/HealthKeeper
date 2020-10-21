@@ -1,4 +1,4 @@
-package comp5216.sydney.edu.au.assignment2.main;
+package comp5216.sydney.edu.au.assignment2.userSetting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.addMeal.AddMealActivity;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class UserActivity extends AppCompatActivity {
                         startActivity(new Intent(UserActivity.this, MainActivity.class));
                         break;
                     case R.id.navigation_add:
-                        startActivity(new Intent(UserActivity.this, AddMealActivity .class));
+                        startActivity(new Intent(UserActivity.this, AddMealActivity.class));
                         break;
                     case R.id.navigation_user:
                         startActivity(new Intent(UserActivity.this, UserActivity.class));

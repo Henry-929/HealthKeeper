@@ -1,4 +1,4 @@
-package comp5216.sydney.edu.au.assignment2.main;
+package comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,30 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.login.LoginActivity;
-import comp5216.sydney.edu.au.assignment2.login.RegisterActivity;
 import comp5216.sydney.edu.au.assignment2.login.User;
 
 public class InfoActivity_1 extends AppCompatActivity {
