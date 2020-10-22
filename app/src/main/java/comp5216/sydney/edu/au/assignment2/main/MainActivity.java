@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,9 +27,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.addMeal.*;
@@ -37,11 +45,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static String uid;
 
     public TextView textView_bmi,textView_weight,textView_name;
-    public String weight,height,bmi,username;//用于获取数据库存储的身高体重信息
+    public ImageView imageView_userImage;
+    public String weight,gender,bmi,username;//用于获取数据库存储的身高体重信息
 
     private static final int REQUEST_TAKE_PHOTO = 101;
     MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
     public DatabaseReference databaseReference;
+    public FirebaseStorage storage;
+    public StorageReference storageReference;
 
     private Context mContext;
 
@@ -63,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lv_news.setOnItemClickListener(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
 
         textView_name=(TextView) findViewById(R.id.main_display_user_name);
         textView_weight = (TextView) findViewById(R.id.main_display_user_weight);
@@ -70,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         getUsername_fromDatabse();
         getWeight_BMI_fromDatabase();
+
+        imageView_userImage = (ImageView) findViewById(R.id.user_image);
+        getUserImage_fromDatabase();
 
 
         //define button
@@ -173,8 +190,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //获取userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
-
         //从数据库获取当前用户的 weight height
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -235,4 +250,101 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    public void getUserImage_fromDatabase(){
+
+
+        //获取userID
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //从数据库获取当前用户的gender
+        databaseReference.child("Users").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+
+                        if(user!=null){
+                            //将birthday weight 写入database
+
+                            for(DataSnapshot d: snapshot.getChildren()){
+                                //d.getKey()是userInfo的key
+
+                                String userInfo_Key = d.getKey();
+                                if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
+
+                                    databaseReference.child("Users").child(uid)
+                                            .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot d: dataSnapshot.getChildren()) {
+                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                                                String d_Key = d.getKey();
+                                                if(d_Key.equals("gender")){
+                                                    gender = d.getValue().toString();
+
+                                                    StorageReference femaleRef = storageReference.child("UserImage/icon_female.png");
+                                                    StorageReference maleRef = storageReference.child("UserImage/icon_male.png");
+
+
+                                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                                    if(gender.equals("Male")){
+
+                                                        maleRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                            @Override
+                                                            public void onSuccess(byte[] bytes) {
+                                                                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                                imageView_userImage.setImageBitmap(bmp);
+
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception exception) {
+                                                                Toast.makeText(getApplicationContext(), "Loading UserImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                                            }
+                                                        });
+
+                                                    }
+                                                    else{//Female
+                                                        femaleRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                            @Override
+                                                            public void onSuccess(byte[] bytes) {
+                                                                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                                imageView_userImage.setImageBitmap(bmp);
+
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception exception) {
+                                                                Toast.makeText(getApplicationContext(), "Loading UserImage Female ERROR!!", Toast.LENGTH_LONG).show();
+                                                            }
+                                                        });
+
+                                                    }
+
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        }else{
+                            Toast.makeText(MainActivity.this,"displayHeight_BMI ERROR!!!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+
+    }
 }

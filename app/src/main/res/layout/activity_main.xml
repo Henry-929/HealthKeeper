@@ -32,7 +32,8 @@
             android:padding="2dp"
             android:background="@color/colorGrey">
             <LinearLayout
-                android:layout_width="match_parent"
+
+                android:layout_width="360dp"
                 android:layout_height="match_parent"
                 android:background="#fff">
 
@@ -40,6 +41,7 @@
                     android:id="@+id/user_image"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:layout_marginLeft="20dp"
                     android:padding="10dp"
                     tools:srcCompat="@tools:sample/avatars" />
 
@@ -64,10 +66,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -148,7 +151,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
+
+                    android:layout_marginRight="10dp"
                     android:background="@null"
                     android:text="Health Report >>"
                     android:textColor="#869d9d" />
@@ -162,13 +166,14 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:padding="2dp"
         android:background="@color/colorGrey">
 
