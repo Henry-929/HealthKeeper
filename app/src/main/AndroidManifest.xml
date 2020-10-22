@@ -39,6 +39,10 @@
             android:label="add_meal"/>
         <activity android:name=".userSetting.UserActivity"
             android:label="user_setting"/>
+        <activity android:name=".userSetting.MyProfileActivity"
+            android:label="profile"/>
+        <activity android:name=".userSetting.LogOutActivity"
+            android:label="logout"/>
         <activity android:name=".addMeal.CameraActivity"
             android:label="take_photo"/>
     </application>

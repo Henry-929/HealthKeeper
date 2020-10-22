@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HealthKeeper</string>
+    <string name="dialog_delete_title">Log Out</string>
+    <string name="dialog_delete_msg">Do you want to log out of the app?</string>
+    <string name="delete">YES</string>
+    <string name="cancel">NO</string>
 </resources>
