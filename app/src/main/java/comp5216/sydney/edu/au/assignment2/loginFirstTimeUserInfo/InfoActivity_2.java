@@ -28,8 +28,8 @@ public class InfoActivity_2 extends AppCompatActivity {
 
     public static String uid;
 
-    private EditText Birthday,Weight;
-    public String weight,height,bmi,birthday;//用于数据库存储的String值
+    private EditText Age,Weight;
+    public String weight,height,bmi,age;//用于数据库存储的String值
 
     DatabaseReference databaseReference,databaseSetTrue;
     @Override
@@ -42,7 +42,7 @@ public class InfoActivity_2 extends AppCompatActivity {
         final Button startBtn=findViewById(R.id.btn_birth_to_main);
 
         //获取生日&体重
-        Birthday = (EditText)findViewById(R.id.birth_selected_date);
+        Age = (EditText)findViewById(R.id.birth_selected_date);
         Weight = (EditText)findViewById(R.id.inout_user_weight);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -60,11 +60,11 @@ public class InfoActivity_2 extends AppCompatActivity {
 
     public void userInfoAdd2(){
         weight = Weight.getText().toString();
-        birthday = Birthday.getText().toString();
+        age = Age.getText().toString();
 
-        if(birthday.isEmpty()){
-            Birthday.setError("Birthday is required");
-            Birthday.requestFocus();
+        if(age.isEmpty()){
+            Age.setError("Birthday is required");
+            Age.requestFocus();
             // Toast.makeText(InfoActivity_1.this,"Gender is not chosen!",Toast.LENGTH_LONG).show();
             return;
         }
@@ -103,7 +103,7 @@ public class InfoActivity_2 extends AppCompatActivity {
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
                                     //将 birthday 写入数据库
                                     databaseReference.child("Users").child(uid)
-                                            .child(userInfo_Key).child("birthday").setValue(birthday);
+                                            .child(userInfo_Key).child("age").setValue(age);
 
                                     //将 weight 写入数据库
                                     databaseReference.child("Users").child(uid)

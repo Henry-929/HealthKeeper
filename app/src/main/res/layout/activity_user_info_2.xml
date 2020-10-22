@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="What is your birthday?"
+        android:text="What is your age?"
         android:layout_marginTop="60dp"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
             android:layout_marginStart="15dp"
             android:background="@null"
             android:gravity="center_vertical"
-            android:text="Birth Date"
+            android:text="Age"
             android:textSize="15sp" />
 
         <Space
@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="15dp"
             android:background="@null"
-            android:hint="2020-09-16"
+            android:hint="22 (years old)"
             android:gravity="center_vertical"
             android:textColorHint="#83cbac"
             android:textSize="15sp"

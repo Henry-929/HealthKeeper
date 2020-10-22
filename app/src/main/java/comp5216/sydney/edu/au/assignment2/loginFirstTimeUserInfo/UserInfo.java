@@ -4,28 +4,28 @@ package comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo;
 import java.util.HashMap;
 
 public class UserInfo {
-    public String gender,birthday,height,weight,bmi;
+    public String gender,age,height,weight,bmi;
 
 
     public UserInfo(String gender,String height){
         this.gender = gender;
         this.height = height;
         this.weight = "null";
-        this.birthday = "null";
+        this.age = "null";
         this.bmi = "null";
     }
-    public UserInfo(String gender,String birthday,String height,String weight){
+    public UserInfo(String gender,String age,String height,String weight){
         //this.username = username;
         this.gender = gender;
-        this.birthday = birthday;
+        this.age = age;
         this.height = height;
         this.weight = weight;
         this.bmi = bmi;
     }
 
 
-    public String getBirthday() {
-        return birthday;
+    public String getAge() {
+        return age;
     }
 
     public String getGender() {
@@ -44,8 +44,8 @@ public class UserInfo {
         this.gender = gender;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public void setHeight(String height) {
@@ -59,7 +59,7 @@ public class UserInfo {
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("gender", gender);
-        //result.put("birthday", birthday);
+        //result.put("age", age);
         result.put("height", height);
         //result.put("weight", weight);
 

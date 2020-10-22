@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
 
         android:padding="20dp">
 
@@ -106,11 +106,16 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="My Profile"/>
-                    <ImageView
+                    <Button
+                        android:id="@+id/btn_userSetting_myProfile"
                         android:layout_marginStart="30dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/icon_right"/>
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@null"
+                        android:text=">>"
+                        android:textSize="20dp"
+                        android:textColor="#869d9d"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -140,11 +145,15 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="Health Report"/>
-                    <ImageView
+                    <Button
+                        android:id="@+id/btn_userSetting_healthReport"
                         android:layout_marginStart="30dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/icon_right"/>
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@null"
+                        android:text=">>"
+                        android:textSize="20dp"
+                        android:textColor="#869d9d"/>
                 </LinearLayout>                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -172,11 +181,15 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="Log Out"/>
-                    <ImageView
+                    <Button
+                        android:id="@+id/btn_userSetting_logOut"
                         android:layout_marginStart="30dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/icon_right"/>
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@null"
+                        android:text=">>"
+                        android:textSize="20dp"
+                        android:textColor="#869d9d"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +28,8 @@ import com.google.firebase.storage.StorageReference;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.addMeal.*;
-import comp5216.sydney.edu.au.assignment2.login.User;
-import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.login.*;
+import comp5216.sydney.edu.au.assignment2.main.*;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -60,6 +62,41 @@ public class UserActivity extends AppCompatActivity {
         imageView_userImage = (ImageView) findViewById(R.id.userSetting_user_image);
         getUserImage_fromDatabase();
 
+
+//        //define button
+//        final Button profileBtn=findViewById(R.id.btn_userSetting_myProfile);
+//        profileBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                Intent intent = new Intent(UserActivity.this, MyProfileActivity.class);
+//                if (intent != null) {
+//                    UserActivity.this.startActivity(intent);
+//                }
+//            }
+//        });
+//
+//        final Button healthReportBtn = findViewById(R.id.btn_userSetting_healthReport);
+//        healthReportBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                Intent intent = new Intent(UserActivity.this, ReportActivity.class);
+//                if (intent != null) {
+//                    UserActivity.this.startActivity(intent);
+//                }
+//            }
+//        });
+//        final Button logOutBtn = findViewById(R.id.btn_userSetting_logOut);
+//        healthReportBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//
+//                //todo .. 弹窗给用户，提示信息"确定是否要登出？"
+//                Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+//                if (intent != null) {
+//                    UserActivity.this.startActivity(intent);
+//                }
+//            }
+//        });
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
