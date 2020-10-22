@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
@@ -16,6 +17,7 @@ import android.hardware.camera2.CaptureRequest;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
@@ -41,13 +43,20 @@ import com.google.mlkit.vision.label.ImageLabeler;
 import com.google.mlkit.vision.label.ImageLabeling;
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import comp5216.sydney.edu.au.assignment2.R;
 
-public class CameraActivity extends Activity {
+public class CameraActivity extends Activity implements View.OnClickListener{
     private ImageView mImageView;
     private SurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
@@ -59,8 +68,11 @@ public class CameraActivity extends Activity {
     private CameraManager mCameraManager;
     private CameraCaptureSession mCameraCaptureSession;
     private TextView textView;
+    private ImageView iv_show;
 
     private static final SparseIntArray ORIENTATION = new SparseIntArray();
+    MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
+    public final String APP_TAG = "Picture";
 
     static {
         ORIENTATION.append(Surface.ROTATION_0, 90);
@@ -69,13 +81,14 @@ public class CameraActivity extends Activity {
         ORIENTATION.append(Surface.ROTATION_270, 180);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_camera);
 
         captureBtn = (ImageButton) findViewById(R.id.capture);
+        iv_show = (ImageView) findViewById(R.id.iv_show);
+
 
         initView();
         captureBtn.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +141,10 @@ public class CameraActivity extends Activity {
         mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { //可以在这里处理拍照得到的临时照片 例如，写入本地
             @Override
             public void onImageAvailable(ImageReader reader) {
+                Log.d("initCamera2","进入");
                 mCameraDevice.close();
+                mSurfaceView.setVisibility(View.GONE);
+//                iv_show.setVisibility(View.VISIBLE);
                 // 拿到拍照照片数据
                 Image image = reader.acquireNextImage();
                 ByteBuffer buffer = image.getPlanes()[0].getBuffer();
@@ -137,6 +153,8 @@ public class CameraActivity extends Activity {
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
                 if (bitmap != null) {
+                    textView.setVisibility(View.VISIBLE);
+
                     InputImage inputImage = InputImage.fromBitmap(bitmap, 0);
                     labeler.process(inputImage)
                             .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
@@ -144,9 +162,14 @@ public class CameraActivity extends Activity {
                                 public void onSuccess(List<ImageLabel> labels) {
                                     // Task completed successfully
                                     Toast.makeText(CameraActivity.this, "成功", Toast.LENGTH_SHORT).show();
-                                    mSurfaceView.setVisibility(View.GONE);
-                                    textView.setVisibility(View.VISIBLE);
-                                    textView.setText(labels.toString());
+                                    for (ImageLabel label : labels) {
+                                        String text = label.getText();
+                                        float confidence = label.getConfidence();
+                                        int index = label.getIndex();
+                                        System.out.println(text);
+                                        textView.append(text+"\n");
+                                    }
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -156,6 +179,7 @@ public class CameraActivity extends Activity {
                                     // ...
                                 }
                             });
+//                    iv_show.setImageBitmap(bitmap);
                 }
             }
         }, mainHandler);
@@ -193,15 +217,6 @@ public class CameraActivity extends Activity {
             Toast.makeText(CameraActivity.this, "摄像头开启失败", Toast.LENGTH_SHORT).show();
         }
     };
-
-    @MainThread
-    private
-    void closeCameraDevice() {
-        if (mCameraDevice != null) {
-            mCameraDevice.close();
-            mCameraDevice = null;
-        }
-    }
 
     private void takePreview() {
         try {
@@ -259,11 +274,17 @@ public class CameraActivity extends Activity {
             //拍照
             CaptureRequest mCaptureRequest = captureRequestBuilder.build();
             mCameraCaptureSession.capture(mCaptureRequest, null, childHandler);
+            Log.d("拍照","成功");
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
 
+
+    @Override
+    public void onClick(View v) {
+        capture();
+    }
 }
 
 
