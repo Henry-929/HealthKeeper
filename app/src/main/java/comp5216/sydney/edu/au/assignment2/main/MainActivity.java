@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.addMeal.AddMealActivity;
+import comp5216.sydney.edu.au.assignment2.addMeal.CameraActivity;
+import comp5216.sydney.edu.au.assignment2.addMeal.MarshmallowPermission;
 import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.news.NewsAdapter;
 import comp5216.sydney.edu.au.assignment2.news.NewsBean;
@@ -41,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public TextView textView_bmi,textView_weight,textView_name;
     public String weight,height,bmi,username;//用于获取数据库存储的身高体重信息
 
-
+    private static final int REQUEST_TAKE_PHOTO = 101;
+    MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
     public DatabaseReference databaseReference;
 
     private Context mContext;
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         startActivity(new Intent(MainActivity.this, MainActivity.class));
                         break;
                     case R.id.navigation_add:
-                        startActivity(new Intent(MainActivity.this, AddMealActivity.class));
+                        onTakePhotoClick();
                         break;
                     case R.id.navigation_user:
                         startActivity(new Intent(MainActivity.this, UserActivity.class));
@@ -121,6 +124,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivity(intent);
 
     }
+
+    /*
+    Take Photo action
+     */
+    public void onTakePhotoClick(){
+        // Check permissions
+        if (!marshmallowPermission.checkPermissionForCamera()
+                || !marshmallowPermission.checkPermissionForExternalStorage()) {
+            marshmallowPermission.requestPermissionForCamera();
+        }  else {
+            Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+            startActivityForResult(intent,REQUEST_TAKE_PHOTO);
+        }
+    }
+
 
     public void getUsername_fromDatabse(){
         //获取userID
