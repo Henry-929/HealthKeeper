@@ -1,7 +1,7 @@
 package comp5216.sydney.edu.au.assignment2.login;
 
 
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.UserInfo;
+import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.*;
 
 public class User {
 

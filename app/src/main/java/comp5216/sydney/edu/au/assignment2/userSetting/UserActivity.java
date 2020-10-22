@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.addMeal.AddMealActivity;
+import comp5216.sydney.edu.au.assignment2.addMeal.*;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class UserActivity extends AppCompatActivity {

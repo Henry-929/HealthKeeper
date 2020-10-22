@@ -26,9 +26,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_1;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
-import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.*;
+import comp5216.sydney.edu.au.assignment2.main.*;
 
 
 
