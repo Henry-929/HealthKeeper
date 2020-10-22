@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.baidu.aip.imageclassify.*;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -43,6 +44,10 @@ import com.google.mlkit.vision.label.ImageLabeler;
 import com.google.mlkit.vision.label.ImageLabeling;
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -51,12 +56,13 @@ import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import comp5216.sydney.edu.au.assignment2.R;
 
-public class CameraActivity extends Activity implements View.OnClickListener{
+public class CameraActivity extends Activity{
     private ImageView mImageView;
     private SurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
@@ -73,6 +79,12 @@ public class CameraActivity extends Activity implements View.OnClickListener{
     private static final SparseIntArray ORIENTATION = new SparseIntArray();
     MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
     public final String APP_TAG = "Picture";
+
+    //百度API
+    private AipImageClassify aipImageClassify;
+    public static final String APP_ID = "22861707";
+    public static final String API_KEY = "UblMw518IZZcpG6BUVOeEd5A";
+    public static final String SECRET_KEY = "4CwDnD0G9w6PoYEpU8bgDRbwlUEtX2Rj";
 
     static {
         ORIENTATION.append(Surface.ROTATION_0, 90);
@@ -151,35 +163,12 @@ public class CameraActivity extends Activity implements View.OnClickListener{
                 byte[] bytes = new byte[buffer.remaining()];
                 buffer.get(bytes);//由缓冲区存入字节数组
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
+
                 if (bitmap != null) {
                     textView.setVisibility(View.VISIBLE);
+                    imageRecognition_baiduAPI(bitmap);
+//                    imageLabelling_mlkit(bitmap);
 
-                    InputImage inputImage = InputImage.fromBitmap(bitmap, 0);
-                    labeler.process(inputImage)
-                            .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
-                                @Override
-                                public void onSuccess(List<ImageLabel> labels) {
-                                    // Task completed successfully
-                                    Toast.makeText(CameraActivity.this, "成功", Toast.LENGTH_SHORT).show();
-                                    for (ImageLabel label : labels) {
-                                        String text = label.getText();
-                                        float confidence = label.getConfidence();
-                                        int index = label.getIndex();
-                                        System.out.println(text);
-                                        textView.append(text+"\n");
-                                    }
-
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // Task failed with an exception
-                                    // ...
-                                }
-                            });
-//                    iv_show.setImageBitmap(bitmap);
                 }
             }
         }, mainHandler);
@@ -280,10 +269,69 @@ public class CameraActivity extends Activity implements View.OnClickListener{
         }
     }
 
+    public void imageLabelling_mlkit(Bitmap bitmap){
+        ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
+        InputImage inputImage = InputImage.fromBitmap(bitmap, 0);
+        labeler.process(inputImage)
+                .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
+                    @Override
+                    public void onSuccess(List<ImageLabel> labels) {
+                        // Task completed successfully
+                        Toast.makeText(CameraActivity.this, "成功", Toast.LENGTH_SHORT).show();
+                        for (ImageLabel label : labels) {
+                            String text = label.getText();
+                            float confidence = label.getConfidence();
+                            int index = label.getIndex();
+                            System.out.println(text);
+                            textView.append(text+"\n");
+                        }
 
-    @Override
-    public void onClick(View v) {
-        capture();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Task failed with an exception
+                        // ...
+                    }
+                });
+    }
+
+    public void imageRecognition_baiduAPI(final Bitmap bitmap){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                byte[] content = getBitmapByte(bitmap);
+
+                aipImageClassify = new AipImageClassify(APP_ID, API_KEY, SECRET_KEY);
+                aipImageClassify.setConnectionTimeoutInMillis(2000);
+                aipImageClassify.setSocketTimeoutInMillis(6000);
+                HashMap<String, String> options = new HashMap<String, String>();
+                options.put("baike_num", "//你要返回的结果数目");
+                JSONObject res = aipImageClassify.plantDetect(content, options);
+                try {
+                    textView.append(res.toString()+"\n");
+                    Log.d("result", res.toString(2));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    //将Bitmap转换为二进制数组
+    public byte[] getBitmapByte(Bitmap bitmap) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        try {
+            out.flush();
+            out.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out.toByteArray();
     }
 }
 
