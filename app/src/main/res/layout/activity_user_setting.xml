@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="20dp"
-                    android:text="Peter"
+                    android:text=""
                     android:textSize="30dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -109,10 +109,10 @@
                     <Button
                         android:id="@+id/btn_userSetting_myProfile"
                         android:layout_marginStart="30dp"
-                        android:layout_width="30dp"
+                        android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
-                        android:text=">>"
+                        android:text=">>    "
                         android:textSize="20dp"
                         android:textColor="#869d9d"
                         />
@@ -148,10 +148,10 @@
                     <Button
                         android:id="@+id/btn_userSetting_healthReport"
                         android:layout_marginStart="30dp"
-                        android:layout_width="30dp"
+                        android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
-                        android:text=">>"
+                        android:text=">>    "
                         android:textSize="20dp"
                         android:textColor="#869d9d"/>
                 </LinearLayout>                <LinearLayout
@@ -184,10 +184,10 @@
                     <Button
                         android:id="@+id/btn_userSetting_logOut"
                         android:layout_marginStart="30dp"
-                        android:layout_width="30dp"
+                        android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
-                        android:text=">>"
+                        android:text=">>    "
                         android:textSize="20dp"
                         android:textColor="#869d9d"/>
                 </LinearLayout>

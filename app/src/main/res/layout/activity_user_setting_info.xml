@@ -97,11 +97,11 @@
 
                     <TextView
                         android:id="@+id/profile_display_name"
-                        android:layout_marginStart="10dp"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Peter"/>
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:text="Peter"
+                        android:textSize="20sp" />
                     <ImageView
                         android:layout_marginStart="40dp"
                         android:layout_width="20dp"

@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 }
                             }
                         }else{
-                            Toast.makeText(MainActivity.this,"displayHeight_BMI ERROR!!!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,"displayUsername ERROR!!!",Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
