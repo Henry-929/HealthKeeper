@@ -27,14 +27,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.addMeal.AddMealActivity;
-import comp5216.sydney.edu.au.assignment2.addMeal.CameraActivity;
-import comp5216.sydney.edu.au.assignment2.addMeal.MarshmallowPermission;
-import comp5216.sydney.edu.au.assignment2.login.User;
-import comp5216.sydney.edu.au.assignment2.news.NewsAdapter;
-import comp5216.sydney.edu.au.assignment2.news.NewsBean;
-import comp5216.sydney.edu.au.assignment2.news.NewsUtils;
-import comp5216.sydney.edu.au.assignment2.userSetting.UserActivity;
+import comp5216.sydney.edu.au.assignment2.addMeal.*;
+import comp5216.sydney.edu.au.assignment2.login.*;
+import comp5216.sydney.edu.au.assignment2.news.*;
+import comp5216.sydney.edu.au.assignment2.userSetting.*;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -206,14 +202,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
                                                     textView_weight.setText(weight);
-                                                    Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
+                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
                                                 }
 
                                                 if(d_Key.equals("bmi")){
                                                     bmi = d.getValue().toString();
                                                     textView_bmi.setText(bmi);
-                                                    Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
+                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
 
                                                 }
                                             }

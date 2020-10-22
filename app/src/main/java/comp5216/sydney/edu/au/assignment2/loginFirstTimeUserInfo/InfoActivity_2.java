@@ -22,7 +22,7 @@ import java.text.DecimalFormat;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
-import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.main.*;
 
 public class InfoActivity_2 extends AppCompatActivity {
 
