@@ -42,8 +42,8 @@ public class InfoActivity_2 extends AppCompatActivity {
         final Button startBtn=findViewById(R.id.btn_birth_to_main);
 
         //获取生日&体重
-        Age = (EditText)findViewById(R.id.birth_selected_date);
-        Weight = (EditText)findViewById(R.id.inout_user_weight);
+        Age = (EditText)findViewById(R.id.input_user_age);
+        Weight = (EditText)findViewById(R.id.input_user_weight);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

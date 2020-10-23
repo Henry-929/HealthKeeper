@@ -44,6 +44,7 @@ import com.google.mlkit.vision.label.ImageLabeler;
 import com.google.mlkit.vision.label.ImageLabeling;
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -311,8 +312,9 @@ public class CameraActivity extends Activity{
                 options.put("baike_num", "//你要返回的结果数目");
                 JSONObject res = aipImageClassify.plantDetect(content, options);
                 try {
-                    textView.append(res.toString()+"\n");
-                    Log.d("result", res.toString(2));
+                    JSONArray data = res.getJSONArray("result");
+                    System.out.println(data.getJSONObject(0).getString("name"));
+                    textView.append(data.getJSONObject(0).getString("name")+"\n");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

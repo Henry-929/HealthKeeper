@@ -416,7 +416,7 @@
                         android:layout_height="15dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
-                        android:background="@color/colorAccent" />
+                        android:background="#fbda41" />
 
                     <TextView
                         android:layout_width="100dp"
@@ -429,8 +429,8 @@
                         android:id="@+id/report_display_percent_breakfast"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="100dp"
+                        android:layout_marginTop="5dp"
                         android:text="(0%)" />
 
                     <TextView
@@ -452,7 +452,7 @@
                         android:layout_height="15dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
-                        android:background="@color/colorAccent" />
+                        android:background="#63bbd0" />
 
                     <TextView
                         android:layout_width="100dp"
@@ -488,7 +488,7 @@
                         android:layout_height="15dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
-                        android:background="@color/colorAccent" />
+                        android:background="#f9bd10"/>
 
                     <TextView
                         android:layout_width="100dp"
@@ -524,14 +524,14 @@
                         android:layout_height="15dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
-                        android:background="@color/colorAccent" />
+                        android:background="#983680" />
 
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
-                        android:text="Other" />
+                        android:text="Snack/Other" />
 
                     <TextView
                         android:id="@+id/report_display_percent_other"
@@ -635,8 +635,8 @@
                         android:id="@+id/report_display_meal_number"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="140dp"
+                        android:layout_marginTop="5dp"
                         android:text="-" />
 
                     <TextView

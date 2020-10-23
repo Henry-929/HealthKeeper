@@ -43,6 +43,8 @@
             android:label="profile"/>
         <activity android:name=".addMeal.CameraActivity"
             android:label="take_photo"/>
+        <activity android:name=".main.ReportActivity"
+            android:label="report"/>
     </application>
 
 </manifest>
