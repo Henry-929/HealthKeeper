@@ -219,10 +219,10 @@ public class MyProfileActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
+                        final User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            String newKey = databaseReference.child("Users").child(uid).push().getKey();
+                            final String newKey = databaseReference.child("Users").child(uid).push().getKey();
 
                             UserInfo userInfo = new UserInfo(gender,age,height,weight);
 
@@ -237,7 +237,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                             //将 bmi写入数据库
                                             //先获取 height- 再计算bmi- 再将bmi写入数据库
                                             databaseReference.child("Users").child(uid)
-                                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    .child(newKey).addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                     for(DataSnapshot d: dataSnapshot.getChildren()) {
@@ -267,7 +267,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
                                                             //将bmi写入数据库
                                                             databaseReference.child("Users").child(uid)
-                                                                    .child("bmi").setValue(bmi);
+                                                                    .child(newKey).child("bmi").setValue(bmi);
+
 
                                                         }
                                                     }
