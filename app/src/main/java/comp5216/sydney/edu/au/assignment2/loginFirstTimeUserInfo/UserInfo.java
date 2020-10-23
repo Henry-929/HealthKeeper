@@ -14,6 +14,7 @@ public class UserInfo {
         this.age = "null";
         this.bmi = "null";
     }
+
     public UserInfo(String gender,String age,String height,String weight){
         //this.username = username;
         this.gender = gender;

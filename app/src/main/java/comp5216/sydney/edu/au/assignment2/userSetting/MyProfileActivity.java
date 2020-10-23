@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,8 +23,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
+
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
+import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_1;
+import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
+import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.UserInfo;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
@@ -32,7 +38,7 @@ public class MyProfileActivity extends AppCompatActivity {
     public static String uid;
 
     public EditText textView_name,textView_gender,textView_height,textView_weight,textView_age;
-    public String username,gender,height,weight,age;//用于获取数据库存储的身高体重信息
+    public String username,gender,height,weight,age,bmi;//用于获取数据库存储的身高体重信息
     LinearLayout cancelEdit;
     Button confirmEdit;
 
@@ -60,11 +66,9 @@ public class MyProfileActivity extends AppCompatActivity {
         confirmEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //todo 保存信息，退出
-                Intent intent = new Intent(MyProfileActivity.this, UserActivity.class);
-                if (intent != null) {
-                    MyProfileActivity.this.startActivity(intent);
-                }
+                //【第一步
+                userInfoChange();
+
             }
         });
 
@@ -120,6 +124,178 @@ public class MyProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void userInfoChange(){
+        username = textView_name.getText().toString();
+        gender = textView_gender.getText().toString();
+        height = textView_height.getText().toString();
+        weight = textView_weight.getText().toString();
+        age = textView_age.getText().toString();
+
+        if(username.isEmpty()){
+            textView_name.setError("User name is required");
+            textView_name.requestFocus();
+            Toast.makeText(MyProfileActivity.this,"Username",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(gender.isEmpty()){
+            textView_gender.setError("Gender is required");
+            textView_gender.requestFocus();
+            Toast.makeText(MyProfileActivity.this,"Gender",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(height.isEmpty()){
+            textView_height.setError("Height is required");
+            textView_height.requestFocus();
+            Toast.makeText(MyProfileActivity.this,"Height",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(age.isEmpty()){
+            textView_age.setError("Age is required");
+            textView_age.requestFocus();
+            Toast.makeText(MyProfileActivity.this,"Age is not chosen!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        //if 用户输入不为空
+        if(weight.isEmpty()){
+            textView_weight.setError("Weight is required");
+            textView_weight.requestFocus();
+            return;
+        }
+
+        //【第二步】
+        usernameChange_toDatabase();
+        userInfoChange_toDatabase();
+
+//        Intent intent = new Intent(InfoActivity_2.this, MainActivity.class);
+//        InfoActivity_2.this.startActivity(intent);
+
+    }
+
+    public void usernameChange_toDatabase(){
+
+        //获取userID
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        databaseReference.child("Users").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+
+                        if(user!=null){
+                            String newKey = databaseReference.child("Users").child(uid).push().getKey();
+
+                            UserPost userPost = new UserPost(username);
+
+                            databaseReference.child("Users").child(uid).child(newKey).setValue(userPost)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(MyProfileActivity.this,"Username have saved in database successfully!",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                        }else{
+                            Toast.makeText(MyProfileActivity.this,"ERROR!!!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    public void userInfoChange_toDatabase(){
+
+        //获取userID
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        databaseReference.child("Users").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+
+                        if(user!=null){
+                            String newKey = databaseReference.child("Users").child(uid).push().getKey();
+
+                            UserInfo userInfo = new UserInfo(gender,age,height,weight);
+
+                            databaseReference.child("Users").child(uid).child(newKey).setValue(userInfo)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(MyProfileActivity.this,"gender, age, height, weight have saved in database successfully!",Toast.LENGTH_SHORT).show();
+//                                            Intent intent = new Intent(InfoActivity_1.this, InfoActivity_2.class);
+//                                            InfoActivity_1.this.startActivity(intent);
+
+                                            //将 bmi写入数据库
+                                            //先获取 height- 再计算bmi- 再将bmi写入数据库
+                                            databaseReference.child("Users").child(uid)
+                                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    for(DataSnapshot d: dataSnapshot.getChildren()) {
+                                                        //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                                                        String d_Key = d.getKey();
+                                                        if (d_Key.equals("height")) {
+                                                            height = d.getValue().toString();
+
+                                                            //计算bmi
+                                                            //将String转Double,并保留2位小数：
+                                                            DecimalFormat df = new DecimalFormat("0.00");
+
+                                                            //将weight height的String转换为double
+                                                            double d_weight = Double.parseDouble(weight);
+                                                            weight = df.format(d_weight);
+
+                                                            double d_height = Double.parseDouble(height);
+                                                            d_height = d_height/100;
+
+                                                            //计算BMI
+                                                            //BMI = (kg) / (m)x(m)
+                                                            double d_bmi = d_weight / (d_height*d_height);
+                                                            //bmi = Float.toString(f_bmi);
+                                                            //DecimalFormat decimalFormat= new  DecimalFormat( ".00" ); //构造方法的字符格式这里如果小数不足2位,会以0补足.
+                                                            bmi =df.format(d_bmi); //format 返回的是字符串
+
+                                                            //将bmi写入数据库
+                                                            databaseReference.child("Users").child(uid)
+                                                                    .child("bmi").setValue(bmi);
+
+                                                        }
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                            //todo 保存信息，退出
+                                            Intent intent = new Intent(MyProfileActivity.this, UserActivity.class);
+                                            if (intent != null) {
+                                                MyProfileActivity.this.startActivity(intent);
+                                            }
+                                        }
+                                    });
+
+                        }else{
+                            Toast.makeText(MyProfileActivity.this,"ERROR!!!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
     }
 
     public void getUsername_fromDatabse(){
