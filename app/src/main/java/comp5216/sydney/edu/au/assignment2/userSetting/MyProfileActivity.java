@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public static String uid;
 
-    public TextView textView_name,textView_gender,textView_height,textView_weight,textView_age;
+    public EditText textView_name,textView_gender,textView_height,textView_weight,textView_age;
     public String username,gender,height,weight,age;//用于获取数据库存储的身高体重信息
     LinearLayout cancelEdit;
     Button confirmEdit;
@@ -70,11 +71,11 @@ public class MyProfileActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        textView_name=(TextView) findViewById(R.id.profile_display_name);
-        textView_gender = (TextView) findViewById(R.id.profile_display_gender);
-        textView_height = (TextView) findViewById(R.id.profile_display_height);
-        textView_weight = (TextView) findViewById(R.id.profile_display_weight);
-        textView_age = (TextView) findViewById(R.id.profile_display_birth);
+        textView_name=(EditText) findViewById(R.id.profile_display_name);
+        textView_gender = (EditText) findViewById(R.id.profile_display_gender);
+        textView_height = (EditText) findViewById(R.id.profile_display_height);
+        textView_weight = (EditText) findViewById(R.id.profile_display_weight);
+        textView_age = (EditText) findViewById(R.id.profile_display_birth);
 
         getUsername_fromDatabse();
         getUserInfo_fromDatabase();
@@ -139,7 +140,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                 String userInfo_Key = d.getKey();
                                 if(userInfo_Key.equals("username")) {
                                     username = d.getValue().toString();
-                                    textView_name.setText(username);
+                                    textView_name.setHint(username);
                                 }
                             }
                         }else{
@@ -184,26 +185,26 @@ public class MyProfileActivity extends AppCompatActivity {
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("gender")){
                                                     gender = d.getValue().toString();
-                                                    textView_gender.setText(gender);
+                                                    textView_gender.setHint(gender);
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
                                                 }
                                                 if(d_Key.equals("height")){
                                                     height = d.getValue().toString();
-                                                    textView_height.setText(height);
+                                                    textView_height.setHint(height+" cm");
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
                                                 }
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
-                                                    textView_weight.setText(weight);
+                                                    textView_weight.setHint(weight+" kg");
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
                                                 }
 
                                                 if(d_Key.equals("age")){
                                                     age = d.getValue().toString();
-                                                    textView_age.setText(age);
+                                                    textView_age.setHint(age);
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
 
                                                 }
