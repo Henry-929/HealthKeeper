@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void onManualClick(){
         Intent intent = new Intent(MainActivity.this, AddMealActivity.class);
+        startActivity(intent);
     }
 
     /*

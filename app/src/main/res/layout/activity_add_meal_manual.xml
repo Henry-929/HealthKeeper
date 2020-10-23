@@ -7,7 +7,29 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Food"
+        android:layout_marginTop="60dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+    <EditText
+        android:id="@+id/input_food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="hamburger" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -52,15 +74,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:gravity="bottom|center">
+
         <Button
             android:id="@+id/btn_food_to_addmeal"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
             android:layout_marginBottom="70dp"
             android:background="@drawable/btn_circle_shape"
             android:text="save"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+
+            />
     </LinearLayout>
 </LinearLayout>
