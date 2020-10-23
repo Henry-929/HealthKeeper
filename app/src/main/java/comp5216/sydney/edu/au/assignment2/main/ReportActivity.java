@@ -154,6 +154,7 @@ public class ReportActivity extends Activity {
         calorieGoal.setText(""+goal);
         if(status){
             calorieStatus.setText("+");
+            System.out.println("1");
         }else{
             calorieStatus.setText("-");
         }
