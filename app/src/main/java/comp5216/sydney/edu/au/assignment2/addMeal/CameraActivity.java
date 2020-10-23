@@ -2,7 +2,9 @@ package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -62,6 +64,7 @@ import java.util.List;
 import java.util.Locale;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class CameraActivity extends Activity{
     private ImageView mImageView;

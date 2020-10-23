@@ -3,7 +3,9 @@ package comp5216.sydney.edu.au.assignment2.main;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -111,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         startActivity(new Intent(MainActivity.this, MainActivity.class));
                         break;
                     case R.id.navigation_add:
-                        onTakePhotoClick();
+                        userChoice();
                         break;
                     case R.id.navigation_user:
                         startActivity(new Intent(MainActivity.this, UserActivity.class));
@@ -138,9 +140,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    public void userChoice(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setTitle("Input Method");
+        final String []items=new String[]{"Manual","Photo"};
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+            //which指的是用户选择的条目的下标
+            //dialog:触发这个方法的对话框
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+
+                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                }
+                if (which == 1){
+                    onTakePhotoClick();
+                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                }
+
+
+            }
+        });
+        builder.show();
+    }
+
     /*
     Take Photo action
      */
+
     public void onTakePhotoClick(){
         // Check permissions
         if (!marshmallowPermission.checkPermissionForCamera()
