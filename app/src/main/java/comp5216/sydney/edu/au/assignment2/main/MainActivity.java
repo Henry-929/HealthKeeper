@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-
+                    onManualClick();
                     dialog.dismiss(); //当用户选择了一个值后，对话框消失
                 }
                 if (which == 1){
@@ -161,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
         builder.show();
+    }
+
+    public void onManualClick(){
+        Intent intent = new Intent(MainActivity.this, AddMealActivity.class);
     }
 
     /*
@@ -367,10 +371,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                     }
                 });
-
-
-
-
 
     }
 }
