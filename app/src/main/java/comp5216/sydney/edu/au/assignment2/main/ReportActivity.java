@@ -1,9 +1,9 @@
 package comp5216.sydney.edu.au.assignment2.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,8 +15,7 @@ import comp5216.sydney.edu.au.assignment2.R;
 
 public class ReportActivity extends Activity {
 
-    ImageButton toMain1;
-    Button toMain2;
+    LinearLayout toMain;
     Button switchToCalorieView;
     Button switchToNutrientView;
     LinearLayout CalorieView;
@@ -29,8 +28,7 @@ public class ReportActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_report);
 
-        toMain1 = (ImageButton)findViewById(R.id.btn_report_to_main_1);
-        toMain2 = (Button)findViewById(R.id.btn_report_to_main_2);
+        toMain = (LinearLayout)findViewById(R.id.report_ll_quit);
         switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
         switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
         CalorieView = (LinearLayout)findViewById(R.id.ll_report_calorie);
@@ -38,7 +36,17 @@ public class ReportActivity extends Activity {
         LabelCalorie = (ImageView)findViewById(R.id.label_report_calorie);
         LabelNutrient = (ImageView)findViewById(R.id.label_report_nutrient);
         initCalorie();
-        initNutrient();
+
+
+        toMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(ReportActivity.this, MainActivity.class);
+                if (intent != null) {
+                    ReportActivity.this.startActivity(intent);
+                }
+            }
+        });
 
         switchToCalorieView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +65,7 @@ public class ReportActivity extends Activity {
                 LabelCalorie.setVisibility(View.INVISIBLE);
                 LabelNutrient.setVisibility(View.VISIBLE);
                 NutrientView.setVisibility(View.VISIBLE);
+                initNutrient();
             }
         });
     }
@@ -141,8 +150,8 @@ public class ReportActivity extends Activity {
         TextView calorieTotal = (TextView)findViewById(R.id.report_display_nutrient_calorie_total);
         TextView calorieGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
         TextView calorieStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
-        calorieTotal.setText(total);
-        calorieGoal.setText(goal);
+        calorieTotal.setText(""+total);
+        calorieGoal.setText(""+goal);
         if(status){
             calorieStatus.setText("+");
         }else{
@@ -154,8 +163,8 @@ public class ReportActivity extends Activity {
         TextView proteinTotal = (TextView)findViewById(R.id.report_display_nutrient_protein_total);
         TextView proteinGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
         TextView proteinStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
-        proteinTotal.setText(total);
-        proteinGoal.setText(goal);
+        proteinTotal.setText(""+total);
+        proteinGoal.setText(""+goal);
         if(status){
             proteinStatus.setText("+");
         }else{

@@ -1,7 +1,11 @@
 package comp5216.sydney.edu.au.assignment2.userSetting;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
 public class MyProfileActivity extends AppCompatActivity {
 
@@ -27,7 +32,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
     public TextView textView_name,textView_gender,textView_height,textView_weight,textView_age;
     public String username,gender,height,weight,age;//用于获取数据库存储的身高体重信息
-
+    LinearLayout cancelEdit;
+    Button confirmEdit;
 
     public DatabaseReference databaseReference;
 
@@ -36,6 +42,31 @@ public class MyProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting_info);
+
+        cancelEdit = (LinearLayout)findViewById(R.id.profile_ll_edit_quit);
+        cancelEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //todo 不保存信息，直接退出
+                Intent intent = new Intent(MyProfileActivity.this, UserActivity.class);
+                if (intent != null) {
+                    MyProfileActivity.this.startActivity(intent);
+                }
+            }
+        });
+
+        confirmEdit = (Button)findViewById(R.id.profile_btn_edit_confirm);
+        confirmEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //todo 保存信息，退出
+                Intent intent = new Intent(MyProfileActivity.this, UserActivity.class);
+                if (intent != null) {
+                    MyProfileActivity.this.startActivity(intent);
+                }
+            }
+        });
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -48,7 +79,46 @@ public class MyProfileActivity extends AppCompatActivity {
         getUsername_fromDatabse();
         getUserInfo_fromDatabase();
 
+        //add click listener on LinerLayout
+        final LinearLayout llEditName = findViewById(R.id.profile_ll_edit_name);
+        llEditName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //todo 修改弹框
+            }
+        });
 
+        final LinearLayout llEditGender = findViewById(R.id.profile_ll_edit_gender);
+        llEditGender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+
+        final LinearLayout llEditHeight = findViewById(R.id.profile_ll_edit_height);
+        llEditHeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+
+        final LinearLayout llEditWight = findViewById(R.id.profile_ll_edit_weight);
+        llEditWight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+
+        final LinearLayout llEditBirth = findViewById(R.id.profile_ll_edit_birth);
+        llEditBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+            }
+        });
     }
 
     public void getUsername_fromDatabse(){

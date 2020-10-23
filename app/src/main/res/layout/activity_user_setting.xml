@@ -106,16 +106,14 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="My Profile"/>
-                    <Button
-                        android:id="@+id/btn_userSetting_myProfile"
+                    <TextView
                         android:layout_marginStart="30dp"
                         android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
                         android:text=">>    "
                         android:textSize="20dp"
-                        android:textColor="#869d9d"
-                        />
+                        android:textColor="#869d9d" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -145,15 +143,14 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="Health Report"/>
-                    <Button
-                        android:id="@+id/btn_userSetting_healthReport"
+                    <TextView
                         android:layout_marginStart="30dp"
                         android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
                         android:text=">>    "
                         android:textSize="20dp"
-                        android:textColor="#869d9d"/>
+                        android:textColor="#869d9d" />
                 </LinearLayout>                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -181,15 +178,14 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="Log Out"/>
-                    <Button
-                        android:id="@+id/btn_userSetting_logOut"
+                    <TextView
                         android:layout_marginStart="30dp"
                         android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
                         android:text=">>    "
                         android:textSize="20dp"
-                        android:textColor="#869d9d"/>
+                        android:textColor="#869d9d" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

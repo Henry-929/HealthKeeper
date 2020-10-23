@@ -14,10 +14,10 @@
         android:background="#83cbac">
 
         <LinearLayout
+            android:id="@+id/profile_ll_edit_quit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-            <ImageButton
-                android:id="@+id/profile_btn_edit_cancel"
+            <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
@@ -34,7 +34,6 @@
             android:text="Edit Profile"
             android:textColor="#fff"
             android:textSize="25sp" />
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
@@ -78,36 +77,33 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
-                        android:background="@drawable/icon_user_setting_name"/>
+                        android:background="@drawable/icon_user_setting_name" />
+
                     <TextView
                         android:layout_width="100dp"
-                        android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="My Name"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="My Name"/>
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="2dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorGrey"/>
+                        android:background="@color/colorGrey" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/profile_display_name"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="Peter"
+                        android:hint=""
                         android:textSize="20sp" />
-                    <ImageView
-                        android:layout_marginStart="40dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icon_right"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -126,6 +122,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
@@ -143,19 +140,12 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorGrey"/>
 
-                    <TextView
+                    <EditText
                         android:id="@+id/profile_display_gender"
                         android:layout_marginStart="10dp"
-                        android:layout_width="100dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Male"/>
-                    <ImageView
-                        android:layout_marginStart="40dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icon_right"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -174,6 +164,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
@@ -191,25 +182,13 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorGrey"/>
 
-                    <TextView
+                    <EditText
                         android:id="@+id/profile_display_height"
                         android:layout_marginStart="10dp"
-                        android:layout_width="55dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="170.0"/>
+                        android:textSize="20sp" />
 
-                    <TextView
-                        android:layout_width="45dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="cm"/>
-                    <ImageView
-                        android:layout_marginStart="40dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icon_right"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -228,6 +207,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
@@ -245,25 +225,13 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorGrey"/>
 
-                    <TextView
+                    <EditText
                         android:id="@+id/profile_display_weight"
                         android:layout_marginStart="10dp"
-                        android:layout_width="43dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="59.0"/>
+                        android:textSize="20sp" />
 
-                    <TextView
-                        android:layout_width="57dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="kg"/>
-                    <ImageView
-                        android:layout_marginStart="40dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icon_right"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -282,6 +250,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
@@ -299,19 +268,12 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorGrey"/>
 
-                    <TextView
+                    <EditText
                         android:id="@+id/profile_display_birth"
                         android:layout_marginStart="10dp"
-                        android:layout_width="120dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="2020-09-16"/>
-                    <ImageView
-                        android:layout_marginStart="20dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icon_right"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
 

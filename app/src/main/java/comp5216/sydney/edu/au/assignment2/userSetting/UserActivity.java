@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,9 +67,9 @@ public class UserActivity extends AppCompatActivity {
         getUserImage_fromDatabase();
 
 
-        //define button
-        final Button profileBtn=findViewById(R.id.btn_userSetting_myProfile);
-        profileBtn.setOnClickListener(new View.OnClickListener() {
+        //add click listener on LinerLayout
+        final LinearLayout llprofile = findViewById(R.id.setting_ll_profile);
+        llprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(UserActivity.this, MyProfileActivity.class);
@@ -78,8 +79,19 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
-        final Button logOutBtn = findViewById(R.id.btn_userSetting_logOut);
-        logOutBtn.setOnClickListener(new View.OnClickListener() {
+        final LinearLayout llreport = findViewById(R.id.setting_ll_report);
+        llreport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(UserActivity.this, ReportActivity.class);
+                if (intent != null) {
+                    UserActivity.this.startActivity(intent);
+                }
+            }
+        });
+
+        final LinearLayout llLogout = findViewById(R.id.setting_ll_log_out);
+        llLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 Log.i("LogOutActivity", "Log out ");
@@ -122,7 +134,7 @@ public class UserActivity extends AppCompatActivity {
                         startActivity(new Intent(UserActivity.this, MainActivity.class));
                         break;
                     case R.id.navigation_add:
-                        startActivity(new Intent(UserActivity.this, AddMealActivity.class));
+                        //todo
                         break;
                     case R.id.navigation_user:
                         startActivity(new Intent(UserActivity.this, UserActivity.class));
