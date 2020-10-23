@@ -158,8 +158,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     onTakePhotoClick();
                     dialog.dismiss(); //当用户选择了一个值后，对话框消失
                 }
-
-
             }
         });
         builder.show();

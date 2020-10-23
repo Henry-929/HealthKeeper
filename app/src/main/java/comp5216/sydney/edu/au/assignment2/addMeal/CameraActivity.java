@@ -338,6 +338,9 @@ public class CameraActivity extends Activity{
         }
         return out.toByteArray();
     }
+
+    // easy will do
+
 }
 
 
