@@ -120,7 +120,7 @@ public class AddMealActivity extends AppCompatActivity {
 
     public void getFoodInfofromDatabase(){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food/Hamburger");
+        DatabaseReference myRef = database.getReference("Food").child("Hamburger");
 
         myRef.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
