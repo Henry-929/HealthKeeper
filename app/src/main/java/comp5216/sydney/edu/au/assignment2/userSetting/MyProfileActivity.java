@@ -27,11 +27,7 @@ import java.text.DecimalFormat;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_1;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.UserInfo;
-import comp5216.sydney.edu.au.assignment2.main.MainActivity;
-import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
+
 
 public class MyProfileActivity extends AppCompatActivity {
 
@@ -136,25 +132,25 @@ public class MyProfileActivity extends AppCompatActivity {
         if(username.isEmpty()){
             textView_name.setError("User name is required");
             textView_name.requestFocus();
-            Toast.makeText(MyProfileActivity.this,"Username",Toast.LENGTH_LONG).show();
+//            Toast.makeText(MyProfileActivity.this,"Username",Toast.LENGTH_LONG).show();
             return;
         }
         if(gender.isEmpty()){
             textView_gender.setError("Gender is required");
             textView_gender.requestFocus();
-            Toast.makeText(MyProfileActivity.this,"Gender",Toast.LENGTH_LONG).show();
+//            Toast.makeText(MyProfileActivity.this,"Gender",Toast.LENGTH_LONG).show();
             return;
         }
         if(height.isEmpty()){
             textView_height.setError("Height is required");
             textView_height.requestFocus();
-            Toast.makeText(MyProfileActivity.this,"Height",Toast.LENGTH_LONG).show();
+//            Toast.makeText(MyProfileActivity.this,"Height",Toast.LENGTH_LONG).show();
             return;
         }
         if(age.isEmpty()){
             textView_age.setError("Age is required");
             textView_age.requestFocus();
-            Toast.makeText(MyProfileActivity.this,"Age is not chosen!",Toast.LENGTH_LONG).show();
+//            Toast.makeText(MyProfileActivity.this,"Age is not chosen!",Toast.LENGTH_LONG).show();
             return;
         }
         //if 用户输入不为空
@@ -184,20 +180,15 @@ public class MyProfileActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
 
                             for(DataSnapshot d: snapshot.getChildren()) {
                                 //d.getKey()是userInfo的key
 
                                 final String userInfo_Key = d.getKey();
                                 if (userInfo_Key.equals("username")) {
-
-                                    //将 gender 写入数据库
+                                    //将 username 写入数据库
                                     databaseReference.child("Users").child(uid)
                                             .child("username").setValue(username);
-
-                                } else {
-                                    Toast.makeText(MyProfileActivity.this, "ERROR!!!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
