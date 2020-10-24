@@ -1,12 +1,14 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +16,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
 public class AddMealActivity extends AppCompatActivity {
 
-    private EditText Food, Amount,Weight;
-    public String food, amount, weight;//用于数据库存储的String值
+    private EditText editTextFoodName, editTextFoodQuantity,editTextFoodCalorie,editTextFoodProtein,editTextFoodCarbohydrate,editTextFoodFat;
+    public String addFoodName, addFoodQuantity, addFoodCalorie,addFoodProtein,addFoodCarbohydrate,addFoodFat;//用于数据库存储的String值
 
     DatabaseReference databaseReference,databaseSetTrue;
 
@@ -27,16 +31,23 @@ public class AddMealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal_manual);
 
-        //define button
-        final Button saveBtn=findViewById(R.id.btn_food_to_addmeal);
+        //define confirm and cancel button
+        final Button confirmBtn=findViewById(R.id.btn_add_food_manual_confirm);
+        final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_manual_cancel);
 
-        Food = (EditText)findViewById(R.id.input_food_name);
-        Amount = (EditText)findViewById(R.id.input_food_amount);
-        Weight = (EditText)findViewById(R.id.input_food_weight);
+        //define required food info
+        editTextFoodName = (EditText)findViewById(R.id.manual_add_food_name);
+        editTextFoodQuantity = (EditText)findViewById(R.id.manual_add_food_quantity);
+        editTextFoodCalorie = (EditText)findViewById(R.id.manual_add_food_calorie);
+
+        //define additional food info
+        editTextFoodProtein = (EditText)findViewById(R.id.manual_add_food_protein);
+        editTextFoodCarbohydrate = (EditText)findViewById(R.id.manual_add_food_carbohydrate);
+        editTextFoodFat = (EditText)findViewById(R.id.manual_add_food_fat);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 addMealManual();//【第一步】
@@ -45,30 +56,50 @@ public class AddMealActivity extends AppCompatActivity {
 
             }
         });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //todo 弹窗
+               if(true){
+                   Intent intent = new Intent(AddMealActivity.this, MainActivity.class);
+                    if (intent != null) {
+                        AddMealActivity.this.startActivity(intent);
+                    }
+                }
+               }
+        });
     }
 
     public void addMealManual(){
-        food = Food.getText().toString();
-        amount = Amount.getText().toString();
-        weight = Weight.getText().toString();
+        //collect required food info
+        addFoodName = editTextFoodName.getText().toString();
+        addFoodQuantity = editTextFoodQuantity.getText().toString();
+        addFoodCalorie = editTextFoodCalorie.getText().toString();
 
-        if(food.isEmpty()){
-            Food.setError("Birthday is required");
-            Food.requestFocus();
+        //collect additional food info
+        addFoodProtein = editTextFoodName.getText().toString();
+        addFoodCarbohydrate = editTextFoodQuantity.getText().toString();
+        addFoodFat = editTextFoodCalorie.getText().toString();
+
+
+        if(addFoodName.isEmpty()){
+            editTextFoodName.setError("Food name is required");
+            editTextFoodName.requestFocus();
             // Toast.makeText(InfoActivity_1.this,"Gender is not chosen!",Toast.LENGTH_LONG).show();
             return;
         }
 
-        if(amount.isEmpty()){
-            Amount.setError("Birthday is required");
-            Amount.requestFocus();
+        if(addFoodQuantity.isEmpty()){
+            editTextFoodQuantity.setError("Food quantity is required");
+            editTextFoodQuantity.requestFocus();
             // Toast.makeText(InfoActivity_1.this,"Gender is not chosen!",Toast.LENGTH_LONG).show();
             return;
         }
 
-        if(weight.isEmpty()){
-            Weight.setError("Weight is required");
-            Weight.requestFocus();
+        if(addFoodCalorie.isEmpty()){
+            editTextFoodCalorie.setError("Food calorie is required");
+            editTextFoodCalorie.requestFocus();
             return;
         }
 
