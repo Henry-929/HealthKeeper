@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -79,10 +80,9 @@ public class CameraActivity extends Activity{
     private CameraCaptureSession mCameraCaptureSession;
     private TextView textView;
     private ImageView iv_show;
+    public String foodName;
 
     private static final SparseIntArray ORIENTATION = new SparseIntArray();
-    MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
-    public final String APP_TAG = "Picture";
 
     //百度API
     private AipImageClassify aipImageClassify;
@@ -171,8 +171,6 @@ public class CameraActivity extends Activity{
                 if (bitmap != null) {
                     textView.setVisibility(View.VISIBLE);
                     imageRecognition_baiduAPI(bitmap);
-//                    imageLabelling_mlkit(bitmap);
-
                 }
             }
         }, mainHandler);
@@ -316,8 +314,14 @@ public class CameraActivity extends Activity{
                 JSONObject res = aipImageClassify.plantDetect(content, options);
                 try {
                     JSONArray data = res.getJSONArray("result");
-                    System.out.println(data.getJSONObject(0).getString("name"));
-                    textView.append(data.getJSONObject(0).getString("name")+"\n");
+                    foodName = data.getJSONObject(0).getString("name");
+                    //pass the food name and photo to confirm activity
+                    Intent intent = new Intent(CameraActivity.this,ImageConfirmActivity.class);
+                    if (intent != null) {
+                        intent.putExtra("foodName", foodName);
+                        startActivity(intent);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -339,7 +343,13 @@ public class CameraActivity extends Activity{
         return out.toByteArray();
     }
 
-    // easy
+    private Bitmap compressMatrix(Bitmap bm) {
+        Matrix matrix = new Matrix();
+        matrix.setScale(0.5f, 0.5f);
+        Bitmap bmc = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+        bm = null;
+        return bmc;
+    }
 
 }
 

@@ -45,6 +45,8 @@
             android:label="take_photo"/>
         <activity android:name=".main.ReportActivity"
             android:label="report"/>
+        <activity android:name=".addMeal.ImageConfirmActivity"
+            android:label="imageInfo_confirm"/>
     </application>
 
 </manifest>
