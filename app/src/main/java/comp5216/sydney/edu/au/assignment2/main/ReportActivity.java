@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
 
-public class ReportActivity extends Activity {
+public class ReportActivity extends AppCompatActivity {
     public static String uid;
     public TextView textView_bmi,textView_weight;
     //用于获取数据库存储的体重信息和bmi值
