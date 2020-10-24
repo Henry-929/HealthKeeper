@@ -9,11 +9,28 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.login.User;
 
 public class ReportActivity extends Activity {
+    public static String uid;
+    public TextView textView_bmi,textView_weight;
+    //用于获取数据库存储的体重信息和bmi值
+    public String weight,bmi;
+
+    public DatabaseReference databaseReference;
 
     LinearLayout toMain;
     Button switchToCalorieView;
@@ -28,6 +45,8 @@ public class ReportActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_report);
 
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
         toMain = (LinearLayout)findViewById(R.id.report_ll_quit);
         switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
         switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
@@ -35,8 +54,12 @@ public class ReportActivity extends Activity {
         NutrientView = (LinearLayout)findViewById(R.id.ll_report_nutrient);
         LabelCalorie = (ImageView)findViewById(R.id.label_report_calorie);
         LabelNutrient = (ImageView)findViewById(R.id.label_report_nutrient);
+        textView_weight = (TextView) findViewById(R.id.report_display_current_weight);
+        textView_bmi = (TextView) findViewById(R.id.report_display_current_BMI);
         initCalorie();
 
+        //获取BMI和weight from database
+        get_Weight_BMI_fromDatabase();
 
         toMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +91,71 @@ public class ReportActivity extends Activity {
                 initNutrient();
             }
         });
+
+    }
+
+    public void get_Weight_BMI_fromDatabase(){
+        //获取userID
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        //从数据库获取当前用户的 weight height
+        databaseReference.child("Users").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+
+                        if(user!=null){
+                            //将birthday weight 写入database
+
+                            for(DataSnapshot d: snapshot.getChildren()){
+                                //d.getKey()是userInfo的key
+
+                                String userInfo_Key = d.getKey();
+                                if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
+
+                                    databaseReference.child("Users").child(uid)
+                                            .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot d: dataSnapshot.getChildren()) {
+                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                                                String d_Key = d.getKey();
+                                                if(d_Key.equals("weight")){
+                                                    weight = d.getValue().toString();
+                                                    textView_weight.setText(weight);
+                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
+
+                                                }
+
+                                                if(d_Key.equals("bmi")){
+                                                    bmi = d.getValue().toString();
+                                                    textView_bmi.setText(bmi);
+                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        }else{
+                            Toast.makeText(ReportActivity.this,"displayHeight_BMI ERROR!!!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
     }
 
     public void initCalorie(){
