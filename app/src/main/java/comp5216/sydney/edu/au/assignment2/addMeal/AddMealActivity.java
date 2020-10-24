@@ -4,11 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +26,12 @@ import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 public class AddMealActivity extends AppCompatActivity {
 
     private EditText editTextFoodName, editTextFoodQuantity,editTextFoodCalorie,editTextFoodProtein,editTextFoodCarbohydrate,editTextFoodFat;
-    public String addFoodName, addFoodQuantity, addFoodCalorie,addFoodProtein,addFoodCarbohydrate,addFoodFat;//用于数据库存储的String值
+    private Spinner categorySpinner;
+    private ArrayAdapter<String> spinneradapter = null;
+
+    private static final String [] addFoodCategory ={"Breakfast","Lunch","Dinner","Other"};
+
+    public String addFoodName, addFoodQuantity, addFoodCalorie,FoodCategory,addFoodProtein,addFoodCarbohydrate,addFoodFat;//用于数据库存储的String值
 
     DatabaseReference databaseReference,databaseSetTrue;
 
@@ -39,6 +48,8 @@ public class AddMealActivity extends AppCompatActivity {
         editTextFoodName = (EditText)findViewById(R.id.manual_add_food_name);
         editTextFoodQuantity = (EditText)findViewById(R.id.manual_add_food_quantity);
         editTextFoodCalorie = (EditText)findViewById(R.id.manual_add_food_calorie);
+        categorySpinner = (Spinner)findViewById(R.id.manual_add_food_category);
+        spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,addFoodCategory);
 
         //define additional food info
         editTextFoodProtein = (EditText)findViewById(R.id.manual_add_food_protein);
@@ -46,6 +57,23 @@ public class AddMealActivity extends AppCompatActivity {
         editTextFoodFat = (EditText)findViewById(R.id.manual_add_food_fat);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        categorySpinner.setAdapter(spinneradapter);
+        categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                FoodCategory = addFoodCategory[arg2];
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override

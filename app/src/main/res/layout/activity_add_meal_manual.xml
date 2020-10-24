@@ -144,6 +144,31 @@
             android:layout_height="2dp"
             android:layout_marginTop="5dp"
             android:background="@color/colorGrey" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Category:"
+                android:textSize="20dp"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <Spinner
+                android:gravity="right"
+                android:id="@+id/manual_add_food_category"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorGrey" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
