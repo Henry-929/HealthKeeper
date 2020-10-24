@@ -180,6 +180,7 @@
 
         <ListView
             android:id="@+id/lv_news"
+            android:background="#fff"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
     </LinearLayout>
