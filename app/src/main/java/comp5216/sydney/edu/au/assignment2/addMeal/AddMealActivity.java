@@ -3,6 +3,7 @@ package comp5216.sydney.edu.au.assignment2.addMeal;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,19 +14,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
 public class AddMealActivity extends AppCompatActivity {
+    public static String uid;
 
-    private EditText editTextFoodName, editTextFoodQuantity,editTextFoodCalorie,editTextFoodProtein,editTextFoodCarbohydrate,editTextFoodFat;
+    private EditText editTextFoodName, editTextFoodQuantity;
+    private TextView TextView_FoodCalorie,TextView_FoodProtein,TextView_FoodCarbohydrate,TextView_FoodFat;
+    //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
+    public String Calorie,Protein,Carbohydrate,Fat;
     private Spinner categorySpinner;
     private ArrayAdapter<String> spinneradapter = null;
 
@@ -33,7 +48,7 @@ public class AddMealActivity extends AppCompatActivity {
 
     public String addFoodName, addFoodQuantity, addFoodCalorie,FoodCategory,addFoodProtein,addFoodCarbohydrate,addFoodFat;//用于数据库存储的String值
 
-    DatabaseReference databaseReference,databaseSetTrue;
+    public DatabaseReference databaseReference,databaseSetTrue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +62,19 @@ public class AddMealActivity extends AppCompatActivity {
         //define required food info
         editTextFoodName = (EditText)findViewById(R.id.manual_add_food_name);
         editTextFoodQuantity = (EditText)findViewById(R.id.manual_add_food_quantity);
-        editTextFoodCalorie = (EditText)findViewById(R.id.manual_add_food_calorie);
+        TextView_FoodCalorie = (TextView)findViewById(R.id.manual_add_food_calorie);
         categorySpinner = (Spinner)findViewById(R.id.manual_add_food_category);
         spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,addFoodCategory);
 
         //define additional food info
-        editTextFoodProtein = (EditText)findViewById(R.id.manual_add_food_protein);
-        editTextFoodCarbohydrate = (EditText)findViewById(R.id.manual_add_food_carbohydrate);
-        editTextFoodFat = (EditText)findViewById(R.id.manual_add_food_fat);
+        TextView_FoodProtein = (TextView)findViewById(R.id.manual_add_food_protein);
+        TextView_FoodCarbohydrate = (TextView)findViewById(R.id.manual_add_food_carbohydrate);
+        TextView_FoodFat = (TextView)findViewById(R.id.manual_add_food_fat);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
+        getFoodInfofromDatabase();
 
         categorySpinner.setAdapter(spinneradapter);
         categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
@@ -78,7 +96,7 @@ public class AddMealActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                addMealManual();//【第一步】
+//                addMealManual();//【第一步】
                 //userInfoAdd_toDatabase2();【第二步】
                 //进入到MainActivity         【第三步】
 
@@ -97,18 +115,70 @@ public class AddMealActivity extends AppCompatActivity {
                 }
                }
         });
+
+    }
+
+    public void getFoodInfofromDatabase(){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food/Hamburger");
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                        Toast.makeText(AddMealActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            Calorie = messageSnapshot.getValue().toString();
+                            TextView_FoodCalorie.setText(Calorie);
+//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        if(d_Key.equals("protein")){
+                            Protein = messageSnapshot.getValue().toString();
+                            TextView_FoodProtein.setText(Protein);
+//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        if(d_Key.equals("carbohydrate")){
+                            Carbohydrate = messageSnapshot.getValue().toString();
+                            TextView_FoodCarbohydrate.setText(Carbohydrate);
+//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        if(d_Key.equals("fat")){
+                            Fat = messageSnapshot.getValue().toString();
+                            TextView_FoodFat.setText(Fat);
+//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+
     }
 
     public void addMealManual(){
         //collect required food info
         addFoodName = editTextFoodName.getText().toString();
         addFoodQuantity = editTextFoodQuantity.getText().toString();
-        addFoodCalorie = editTextFoodCalorie.getText().toString();
+//        addFoodCalorie = editTextFoodCalorie.getText().toString();
 
         //collect additional food info
         addFoodProtein = editTextFoodName.getText().toString();
         addFoodCarbohydrate = editTextFoodQuantity.getText().toString();
-        addFoodFat = editTextFoodCalorie.getText().toString();
+//        addFoodFat = editTextFoodCalorie.getText().toString();
 
 
         if(addFoodName.isEmpty()){
@@ -125,11 +195,11 @@ public class AddMealActivity extends AppCompatActivity {
             return;
         }
 
-        if(addFoodCalorie.isEmpty()){
-            editTextFoodCalorie.setError("Food calorie is required");
-            editTextFoodCalorie.requestFocus();
-            return;
-        }
+//        if(addFoodCalorie.isEmpty()){
+//            editTextFoodCalorie.setError("Food calorie is required");
+//            editTextFoodCalorie.requestFocus();
+//            return;
+//        }
 
         foodInfoAdd_toDatabase();
 
