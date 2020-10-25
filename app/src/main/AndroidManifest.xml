@@ -35,8 +35,8 @@
             android:label="info_collection_1"/>
         <activity android:name=".loginFirstTimeUserInfo.InfoActivity_2"
             android:label="info_collection_2"/>
-        <activity android:name=".addMeal.AddMealActivity"
-            android:label="add_meal"/>
+        <activity android:name=".addMeal.UserCustomizeActivity"
+            android:label="custom_food"/>
         <activity android:name=".userSetting.UserActivity"
             android:label="user_setting"/>
         <activity android:name=".userSetting.MyProfileActivity"
@@ -47,6 +47,8 @@
             android:label="report"/>
         <activity android:name=".addMeal.ImageConfirmActivity"
             android:label="imageInfo_confirm"/>
+        <activity android:name=".addMeal.ManuallyInputActivity"
+            android:label="Manually_input"/>
     </application>
 
 </manifest>

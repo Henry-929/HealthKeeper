@@ -32,9 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.addMeal.*;
@@ -164,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void onManualClick(){
-        Intent intent = new Intent(MainActivity.this, AddMealActivity.class);
+        Intent intent = new Intent(MainActivity.this, ManuallyInputActivity.class);
         startActivity(intent);
     }
 

@@ -13,7 +13,7 @@
         android:background="#83cbac">
 
         <LinearLayout
-            android:id="@+id/ll_add_food_manual_cancel"
+            android:id="@+id/ll_add_food_custom_cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <ImageView
@@ -30,7 +30,7 @@
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Add Food Manually"
+            android:text="Add Custom Food"
             android:textColor="#fff"
             android:textSize="25sp" />
         <LinearLayout
@@ -40,12 +40,12 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_add_food_manual_confirm"
+                android:id="@+id/btn_add_food_custom_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
                 android:textColor="#fff"
-                android:text="Confirm " />
+                android:text="Save " />
         </LinearLayout>
     </LinearLayout>
 
@@ -77,7 +77,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <EditText
-                android:id="@+id/manual_add_food_name"
+                android:id="@+id/custom_add_food_name"
                 android:gravity="right"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <EditText
-                android:id="@+id/manual_add_food_quantity"
+                android:id="@+id/custom_add_food_quantity"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -132,7 +132,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/manual_add_food_calorie"
+                android:id="@+id/custom_add_food_calorie"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -160,7 +160,7 @@
                 android:layout_weight="1"/>
             <Spinner
                 android:gravity="right"
-                android:id="@+id/manual_add_food_category"
+                android:id="@+id/custom_add_food_category"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -193,7 +193,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/manual_add_food_protein"
+                android:id="@+id/custom_add_food_protein"
                 android:layout_width="200dp"
                 android:layout_height="27dp"
                 android:background="@null"
@@ -224,7 +224,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/manual_add_food_carbohydrate"
+                android:id="@+id/custom_add_food_carbohydrate"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -256,7 +256,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/manual_add_food_fat"
+                android:id="@+id/custom_add_food_fat"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -280,5 +280,5 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textStyle="italic"
-        android:text="*In order to avoid confusion in the food record data, manually entered food can not be changed after creation."/>
+        android:text="*In order to avoid confusion in the food record data,\n custom food can not be changed after creation."/>
 </LinearLayout>

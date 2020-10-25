@@ -1,55 +1,47 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
-public class ImageConfirmActivity extends Activity {
+public class ManuallyInputActivity extends AppCompatActivity {
 
-    public String foodNameInChinse,addName,addQuantity,addCategory;
-    public Bitmap foodImage;
+    private EditText editTextFoodName, editTextFoodQuantity;
 
+    //define food info
+    public String addFoodName,addFoodQuantity,addFoodCategory;
     private Spinner categorySpinner;
     private ArrayAdapter<String> spinneradapter = null;
-    private static final String [] addFoodCategory ={"Breakfast","Lunch","Dinner","Other"};
 
-    private ImageView foodImageDisplay;
-    private EditText foodNameDisplay,foodQuantityDisplay;
+    private static final String [] FoodCategory ={"Breakfast","Lunch","Dinner","Other"};
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_meal_byphoto);
+        setContentView(R.layout.activity_add_meal_manually);
 
-        Bundle bundle = this.getIntent().getExtras();
-//        foodName = bundle.getString("foodName");
-        foodNameInChinse = this.getIntent().getExtras().get("foodName").toString();
-//        foodImage = bundle.getParcelable("foodPhoto");
-
-        final Button confirmBtn=findViewById(R.id.btn_add_food_photo_confirm);
-        final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_photo_cancel);
+        //define confirm and cancel button
+        final Button confirmBtn=findViewById(R.id.btn_add_food_custom_confirm);
+        final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_custom_cancel);
         Button addCustom = (Button)findViewById(R.id.btn_add_custom_food);
 
-        foodImageDisplay= (ImageView)findViewById(R.id.add_food_display_photo);
-        foodNameDisplay = (EditText)findViewById(R.id.photo_add_food_name);
-        foodQuantityDisplay= (EditText)findViewById(R.id.photo_add_food_quantity);
+        //define required food info
+        editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
+        editTextFoodQuantity = (EditText)findViewById(R.id.custom_add_food_quantity);
+        categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
+        spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,FoodCategory);
 
-        categorySpinner = (Spinner)findViewById(R.id.photo_add_food_category);
-        spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,addFoodCategory);
 
         categorySpinner.setAdapter(spinneradapter);
         categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
@@ -58,7 +50,7 @@ public class ImageConfirmActivity extends Activity {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
                 // TODO Auto-generated method stub
-                addCategory = addFoodCategory[arg2];
+                addFoodCategory = FoodCategory[arg2];
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -66,7 +58,9 @@ public class ImageConfirmActivity extends Activity {
 
             }
         });
-        foodNameDisplay.setText(foodNameInChinse);
+
+        addFoodName = editTextFoodName.getText().toString();
+        addFoodQuantity = editTextFoodQuantity.getText().toString();
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,9 +74,9 @@ public class ImageConfirmActivity extends Activity {
             public void onClick(View v){
                 //todo 弹窗
                 if(true){
-                    Intent intent = new Intent(ImageConfirmActivity.this, MainActivity.class);
+                    Intent intent = new Intent(ManuallyInputActivity.this, MainActivity.class);
                     if (intent != null) {
-                        ImageConfirmActivity.this.startActivity(intent);
+                        ManuallyInputActivity.this.startActivity(intent);
                     }
                 }
             }
@@ -93,9 +87,9 @@ public class ImageConfirmActivity extends Activity {
             public void onClick(View v){
                 //todo 弹窗
                 if(true){
-                    Intent intent = new Intent(ImageConfirmActivity.this, UserCustomizeActivity.class);
+                    Intent intent = new Intent(ManuallyInputActivity.this, UserCustomizeActivity.class);
                     if (intent != null) {
-                        ImageConfirmActivity.this.startActivity(intent);
+                        ManuallyInputActivity.this.startActivity(intent);
                     }
                 }
             }

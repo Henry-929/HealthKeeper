@@ -1,40 +1,29 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
-import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
-public class AddMealActivity extends AppCompatActivity {
+public class UserCustomizeActivity extends AppCompatActivity {
     public static String uid;
 
     private EditText editTextFoodName, editTextFoodQuantity;
@@ -53,23 +42,23 @@ public class AddMealActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_meal_manual);
+        setContentView(R.layout.activity_add_meal_custom);
 
         //define confirm and cancel button
-        final Button confirmBtn=findViewById(R.id.btn_add_food_manual_confirm);
-        final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_manual_cancel);
+        final Button confirmBtn=findViewById(R.id.btn_add_food_custom_confirm);
+        final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_custom_cancel);
 
         //define required food info
-        editTextFoodName = (EditText)findViewById(R.id.manual_add_food_name);
-        editTextFoodQuantity = (EditText)findViewById(R.id.manual_add_food_quantity);
-        TextView_FoodCalorie = (TextView)findViewById(R.id.manual_add_food_calorie);
-        categorySpinner = (Spinner)findViewById(R.id.manual_add_food_category);
+        editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
+        editTextFoodQuantity = (EditText)findViewById(R.id.custom_add_food_quantity);
+        TextView_FoodCalorie = (TextView)findViewById(R.id.custom_add_food_calorie);
+        categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
         spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,addFoodCategory);
 
         //define additional food info
-        TextView_FoodProtein = (TextView)findViewById(R.id.manual_add_food_protein);
-        TextView_FoodCarbohydrate = (TextView)findViewById(R.id.manual_add_food_carbohydrate);
-        TextView_FoodFat = (TextView)findViewById(R.id.manual_add_food_fat);
+        TextView_FoodProtein = (TextView)findViewById(R.id.custom_add_food_protein);
+        TextView_FoodCarbohydrate = (TextView)findViewById(R.id.custom_add_food_carbohydrate);
+        TextView_FoodFat = (TextView)findViewById(R.id.custom_add_food_fat);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -96,9 +85,6 @@ public class AddMealActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-//                addMealManual();//【第一步】
-                //userInfoAdd_toDatabase2();【第二步】
-                //进入到MainActivity         【第三步】
 
             }
         });
@@ -108,9 +94,9 @@ public class AddMealActivity extends AppCompatActivity {
             public void onClick(View v){
                 //todo 弹窗
                if(true){
-                   Intent intent = new Intent(AddMealActivity.this, MainActivity.class);
+                   Intent intent = new Intent(UserCustomizeActivity.this, MainActivity.class);
                     if (intent != null) {
-                        AddMealActivity.this.startActivity(intent);
+                        UserCustomizeActivity.this.startActivity(intent);
                     }
                 }
                }
@@ -127,7 +113,7 @@ public class AddMealActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot){
                 if(dataSnapshot.exists()){
                     for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                        Toast.makeText(AddMealActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserCustomizeActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                         String d_Key = messageSnapshot.getKey();
                         if(d_Key.equals("calorie")){
