@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">HealthKeeper</string>
+    <string name="delete">YES</string>
     <string name="dialog_delete_title">Log Out</string>
     <string name="dialog_delete_msg">Do you want to log out of the app?</string>
-    <string name="delete">YES</string>
     <string name="cancel">NO</string>
+    <string name="dialog_cancel_title">Are you sure to cancel this edit? </string>
+    <string name="dialog_cancel_msg">Your unsaved edit will be discarded if you click YES</string>
     <string name="add_the_custom_food_manually"><u><i>Add custom food.</i></u></string>
 </resources>
