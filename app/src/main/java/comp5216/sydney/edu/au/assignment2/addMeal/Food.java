@@ -1,44 +1,44 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
 public class Food {
-    public int calorie,carbohydrate,fat,protein;
+    public String calorie,carbohydrate,fat,protein;
 
-    public Food(int calorie,int carbohydrate,int fat,int protein){
+    public Food(String calorie,String carbohydrate,String fat,String protein){
         this.calorie =calorie;
         this.carbohydrate = carbohydrate;
         this.fat = fat;
         this.protein = protein;
     }
 
-    public double getCalorie() {
+    public String getCalorie() {
         return calorie;
     }
 
-    public double getCarbohydrate() {
+    public String getCarbohydrate() {
         return carbohydrate;
     }
 
-    public double getFat() {
+    public String getFat() {
         return fat;
     }
 
-    public double getProtein() {
+    public String getProtein() {
         return protein;
     }
 
-    public void setCalorie(int calorie) {
+    public void setCalorie(String calorie) {
         this.calorie = calorie;
     }
 
-    public void setCarbohydrate(int carbohydrate) {
+    public void setCarbohydrate(String carbohydrate) {
         this.carbohydrate = carbohydrate;
     }
 
-    public void setFat(int fat) {
+    public void setFat(String fat) {
         this.fat = fat;
     }
 
-    public void setProtein(int protein) {
+    public void setProtein(String protein) {
         this.protein = protein;
     }
 }

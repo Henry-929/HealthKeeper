@@ -31,7 +31,7 @@ public class InfoActivity_2 extends AppCompatActivity {
     private EditText Age,Weight;
     public String weight,height,bmi,age;//用于数据库存储的String值
 
-    DatabaseReference databaseReference,databaseSetTrue;
+    DatabaseReference databaseReference ,databaseSetTrue;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {

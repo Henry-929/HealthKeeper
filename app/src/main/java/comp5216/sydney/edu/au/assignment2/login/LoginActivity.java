@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity{
     public final int LOGIN_SUCCESS_CODE = 100;
     public final int LOGIN_FAIL_CODE = 101;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,16 +132,20 @@ public class LoginActivity extends AppCompatActivity{
 
                 if (task.isSuccessful()){
 
-                    //从database中 【读取数据】
+
                     databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+
+                    //判断是否是第一次登录 从database中 【读取数据】
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(DataSnapshot data: snapshot.getChildren()){
 
                                 if(data.getKey().equals("notFirstTime")){
+
+
                                     if(data.getValue().equals("false")){
                                         //是第一次登录，进入user info add界面
 

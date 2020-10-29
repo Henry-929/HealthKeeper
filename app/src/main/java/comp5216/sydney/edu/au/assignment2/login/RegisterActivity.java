@@ -20,8 +20,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity{
     private DatabaseReference databaseReference;
 
     private static final String TAG = "RegisterActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity{
         Confirm_password=(EditText) findViewById(R.id.logger_signup_password_confirm);
         Security=(EditText) findViewById(R.id.logger_signup_security_code);
 
-
         BackToSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -62,38 +65,15 @@ public class RegisterActivity extends AppCompatActivity{
             @Override
             public void onClick(View v){
                 registerusers();
-//                userlogin();
+                //将Users-username存入UsersFood中
+                initUsersFood_username();
+
             }
         });
     }
 
 
-    public void userlogin(){
-        String email=Email.getText().toString().trim();
-        String password=Password.getText().toString().trim();
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            // ...
-                        }
-
-                        // ...
-                    }
-                });
-    }
 
     public void registerusers(){
 
@@ -102,6 +82,8 @@ public class RegisterActivity extends AppCompatActivity{
         final String password=Password.getText().toString().trim();
         final String confirm_password=Confirm_password.getText().toString().trim();
         final String security=Security.getText().toString().trim();
+
+
 
         if(username.isEmpty()){
             Name.setError("User name is required");
@@ -189,6 +171,19 @@ public class RegisterActivity extends AppCompatActivity{
                         // ...
                     }
                 });
+    }
+
+    public void initUsersFood_username(){
+
+        final String str_usename =Name.getText().toString().trim();
+
+        //将Users-username存入UsersFood中
+        databaseReference =  FirebaseDatabase.getInstance().getReference("UsersFood");
+
+        String newKey = databaseReference.push().getKey();
+        databaseReference.child(newKey).setValue(str_usename);
 
     }
+
+
 }
