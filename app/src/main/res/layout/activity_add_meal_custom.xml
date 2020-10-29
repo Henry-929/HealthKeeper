@@ -110,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
-            <TextView
+            <EditText
                 android:id="@+id/custom_add_food_calorie"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/custom_add_food_protein"
                 android:layout_width="200dp"
                 android:layout_height="27dp"
@@ -183,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
-            <TextView
+            <EditText
                 android:id="@+id/custom_add_food_carbohydrate"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
-            <TextView
+            <EditText
                 android:id="@+id/custom_add_food_fat"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"

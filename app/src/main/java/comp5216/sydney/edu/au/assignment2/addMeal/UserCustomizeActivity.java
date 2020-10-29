@@ -13,9 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,55 +29,31 @@ import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class UserCustomizeActivity extends AppCompatActivity {
-    public static String uid;
 
-    private EditText editTextFoodName, editTextFoodQuantity;
-    private TextView TextView_FoodCalorie,TextView_FoodProtein,TextView_FoodCarbohydrate,TextView_FoodFat;
+    DatabaseReference databaseReference;
+
+    private EditText editTextFoodName,editTextFoodCalorie,editTextFoodProtein,editTextFoodCarbo,editTextFoodFat;
     //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
-    public String Calorie,Protein,Carbohydrate,Fat;
-//    private Spinner categorySpinner;
-//    private ArrayAdapter<String> spinneradapter = null;
-
-    private static final String [] addFoodCategory ={"Breakfast","Lunch","Dinner","Other"};
-
-    public String addFoodName, addFoodQuantity, addFoodCalorie,FoodCategory,addFoodProtein,addFoodCarbohydrate,addFoodFat;//用于数据库存储的String值
-
-    public DatabaseReference databaseReference,databaseSetTrue;
-
+    public String addFoodName,addCalorie,addProtein,addCarbohydrate,addFat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal_custom);
 
         //define confirm and cancel button
-        final Button confirmBtn=findViewById(R.id.btn_add_food_custom_confirm);
         final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_custom_cancel);
+        final Button confirmBtn=findViewById(R.id.btn_add_food_custom_confirm);
 
         //define required food info
         editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
-        TextView_FoodCalorie = (TextView)findViewById(R.id.custom_add_food_calorie);
+        editTextFoodCalorie = (EditText)findViewById(R.id.custom_add_food_calorie);
 
-        //define additional food info
-        TextView_FoodProtein = (TextView)findViewById(R.id.custom_add_food_protein);
-        TextView_FoodCarbohydrate = (TextView)findViewById(R.id.custom_add_food_carbohydrate);
-        TextView_FoodFat = (TextView)findViewById(R.id.custom_add_food_fat);
+        //define details food info
+        editTextFoodProtein = (EditText)findViewById(R.id.custom_add_food_protein);
+        editTextFoodCarbo = (EditText)findViewById(R.id.custom_add_food_carbohydrate);
+        editTextFoodFat = (EditText)findViewById(R.id.custom_add_food_fat);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
-        //getFoodInfofromDatabase();
-
-
-
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(UserCustomizeActivity.this, ManuallyInputActivity.class);
-                if (intent != null) {
-                    UserCustomizeActivity.this.startActivity(intent);
-                }
-            }
-        });
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,99 +83,72 @@ public class UserCustomizeActivity extends AppCompatActivity {
             }
 
         });
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+                //将食物信息：卡路里，蛋白质，碳水化物，脂肪 存入Food数据库
+                customFoodAdd();
+                //customFoodAdd_toDatabase();
+
+            }
+        });
 
     }
 
-    public void getFoodInfofromDatabase(){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child("Hamburger");
+    public void customFoodAdd(){
 
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                        Toast.makeText(UserCustomizeActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("calorie")){
-                            Calorie = messageSnapshot.getValue().toString();
-                            TextView_FoodCalorie.setText(Calorie);
-//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if(d_Key.equals("protein")){
-                            Protein = messageSnapshot.getValue().toString();
-                            TextView_FoodProtein.setText(Protein);
-//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if(d_Key.equals("carbohydrate")){
-                            Carbohydrate = messageSnapshot.getValue().toString();
-                            TextView_FoodCarbohydrate.setText(Carbohydrate);
-//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if(d_Key.equals("fat")){
-                            Fat = messageSnapshot.getValue().toString();
-                            TextView_FoodFat.setText(Fat);
-//                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-
-    }
-
-    public void addMealManual(){
-        //collect required food info
         addFoodName = editTextFoodName.getText().toString();
-        addFoodQuantity = editTextFoodQuantity.getText().toString();
-//        addFoodCalorie = editTextFoodCalorie.getText().toString();
+        addCalorie = editTextFoodCalorie.getText().toString();
+        addProtein = editTextFoodProtein.getText().toString();
+        addCarbohydrate = editTextFoodCarbo.getText().toString();
+        addFat = editTextFoodFat.getText().toString();
 
-        //collect additional food info
-        addFoodProtein = editTextFoodName.getText().toString();
-        addFoodCarbohydrate = editTextFoodQuantity.getText().toString();
-//        addFoodFat = editTextFoodCalorie.getText().toString();
-
-
+        //if 用户输入不为空
         if(addFoodName.isEmpty()){
-            editTextFoodName.setError("Food name is required");
+            editTextFoodName.setError("Food Name is required");
             editTextFoodName.requestFocus();
-            // Toast.makeText(InfoActivity_1.this,"Gender is not chosen!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(addCalorie.isEmpty()){
+            editTextFoodCalorie.setError("Food Calorie is required");
+            editTextFoodCalorie.requestFocus();
+            return;
+        }
+        if(addProtein.isEmpty()){
+            editTextFoodProtein.setError("Food Protein is required");
+            editTextFoodProtein.requestFocus();
+            return;
+        }
+        if(addCarbohydrate.isEmpty()){
+            editTextFoodCarbo.setError("Food Carbohydrate is required");
+            editTextFoodCarbo.requestFocus();
+            return;
+        }
+        if(addFat.isEmpty()){
+            editTextFoodFat.setError("Food Fat is required");
+            editTextFoodFat.requestFocus();
             return;
         }
 
-        if(addFoodQuantity.isEmpty()){
-            editTextFoodQuantity.setError("Food quantity is required");
-            editTextFoodQuantity.requestFocus();
-            // Toast.makeText(InfoActivity_1.this,"Gender is not chosen!",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-//        if(addFoodCalorie.isEmpty()){
-//            editTextFoodCalorie.setError("Food calorie is required");
-//            editTextFoodCalorie.requestFocus();
-//            return;
-//        }
-
-        foodInfoAdd_toDatabase();
-
+        //将custom food的食物信息存入数据库
+        customFoodAdd_toDatabase();
     }
+    public void customFoodAdd_toDatabase(){
 
-    public void foodInfoAdd_toDatabase(){
+        //每存放一个custom food食物信息 就创建一个新节点
+        String newKey = databaseReference.child("Food").push().getKey();
 
+        CustomFood customFood = new CustomFood(addFoodName, addCalorie, addProtein,addCarbohydrate,addFat);
+
+        databaseReference.child("Food").child(newKey).setValue(customFood)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //manuallyInput 页面
+                        Intent intent = new Intent(UserCustomizeActivity.this, ManuallyInputActivity.class);
+                        startActivity(intent);
+                    }
+                });
     }
-
-
 }
