@@ -113,13 +113,11 @@ public class LoginActivity extends AppCompatActivity{
 
                 if (task.isSuccessful()){
 
-
                     databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-
                     //判断是否是第一次登录 从database中 【读取数据】
-                    databaseReference.addValueEventListener(new ValueEventListener() {
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(DataSnapshot data: snapshot.getChildren()){

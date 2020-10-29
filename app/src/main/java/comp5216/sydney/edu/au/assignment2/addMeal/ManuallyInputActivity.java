@@ -51,7 +51,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_meal_manually);
 
         //define confirm and cancel button
-        final Button confirmBtn=findViewById(R.id.btn_add_food_custom_confirm);
+        Button confirmBtn=findViewById(R.id.btn_add_food_custom_confirm);
         final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_custom_cancel);
         Button addCustom = (Button)findViewById(R.id.btn_add_custom_food);
 
@@ -78,8 +78,8 @@ public class ManuallyInputActivity extends AppCompatActivity {
             }
         });
 
-        addFoodName = editTextFoodName.getText().toString();
-        addFoodQuantity = editTextFoodQuantity.getText().toString();
+//        addFoodName = editTextFoodName.getText().toString();
+//        addFoodQuantity = editTextFoodQuantity.getText().toString();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -127,30 +127,8 @@ public class ManuallyInputActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //将user-food 该用户输入的食物信息存入数据库
-                //UserFoodAdd_toDatabase();
                 UserFoodAdd();
-
-                //跳转到food display页面
-                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-                ManuallyInputActivity.this.startActivity(intent);
-
-//                //弹窗 提示用户已经将食物存入db
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
-//                builder.setTitle(R.string.Manual_dialog_confirm)
-//                        .setMessage(R.string.Manual_check_healthReport)
-//                        .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                                Toast.makeText(ManuallyInputActivity.this, "Food name & quantity have saved in database successfully!", Toast.LENGTH_SHORT).show();
-//
-//                                //跳转到health report页面
-//                                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-//                                ManuallyInputActivity.this.startActivity(intent);
-//
-//                                finish();
-//                            }
-//                        });
-//                builder.create().show();
+                //UserFoodAdd_toDatabase();
 
             }
         });
@@ -158,28 +136,25 @@ public class ManuallyInputActivity extends AppCompatActivity {
 
     public void UserFoodAdd(){
 
-        final String addFoodName2 = editTextFoodName.getText().toString();
-        final String addFoodQuantity2 = editTextFoodQuantity.getText().toString();
+        addFoodName = editTextFoodName.getText().toString();
+        addFoodQuantity = editTextFoodQuantity.getText().toString();
 
         //if 用户输入不为空
-        if(addFoodName2.isEmpty()){
+        if(addFoodName.isEmpty()){
             editTextFoodName.setError("Food Name is required");
             editTextFoodName.requestFocus();
             return;
         }
-        if(addFoodQuantity2.isEmpty()){
+        if(addFoodQuantity.isEmpty()){
             editTextFoodQuantity.setError("Food Quantity is required");
             editTextFoodQuantity.requestFocus();
             return;
         }
 
         //将user-food 该用户输入的食物信息存入数据库
-        UserFoodAdd_toDatabase();
+       UserFoodAdd_toDatabase();
     }
     public void UserFoodAdd_toDatabase(){
-
-        final String FoodName = editTextFoodName.getText().toString();
-        final String FoodQuantity = editTextFoodQuantity.getText().toString();
 
         //获取userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -188,23 +163,21 @@ public class ManuallyInputActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
 
-                        if(user!=null) {
+                        //每存放一个食物信息 就创建一个新节点
+                        String newKey = databaseReference.child("Users").child(uid).push().getKey();
 
-                            //每存放一个食物信息 就创建一个新节点
-                            String newKey = databaseReference.child("Users").child(uid).push().getKey();
+                        UsersFood usersFood = new UsersFood(addFoodName, addFoodQuantity, addFoodCategory);
 
-                            UsersFood usersFood = new UsersFood(FoodName, FoodQuantity, addFoodCategory);
-
-                            databaseReference.child("Users").child(uid).child(newKey).setValue(usersFood)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                        }
-                                    });
-                        }
-
+                        databaseReference.child("Users").child(uid).child(newKey).setValue(usersFood)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        //跳转到food display页面
+                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
