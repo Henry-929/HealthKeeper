@@ -26,14 +26,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
+import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
+import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.UserInfo;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
 public class ManuallyInputActivity extends AppCompatActivity {
 
     public static String uid;
-    //public String str_id;
-    public String Users_username;
     DatabaseReference databaseReference;
 
     private EditText editTextFoodName, editTextFoodQuantity;
@@ -81,16 +81,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
         addFoodName = editTextFoodName.getText().toString();
         addFoodQuantity = editTextFoodQuantity.getText().toString();
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-                if (intent != null) {
-                    ManuallyInputActivity.this.startActivity(intent);
-                }
-            }
-        });
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
@@ -135,32 +125,33 @@ public class ManuallyInputActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //弹窗 提示用户已经将食物
-                AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
-                builder.setTitle(R.string.Manual_dialog_confirm)
-                        .setMessage(R.string.Manual_check_healthReport)
-                        .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                if(addFoodName.isEmpty() || addFoodQuantity.isEmpty()) {
-                                    Toast.makeText(ManuallyInputActivity.this,"FoodName or Quantity is empty ",Toast.LENGTH_SHORT).show();
-
-                                }
-                                else{
-
-                                    Intent intent = new Intent(ManuallyInputActivity.this, ReportActivity.class);
-                                    ManuallyInputActivity.this.startActivity(intent);
-
-                                    finish();
-                                }
-
-                            }
-                        });
-                builder.create().show();
-                UserFoodAdd();
 
                 //将user-food 该用户输入的食物信息存入数据库
                 //UserFoodAdd_toDatabase();
+                UserFoodAdd();
+
+                //跳转到food display页面
+                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+                ManuallyInputActivity.this.startActivity(intent);
+
+//                //弹窗 提示用户已经将食物存入db
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
+//                builder.setTitle(R.string.Manual_dialog_confirm)
+//                        .setMessage(R.string.Manual_check_healthReport)
+//                        .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                Toast.makeText(ManuallyInputActivity.this, "Food name & quantity have saved in database successfully!", Toast.LENGTH_SHORT).show();
+//
+//                                //跳转到health report页面
+//                                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+//                                ManuallyInputActivity.this.startActivity(intent);
+//
+//                                finish();
+//                            }
+//                        });
+//                builder.create().show();
+
             }
         });
     }
@@ -190,21 +181,30 @@ public class ManuallyInputActivity extends AppCompatActivity {
         final String FoodName = editTextFoodName.getText().toString();
         final String FoodQuantity = editTextFoodQuantity.getText().toString();
 
-        //final String Users_username;
-
-
         //获取userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         databaseReference.child("Users").child(uid)
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot data: snapshot.getChildren()){
-                            if(data.getKey().equals("username")) {
-                                Users_username = data.getValue().toString();
-                            }
+                        User user = snapshot.getValue(User.class);
+
+                        if(user!=null) {
+
+                            //每存放一个食物信息 就创建一个新节点
+                            String newKey = databaseReference.child("Users").child(uid).push().getKey();
+
+                            UsersFood usersFood = new UsersFood(FoodName, FoodQuantity, addFoodCategory);
+
+                            databaseReference.child("Users").child(uid).child(newKey).setValue(usersFood)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                        }
+                                    });
                         }
+
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -214,12 +214,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
 
 
 
-
-
-
-
     }
-
 
 
 }

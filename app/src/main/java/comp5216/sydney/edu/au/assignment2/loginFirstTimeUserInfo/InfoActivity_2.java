@@ -91,36 +91,43 @@ public class InfoActivity_2 extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
 
-                        if(user!=null){
-                            //将birthday weight 写入database
+                        //将birthday weight 写入database
 
-                            for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
+                        for(DataSnapshot d: snapshot.getChildren()){
+                            //d.getKey()是userInfo的key
+                            final String userInfo_Key = d.getKey();
 
-                                final String userInfo_Key = d.getKey();
-                                if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
+                            for(DataSnapshot dd: d.getChildren()){
+                                final String dd_Key = dd.getKey();
+
+                                if(dd_Key.equals("age")) {
                                     //将 birthday 写入数据库
-                                    databaseReference.child("Users").child(uid)
-                                            .child(userInfo_Key).child("age").setValue(age);
-
+                                    databaseReference.child("Users").child(uid).child(userInfo_Key)
+                                            .child("age").setValue(age);
+                                }
+                                if(dd_Key.equals("weight")) {
                                     //将 weight 写入数据库
-                                    databaseReference.child("Users").child(uid)
-                                            .child(userInfo_Key).child("weight").setValue(weight);
+                                    databaseReference.child("Users").child(uid).child(userInfo_Key)
+                                            .child("weight").setValue(weight);
+                                }
+                                if(dd_Key.equals("bmi")) {
+
+                                    Toast.makeText(InfoActivity_2.this,"嗷嗷"+bmi,Toast.LENGTH_SHORT).show();
 
                                     //将 bmi写入数据库
                                     //先获取 height- 再计算bmi- 再将bmi写入数据库
-                                    databaseReference.child("Users").child(uid)
-                                            .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    databaseReference.child("Users").child(uid).child(userInfo_Key)
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for(DataSnapshot d: dataSnapshot.getChildren()) {
-                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+                                            for(DataSnapshot ddd: dataSnapshot.getChildren()) {
 
-                                                String d_Key = d.getKey();
+                                                String d_Key = ddd.getKey();
                                                 if (d_Key.equals("height")) {
-                                                    height = d.getValue().toString();
+                                                    height = ddd.getValue().toString();
+                                                    Toast.makeText(InfoActivity_2.this,"嗷嗷"+height,Toast.LENGTH_SHORT).show();
+
 
                                                     //计算bmi
                                                     //将String转Double,并保留2位小数：
@@ -155,24 +162,23 @@ public class InfoActivity_2 extends AppCompatActivity {
                                         }
                                     });
 
-                                    //从database中 写入数据/更新数据
-                                    //将数据库中的notFirstTime更新为"true"
-                                    databaseSetTrue = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                    databaseSetTrue.child("notFirstTime").setValue("true")
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(InfoActivity_2.this, "notFirstTime = TRUE !", Toast.LENGTH_LONG).show();
-                                                    Intent intent = new Intent(InfoActivity_2.this, MainActivity.class);
-                                                    InfoActivity_2.this.startActivity(intent);
-                                                }
-                                            });
                                 }
 
+                                //if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
                             }
-                        }else{
-                            Toast.makeText(InfoActivity_2.this,"ERROR!!!",Toast.LENGTH_SHORT).show();
                         }
+                        //从database中 写入数据/更新数据
+                        //将数据库中的notFirstTime更新为"true"
+                        databaseSetTrue = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        databaseSetTrue.child("notFirstTime").setValue("true")
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(InfoActivity_2.this, "notFirstTime = TRUE !", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(InfoActivity_2.this, MainActivity.class);
+                                        InfoActivity_2.this.startActivity(intent);
+                                    }
+                                });
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
