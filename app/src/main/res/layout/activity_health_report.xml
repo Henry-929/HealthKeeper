@@ -667,6 +667,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
                 android:padding="10dp">
 
                 <LinearLayout
@@ -685,7 +686,7 @@
                             android:layout_height="wrap_content"
                             android:text="Nutrient"
                             android:layout_marginStart="20dp"
-                            android:textSize="12sp"/>
+                            android:textSize="14sp"/>
 
                         <TextView
                             android:layout_width="40dp"
@@ -693,14 +694,14 @@
                             android:gravity="center"
                             android:text="Total"
                             android:layout_marginStart="80dp"
-                            android:textSize="12sp"/>
+                            android:textSize="14sp"/>
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Goal"
                             android:layout_marginStart="15dp"
-                            android:textSize="12sp"/>
+                            android:textSize="14sp"/>
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
@@ -729,7 +730,7 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="Calorie (kilojoules)"
+                            android:text="Energy (Calorie)"
                             android:layout_marginStart="20dp"
                             android:textSize="12sp"/>
 
@@ -761,7 +762,7 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:background="@color/colorGrey"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
@@ -809,7 +810,7 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:background="@color/colorGrey"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
@@ -855,107 +856,11 @@
                             android:textSize="12sp"/>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="2dp"
-                        android:background="@color/colorGrey"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:paddingEnd="5dp"/>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:text="Fiber (gram)"
-                            android:layout_marginStart="20dp"
-                            android:textSize="12sp"/>
-
-                        <TextView
-                            android:id="@+id/report_display_nutrient_fiber_total"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="-"
-                            android:layout_marginStart="80dp"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:id="@+id/report_display_nutrient_fiber_goal"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="-"
-                            android:layout_marginStart="15dp"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:id="@+id/report_display_nutrient_fiber_condition"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="-"
-                            android:layout_marginStart="15dp"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="2dp"
-                        android:background="@color/colorGrey"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:paddingEnd="5dp"/>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:text="Sugar (gram)"
-                            android:layout_marginStart="20dp"
-                            android:textSize="12sp"/>
-
-                        <TextView
-                            android:id="@+id/report_display_nutrient_sugar_total"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="-"
-                            android:layout_marginStart="80dp"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:id="@+id/report_display_nutrient_sugar_goal"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="-"
-                            android:layout_marginStart="15dp"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:id="@+id/report_display_nutrient_sugar_condition"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="-"
-                            android:layout_marginStart="15dp"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-
 
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:background="@color/colorGrey"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
@@ -1000,6 +905,15 @@
                             android:layout_marginStart="15dp"
                             android:textSize="12sp"/>
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/colorGrey"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:paddingEnd="5dp"/>
 
 
 
