@@ -34,8 +34,6 @@ import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 public class ManuallyInputActivity extends AppCompatActivity {
 
     public static String uid;
-    //public String str_id;
-    //public String Users_username;
     DatabaseReference databaseReference;
 
     private EditText editTextFoodName, editTextFoodQuantity;
@@ -142,21 +140,23 @@ public class ManuallyInputActivity extends AppCompatActivity {
                 //UserFoodAdd_toDatabase();
                 UserFoodAdd();
 
-//                //弹窗 提示用户已经将食物存入db
-//                AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
-//                builder.setTitle(R.string.Manual_dialog_confirm)
-//                        .setMessage(R.string.Manual_check_healthReport)
-//                        .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                                //跳转到health report页面
-//                                Intent intent = new Intent(ManuallyInputActivity.this, ReportActivity.class);
-//                                ManuallyInputActivity.this.startActivity(intent);
-//
-//                                finish();
-//                            }
-//                        });
-//                builder.create().show();
+                //弹窗 提示用户已经将食物存入db
+                AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
+                builder.setTitle(R.string.Manual_dialog_confirm)
+                        .setMessage(R.string.Manual_check_healthReport)
+                        .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                Toast.makeText(ManuallyInputActivity.this, "Food name & quantity have saved in database successfully!", Toast.LENGTH_SHORT).show();
+
+                                //跳转到health report页面
+                                Intent intent = new Intent(ManuallyInputActivity.this, ReportActivity.class);
+                                ManuallyInputActivity.this.startActivity(intent);
+
+                                finish();
+                            }
+                        });
+                builder.create().show();
 
             }
         });
@@ -187,9 +187,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
         final String FoodName = editTextFoodName.getText().toString();
         final String FoodQuantity = editTextFoodQuantity.getText().toString();
 
-        //final String Users_username;
-
-
         //获取userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -210,24 +207,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            //弹窗 提示用户已经将食物存入db
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
-                                            builder.setTitle(R.string.Manual_dialog_confirm)
-                                                    .setMessage(R.string.Manual_check_healthReport)
-                                                    .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
-                                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                                            Toast.makeText(ManuallyInputActivity.this, "Food name & quantity have saved in database successfully!", Toast.LENGTH_SHORT).show();
-
-                                                            //跳转到health report页面
-                                                            Intent intent = new Intent(ManuallyInputActivity.this, ReportActivity.class);
-                                                            ManuallyInputActivity.this.startActivity(intent);
-
-                                                            finish();
-                                                        }
-                                                    });
-                                            builder.create().show();
-
                                         }
                                     });
                         }
