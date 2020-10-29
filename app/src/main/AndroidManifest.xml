@@ -48,7 +48,9 @@
         <activity android:name=".addMeal.ImageConfirmActivity"
             android:label="imageInfo_confirm"/>
         <activity android:name=".addMeal.ManuallyInputActivity"
-            android:label="Manually_input"/>
+        android:label="Manually_input"/>
+        <activity android:name=".addMeal.FoodDisplayActivity"
+            android:label="display_food"/>
     </application>
 
 </manifest>

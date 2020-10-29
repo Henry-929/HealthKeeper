@@ -81,6 +81,15 @@ public class ManuallyInputActivity extends AppCompatActivity {
         addFoodName = editTextFoodName.getText().toString();
         addFoodQuantity = editTextFoodQuantity.getText().toString();
 
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+                if (intent != null) {
+                    ManuallyInputActivity.this.startActivity(intent);
+                }
+            }
+        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

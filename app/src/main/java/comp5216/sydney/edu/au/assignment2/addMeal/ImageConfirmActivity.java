@@ -73,7 +73,10 @@ public class ImageConfirmActivity extends Activity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-
+                Intent intent = new Intent(ImageConfirmActivity.this, FoodDisplayActivity.class);
+                if (intent != null) {
+                    ImageConfirmActivity.this.startActivity(intent);
+                }
             }
         });
 

@@ -14,10 +14,10 @@
         android:background="#83cbac">
 
         <LinearLayout
+            android:id="@+id/ll_display_food_cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-            <ImageButton
-                android:id="@+id/meal_btn_add_cancel"
+            <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="18dp"
@@ -34,21 +34,6 @@
             android:text="Add meal"
             android:textColor="#fff"
             android:textSize="25sp" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/meal_btn_add_confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/btn_confirm"
-                android:textColor="#fff"
-                android:text="Confirm " />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginStart="2dp"
-                    android:text="598"
+                    android:text=""
                     android:textSize="20sp"/>
             </LinearLayout>
 
@@ -94,19 +79,21 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Your can still intake "/>
+
                     <TextView
                         android:id="@+id/meal_display_left_intake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1348"
+                        android:text=""
                         android:textSize="20sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -116,22 +103,21 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
+                    android:layout_width="250dp"
+                    android:layout_height="10dp"
+                    android:orientation="horizontal">
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:id="@+id/calorie_progress_bar"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="#207f4c"
+                            android:orientation="horizontal" />
+                        <LinearLayout
+                            android:layout_width="fill_parent"
                             android:layout_height="match_parent"
                             android:background="#d8e3e7"/>
 
-                        <LinearLayout
-                            android:layout_width="90dp"
-                            android:layout_height="match_parent"
-                            android:background="#207f4c"/>
-                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,7 +135,7 @@
                         android:id="@+id/meal_display_total_intake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1946"/>
+                        android:text=""/>
                 </LinearLayout>
 
 

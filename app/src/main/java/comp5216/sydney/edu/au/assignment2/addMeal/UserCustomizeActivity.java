@@ -84,7 +84,10 @@ public class UserCustomizeActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-
+                Intent intent = new Intent(UserCustomizeActivity.this, FoodDisplayActivity.class);
+                if (intent != null) {
+                    UserCustomizeActivity.this.startActivity(intent);
+                }
             }
         });
 
