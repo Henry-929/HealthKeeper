@@ -30,8 +30,8 @@ public class UserCustomizeActivity extends AppCompatActivity {
     private TextView TextView_FoodCalorie,TextView_FoodProtein,TextView_FoodCarbohydrate,TextView_FoodFat;
     //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
     public String Calorie,Protein,Carbohydrate,Fat;
-    private Spinner categorySpinner;
-    private ArrayAdapter<String> spinneradapter = null;
+//    private Spinner categorySpinner;
+//    private ArrayAdapter<String> spinneradapter = null;
 
     private static final String [] addFoodCategory ={"Breakfast","Lunch","Dinner","Other"};
 
@@ -50,10 +50,7 @@ public class UserCustomizeActivity extends AppCompatActivity {
 
         //define required food info
         editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
-        editTextFoodQuantity = (EditText)findViewById(R.id.custom_add_food_quantity);
         TextView_FoodCalorie = (TextView)findViewById(R.id.custom_add_food_calorie);
-        categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
-        spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,addFoodCategory);
 
         //define additional food info
         TextView_FoodProtein = (TextView)findViewById(R.id.custom_add_food_protein);
@@ -65,21 +62,21 @@ public class UserCustomizeActivity extends AppCompatActivity {
         //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
         getFoodInfofromDatabase();
 
-        categorySpinner.setAdapter(spinneradapter);
-        categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
-                // TODO Auto-generated method stub
-                FoodCategory = addFoodCategory[arg2];
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        });
+//        categorySpinner.setAdapter(spinneradapter);
+//        categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
+//        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                       int arg2, long arg3) {
+//                // TODO Auto-generated method stub
+//                FoodCategory = addFoodCategory[arg2];
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> arg0) {
+//                // TODO Auto-generated method stub
+//
+//            }
+//        });
 
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
