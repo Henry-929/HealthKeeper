@@ -81,16 +81,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
         addFoodName = editTextFoodName.getText().toString();
         addFoodQuantity = editTextFoodQuantity.getText().toString();
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-                if (intent != null) {
-                    ManuallyInputActivity.this.startActivity(intent);
-                }
-            }
-        });
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
@@ -140,23 +130,27 @@ public class ManuallyInputActivity extends AppCompatActivity {
                 //UserFoodAdd_toDatabase();
                 UserFoodAdd();
 
-                //弹窗 提示用户已经将食物存入db
-                AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
-                builder.setTitle(R.string.Manual_dialog_confirm)
-                        .setMessage(R.string.Manual_check_healthReport)
-                        .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                //跳转到food display页面
+                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+                ManuallyInputActivity.this.startActivity(intent);
 
-                                Toast.makeText(ManuallyInputActivity.this, "Food name & quantity have saved in database successfully!", Toast.LENGTH_SHORT).show();
-
-                                //跳转到health report页面
-                                Intent intent = new Intent(ManuallyInputActivity.this, ReportActivity.class);
-                                ManuallyInputActivity.this.startActivity(intent);
-
-                                finish();
-                            }
-                        });
-                builder.create().show();
+//                //弹窗 提示用户已经将食物存入db
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
+//                builder.setTitle(R.string.Manual_dialog_confirm)
+//                        .setMessage(R.string.Manual_check_healthReport)
+//                        .setPositiveButton(R.string.Manual_check_healthReport_btn, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                Toast.makeText(ManuallyInputActivity.this, "Food name & quantity have saved in database successfully!", Toast.LENGTH_SHORT).show();
+//
+//                                //跳转到health report页面
+//                                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+//                                ManuallyInputActivity.this.startActivity(intent);
+//
+//                                finish();
+//                            }
+//                        });
+//                builder.create().show();
 
             }
         });

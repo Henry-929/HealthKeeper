@@ -62,29 +62,14 @@ public class UserCustomizeActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
-        getFoodInfofromDatabase();
+        //getFoodInfofromDatabase();
 
-//        categorySpinner.setAdapter(spinneradapter);
-//        categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
-//        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> arg0, View arg1,
-//                                       int arg2, long arg3) {
-//                // TODO Auto-generated method stub
-//                FoodCategory = addFoodCategory[arg2];
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> arg0) {
-//                // TODO Auto-generated method stub
-//
-//            }
-//        });
 
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(UserCustomizeActivity.this, FoodDisplayActivity.class);
+                Intent intent = new Intent(UserCustomizeActivity.this, ManuallyInputActivity.class);
                 if (intent != null) {
                     UserCustomizeActivity.this.startActivity(intent);
                 }
