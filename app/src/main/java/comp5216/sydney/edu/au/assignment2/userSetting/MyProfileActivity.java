@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.assignment2.userSetting;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 import java.text.DecimalFormat;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.addMeal.ImageConfirmActivity;
 import comp5216.sydney.edu.au.assignment2.login.User;
 
 
@@ -49,13 +52,31 @@ public class MyProfileActivity extends AppCompatActivity {
         cancelEdit = (LinearLayout)findViewById(R.id.profile_ll_edit_quit);
         cancelEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                //todo 不保存信息，直接退出
-                Intent intent = new Intent(MyProfileActivity.this, UserActivity.class);
-                if (intent != null) {
-                    MyProfileActivity.this.startActivity(intent);
-                }
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyProfileActivity.this);
+                builder.setTitle(R.string.dialog_cancel_title)
+                        .setMessage(R.string.dialog_cancel_msg)
+                        .setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Prepare data intent for sending it back
+                                Intent data = new Intent();
+
+                                // Activity finished ok, return the data
+                                setResult(RESULT_CANCELED, data);
+                                // set result code and bundle data for response
+                                // closes the activity, pass data to parent
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // User cancelled the dialog
+                                // Nothing happens
+                            }
+                        });
+                builder.create().show();
             }
+
         });
 
         confirmEdit = (Button)findViewById(R.id.profile_btn_edit_confirm);
