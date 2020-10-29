@@ -7,4 +7,6 @@
     <string name="dialog_cancel_title">Are you sure to cancel this edit? </string>
     <string name="dialog_cancel_msg">Your unsaved edit will be discarded if you click YES</string>
     <string name="add_the_custom_food_manually"><u><i>Add custom food.</i></u></string>
+    <string name="YES">YES</string>
+    <string name="NO">NO</string>
 </resources>

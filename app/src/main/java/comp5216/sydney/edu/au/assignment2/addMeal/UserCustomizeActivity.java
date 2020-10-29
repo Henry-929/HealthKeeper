@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -88,15 +90,31 @@ public class UserCustomizeActivity extends AppCompatActivity {
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                //todo 弹窗
-               if(true){
-                   Intent intent = new Intent(UserCustomizeActivity.this, MainActivity.class);
-                    if (intent != null) {
-                        UserCustomizeActivity.this.startActivity(intent);
-                    }
-                }
-               }
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserCustomizeActivity.this);
+                builder.setTitle(R.string.dialog_cancel_title)
+                        .setMessage(R.string.dialog_cancel_msg)
+                        .setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Prepare data intent for sending it back
+                                Intent data = new Intent();
+
+                                // Activity finished ok, return the data
+                                setResult(RESULT_CANCELED, data);
+                                // set result code and bundle data for response
+                                // closes the activity, pass data to parent
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // User cancelled the dialog
+                                // Nothing happens
+                            }
+                        });
+                builder.create().show();
+            }
+
         });
 
     }

@@ -1,6 +1,7 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
@@ -77,14 +79,39 @@ public class ImageConfirmActivity extends Activity {
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                //todo 弹窗
-                if(true){
-                    Intent intent = new Intent(ImageConfirmActivity.this, MainActivity.class);
-                    if (intent != null) {
-                        ImageConfirmActivity.this.startActivity(intent);
-                    }
-                }
+//            public void onClick(View v){
+//                //todo 弹窗
+//                if(true){
+//                    Intent intent = new Intent(ImageConfirmActivity.this, MainActivity.class);
+//                    if (intent != null) {
+//                        ImageConfirmActivity.this.startActivity(intent);
+//                    }
+//                }
+//            }
+
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ImageConfirmActivity.this);
+                builder.setTitle(R.string.dialog_cancel_title)
+                        .setMessage(R.string.dialog_cancel_msg)
+                        .setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Prepare data intent for sending it back
+                                Intent data = new Intent();
+
+                                // Activity finished ok, return the data
+                                setResult(RESULT_CANCELED, data);
+                                // set result code and bundle data for response
+                                // closes the activity, pass data to parent
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // User cancelled the dialog
+                                // Nothing happens
+                            }
+                        });
+                builder.create().show();
             }
         });
 
