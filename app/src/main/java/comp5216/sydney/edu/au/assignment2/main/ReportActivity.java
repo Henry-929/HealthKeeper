@@ -227,7 +227,7 @@ public class ReportActivity extends AppCompatActivity {
     public void setFoodIntake(int number,boolean status){
         TextView mealNumber = (TextView)findViewById(R.id.report_display_meal_number);
         TextView mealStatus = (TextView)findViewById(R.id.report_display_meal_status);
-        mealNumber.setText(number+" times");
+        mealNumber.setText(number+" types");
         if(status){
             mealStatus.setText("+");
         }else{

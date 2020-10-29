@@ -372,22 +372,30 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:text="calories"
-                        android:layout_marginStart="330dp"
-                        android:textSize="12sp"/>
+                        android:layout_marginStart="240dp"
+                        android:text="calories           Suggestion"
+                        android:textSize="12sp" />
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:text="(kilojoules)"
+                        android:layout_marginStart="230dp"
+                        android:text="(percentage)"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="325dp"
-                        android:textSize="12sp"/>
+                        android:text=""
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -578,9 +586,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:text="Meal number"
+                        android:text="diversity"
                         android:layout_gravity="center"
-                        android:layout_marginStart="230dp"/>
+                        android:layout_marginStart="240dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -588,17 +596,17 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:text="calories"
-                            android:layout_marginStart="30dp"
+                            android:text="Energy"
+                            android:layout_marginStart="55dp"
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:text="(kilojoules)"
-                            android:layout_marginStart="25dp"
+                            android:text="(Calorie)"
+                            android:layout_marginStart="50dp"
                             android:textSize="12sp"/>
 
                     </LinearLayout>
@@ -620,7 +628,7 @@
                         android:id="@+id/report_display_meal_number"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="140dp"
+                        android:layout_marginStart="130dp"
                         android:layout_marginTop="5dp"
                         android:text="-" />
 
