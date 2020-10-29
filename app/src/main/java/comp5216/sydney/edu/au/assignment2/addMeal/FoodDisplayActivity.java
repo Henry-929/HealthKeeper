@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import org.w3c.dom.Text;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class FoodDisplayActivity extends Activity {
 
@@ -32,7 +33,7 @@ public class FoodDisplayActivity extends Activity {
         ll_quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FoodDisplayActivity.this, FoodDisplayActivity.class);
+                Intent intent = new Intent(FoodDisplayActivity.this, MainActivity.class);
                 if (intent != null) {
                     FoodDisplayActivity.this.startActivity(intent);
                 }
