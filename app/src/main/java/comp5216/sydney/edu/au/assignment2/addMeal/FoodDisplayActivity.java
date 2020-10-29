@@ -42,11 +42,11 @@ public class FoodDisplayActivity extends Activity {
         calorieIntake = (TextView)findViewById(R.id.meal_display_already_intake);
         calorieTotal = (TextView)findViewById(R.id.meal_display_total_intake);
         calorieLeft= (TextView)findViewById(R.id.meal_display_left_intake);
-        userIntake = "2500";
+        userIntake = "1250";
         userTotal="2500";
         calorieIntake.setText(userIntake);
         calorieTotal.setText(userTotal);
-        leftInt = Integer.parseInt(userIntake)-Integer.parseInt(userTotal);
+        leftInt = Integer.parseInt(userTotal)-Integer.parseInt(userIntake);
         userLeft = String.valueOf(leftInt);
         calorieLeft.setText(userLeft);
 

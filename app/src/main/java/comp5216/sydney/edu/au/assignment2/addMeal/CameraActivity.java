@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Surface;
@@ -31,6 +32,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.baidu.aip.imageclassify.*;
@@ -78,8 +80,8 @@ public class CameraActivity extends Activity{
     private String mCameraID;
     private CameraManager mCameraManager;
     private CameraCaptureSession mCameraCaptureSession;
-    private TextView textView;
-    private ImageView iv_show;
+    private TextView processLabel;
+    private ProgressBar progressBar;
     public String foodName;
 
     private static final SparseIntArray ORIENTATION = new SparseIntArray();
@@ -101,12 +103,11 @@ public class CameraActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_camera);
+        initView();
 
         captureBtn = (ImageButton) findViewById(R.id.capture);
-        iv_show = (ImageView) findViewById(R.id.iv_show);
-
-
-        initView();
+        processLabel = (TextView)findViewById(R.id.progress_label);
+        progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         captureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +150,6 @@ public class CameraActivity extends Activity{
         Log.d("initCamera2","start");
         HandlerThread handlerThread = new HandlerThread("Camera2");
         handlerThread.start();
-        textView = (TextView)findViewById(R.id.ttttttttttt);
         childHandler = new Handler(handlerThread.getLooper());
         mainHandler = new Handler(getMainLooper());
         mCameraID = "" + CameraCharacteristics.LENS_FACING_FRONT;//后摄像头
@@ -160,6 +160,7 @@ public class CameraActivity extends Activity{
                 Log.d("initCamera2","进入");
                 mCameraDevice.close();
                 mSurfaceView.setVisibility(View.GONE);
+                captureBtn.setVisibility(View.GONE);
 //                iv_show.setVisibility(View.VISIBLE);
                 // 拿到拍照照片数据
                 Image image = reader.acquireNextImage();
@@ -169,7 +170,8 @@ public class CameraActivity extends Activity{
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
                 if (bitmap != null) {
-                    textView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    processLabel.setVisibility(View.VISIBLE);
                     imageRecognition_baiduAPI(bitmap);
                 }
             }
@@ -285,7 +287,6 @@ public class CameraActivity extends Activity{
                             float confidence = label.getConfidence();
                             int index = label.getIndex();
                             System.out.println(text);
-                            textView.append(text+"\n");
                         }
 
                     }
