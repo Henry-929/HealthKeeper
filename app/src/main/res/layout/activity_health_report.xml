@@ -379,7 +379,7 @@
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="240dp"
-                        android:text="calories           Suggestion"
+                        android:text="calories               statues"
                         android:textSize="12sp" />
 
                     <TextView
@@ -625,7 +625,7 @@
                         android:text="Food" />
 
                     <TextView
-                        android:id="@+id/report_display_meal_number"
+                        android:id="@+id/report_display_diversity_number"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="130dp"
@@ -633,7 +633,7 @@
                         android:text="-" />
 
                     <TextView
-                        android:id="@+id/report_display_meal_status"
+                        android:id="@+id/report_display_energy_status"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
