@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -31,7 +29,7 @@
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Add meal"
+            android:text="@string/add_meal"
             android:textColor="#fff"
             android:textSize="25sp" />
     </LinearLayout>
@@ -57,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Intake"/>
+                    android:text="@string/intake"/>
 
                 <TextView
                     android:id="@+id/meal_display_already_intake"
@@ -85,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Your can still intake "/>
+                        android:text="@string/your_can_still_intake"/>
 
                     <TextView
                         android:id="@+id/meal_display_left_intake"
@@ -98,7 +96,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" kilojoules"/>
+                        android:text="@string/kilojoules"/>
                 </LinearLayout>
 
 
@@ -129,7 +127,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Recommended intake: "/>
+                        android:text="@string/recommended_intake"/>
 
                     <TextView
                         android:id="@+id/meal_display_total_intake"
@@ -152,9 +150,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Breakfast"
+            android:text="@string/breakfast"
             android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
         <ListView
             android:id="@+id/listView_breakfast"
             android:layout_width="fill_parent"
@@ -170,9 +168,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lunch"
+            android:text="@string/lunch"
             android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
         <ListView
             android:id="@+id/listView_lunch"
             android:layout_width="fill_parent"
@@ -188,9 +186,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dinner"
+            android:text="@string/dinner"
             android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
         <ListView
             android:id="@+id/listView_dinner"
             android:layout_width="fill_parent"

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="What is your age?"
+        android:text="@string/what_is_your_age"
         android:layout_marginTop="60dp"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,13 +27,13 @@
         android:layout_marginEnd="30dp"
         android:ems="10"
         android:inputType="number"
-        android:hint="24 (years old)" />
+        android:hint="@string/_24_years_old" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="What is your weight?"
+        android:text="@string/what_is_your_weight"
         android:layout_marginTop="80dp"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
         android:layout_marginEnd="30dp"
         android:ems="10"
         android:inputType="number"
-        android:hint="50kg" />
+        android:hint="@string/_50kg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="70dp"
             android:background="@drawable/btn_circle_shape"
-            android:text="click to start"
+            android:text="@string/click_to_start"
             android:textColor="#fff" />
     </LinearLayout>
 </LinearLayout>

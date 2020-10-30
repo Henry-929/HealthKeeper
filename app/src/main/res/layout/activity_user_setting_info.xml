@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -31,7 +29,7 @@
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Edit Profile"
+            android:text="@string/edit_profile"
             android:textColor="#fff"
             android:textSize="25sp" />
         <LinearLayout
@@ -46,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
                 android:textColor="#fff"
-                android:text="Confirm " />
+                android:text="@string/confirm" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -87,7 +85,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="My Name"
+                        android:text="@string/my_name"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -133,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="Gender"/>
+                        android:text="@string/gender"/>
 
                     <LinearLayout
                         android:layout_width="2dp"
@@ -175,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="Height"/>
+                        android:text="@string/height"/>
 
                     <LinearLayout
                         android:layout_width="2dp"
@@ -218,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="Weight"/>
+                        android:text="@string/weight2"/>
 
                     <LinearLayout
                         android:layout_width="2dp"
@@ -261,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="Age"/>
+                        android:text="@string/age"/>
 
                     <LinearLayout
                         android:layout_width="2dp"

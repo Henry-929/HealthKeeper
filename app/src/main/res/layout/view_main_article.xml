@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:maxLines="1"
-            android:text="title"
+            android:text=""
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:text="des"
+            android:text=""
             android:textColor="#666666"
             android:textSize="13sp" />
     </LinearLayout>

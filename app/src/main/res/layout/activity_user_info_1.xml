@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="What's your gender?"
+        android:text="@string/what_s_your_gender"
         android:layout_marginTop="60dp"
         android:textSize="30sp" />
 
@@ -64,14 +62,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Male"
+            android:text="@string/male"
             android:checked="false"/>
         <RadioButton
             android:id="@+id/label_gender_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="Female"
+            android:text="@string/female"
             android:textSize="20sp"
             android:layout_marginLeft="110dp"/>
     </RadioGroup>
@@ -79,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="What's your height?"
+        android:text="@string/what_s_your_height"
         android:layout_marginTop="60dp"
         android:textSize="30sp" />
 
@@ -90,7 +88,7 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="170.0cm"
+        android:hint="@string/_170_0cm"
         android:inputType="number" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
             android:background="@drawable/btn_circle_shape"
-            android:text="Next"
+            android:text="@string/next"
             android:textColor="#fff" />
     </LinearLayout>
 </LinearLayout>

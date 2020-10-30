@@ -30,7 +30,7 @@
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Add Custom Food"
+            android:text="@string/add_custom_food"
             android:textColor="#fff"
             android:textSize="25sp" />
         <LinearLayout
@@ -45,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
                 android:textColor="#fff"
-                android:text="Save " />
+                android:text="@string/save" />
         </LinearLayout>
     </LinearLayout>
 
@@ -53,11 +53,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Required Information"
+            android:text="@string/required_information"
             android:textSize="20sp"
             android:layout_marginStart="10dp"
             android:textStyle="bold"/>
@@ -70,8 +70,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Food Name:"
-                android:textSize="20dp"/>
+                android:text="@string/food_name"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -82,15 +82,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="  e.g. Hamburger"/>
+                android:hint="@string/e_g_hamburger"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorGrey" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -104,8 +97,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Food Calorie:"
-                android:textSize="20dp"/>
+                android:text="@string/food_calorie"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -116,14 +109,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:background="@null"
-                android:hint="e.g. 100 kilocalorie"/>
+                android:hint="@string/e_g_100_kilocalorie"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorGrey" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -132,7 +119,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Details Information"
+            android:text="@string/details_information"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:layout_marginStart="10dp"
@@ -145,8 +132,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Protein:"
-                android:textSize="20dp"/>
+                android:text="@string/protein"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -161,8 +148,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="gram"
-                android:textSize="15dp"/>
+                android:text="@string/gram"
+                android:textSize="15sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,8 +164,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Carbohydrate"
-                android:textSize="20dp"/>
+                android:text="@string/carbohydrate"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -192,8 +179,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="gram"
-                android:textSize="15dp"/>
+                android:text="@string/gram"
+                android:textSize="15sp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -209,8 +196,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fat"
-                android:textSize="20dp"/>
+                android:text="@string/fat"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -224,8 +211,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="gram"
-                android:textSize="15dp"/>
+                android:text="@string/gram"
+                android:textSize="15sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -236,9 +223,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textStyle="italic"
-        android:text="*In order to avoid confusion in the food record data,\n custom food can not be changed after creation."/>
+        android:text="@string/custom_alert"/>
 </LinearLayout>

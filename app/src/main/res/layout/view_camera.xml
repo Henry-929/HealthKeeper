@@ -19,7 +19,7 @@
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Image Processing"
+            android:text="@string/image_processing"
             android:textSize="30sp"/>
         <ProgressBar
             android:visibility="gone"

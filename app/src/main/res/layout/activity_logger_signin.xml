@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -16,7 +15,7 @@
             android:id="@+id/label_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please Sign In"
+            android:text="@string/please_sign_in"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -31,7 +30,7 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"/>
 
         <EditText
@@ -39,7 +38,7 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:layout_marginTop="20dp"/>
 
@@ -49,7 +48,7 @@
             android:layout_height="30dp"
             android:layout_marginStart="65dp"
             android:textSize="9sp"
-            android:text="Forget your password?"
+            android:text="@string/forget_your_password"
             android:background="@null"/>
     </LinearLayout>
 
@@ -64,14 +63,14 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_circle_shape"
-            android:text="Sign in"
+            android:text="@string/sign_in"
             android:textColor="#fff"/>
         <Button
             android:id="@+id/btn_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="Do not have account? Sign up!"
+            android:text="@string/do_not_have_account_sign_up"
             android:background="@null"/>
         <TextView
             android:id="@+id/verifyMsg"
@@ -80,7 +79,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Email Not Verfied !"
+            android:text="@string/email_not_verfied"
             android:textColor="#C2185B"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -93,7 +92,7 @@
             android:id="@+id/resendCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Verify Now"
+            android:text="@string/verify_now"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //define button
         final Button mtReportBtn=findViewById(R.id.btn_main_to_report);
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
 
         mtReportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         break;
                     case R.id.navigation_add:
                         userChoice();
@@ -140,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void userChoice(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.setTitle("Input Method");
+        builder.setIcon(getDrawable(R.drawable.icon_alert));
+        builder.setTitle("Record Method");
         final String []items=new String[]{"Manual","Photo"};
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
             //which指的是用户选择的条目的下标
@@ -163,7 +162,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void onManualClick(){
         Intent intent = new Intent(MainActivity.this, ManuallyInputActivity.class);
-        startActivity(intent);
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 
     /*

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -16,7 +14,7 @@
             android:id="@+id/label_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset Your Password"
+            android:text="@string/reset_your_password"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -30,14 +28,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="What's your email address?"/>
+            android:text="@string/what_s_your_email_address"/>
 
         <EditText
             android:id="@+id/logger_reset_email"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"/>
 
     </LinearLayout>
@@ -53,14 +51,14 @@
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_circle_shape"
-            android:text="Reset"
+            android:text="@string/reset"
             android:textColor="#fff"/>
         <Button
             android:id="@+id/btn_back_to_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="Sign in instead"
+            android:text="@string/sign_in_instead"
             android:background="@null"/>
     </LinearLayout>
 </LinearLayout>

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +27,7 @@
             android:paddingStart="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Add Food Manually"
+            android:text="@string/add_food_manually"
             android:textColor="#fff"
             android:textSize="25sp" />
         <LinearLayout
@@ -38,14 +35,13 @@
             android:layout_height="match_parent"
             android:gravity="right"
             android:orientation="vertical">
-
             <Button
                 android:id="@+id/btn_add_food_custom_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_confirm"
                 android:textColor="#fff"
-                android:text="Confirm " />
+                android:text="@string/confirm" />
         </LinearLayout>
     </LinearLayout>
 
@@ -53,11 +49,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Required Information"
+            android:text="@string/required_information"
             android:textSize="20sp"
             android:layout_marginStart="10dp"
             android:textStyle="bold"/>
@@ -70,8 +66,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Food Name:"
-                android:textSize="20dp"/>
+                android:text="@string/food_name"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -82,7 +78,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="  e.g. Hamburger"/>
+                android:hint="@string/e_g_hamburger"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,8 +94,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Food Quantity:"
-                android:textSize="20dp"/>
+                android:text="@string/food_quantity"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -110,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:background="@null"
-                android:hint="  e.g. 1"/>
+                android:hint="@string/e_g_1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -126,8 +122,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Food Category:"
-                android:textSize="20dp"/>
+                android:text="@string/food_category"
+                android:textSize="20sp"/>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -135,7 +131,7 @@
             <Spinner
                 android:gravity="right"
                 android:id="@+id/custom_add_food_category"
-                android:layout_width="200dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
@@ -147,20 +143,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:textStyle="italic"
-            android:text="*The food name does not match? Try this: "/>
+            android:text="@string/the_food_name_does_not_match_try_this"/>
         <Button
             android:id="@+id/btn_add_custom_food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/add_the_custom_food_manually"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/colorMint"
             android:background="@null"/>
     </LinearLayout>

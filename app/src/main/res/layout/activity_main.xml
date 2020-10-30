@@ -101,7 +101,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="Now (Kg)"
+                            android:text="@string/now_kg"
                             android:textColor="#869d9d"
                             android:textSize="15sp" />
                         <TextView
@@ -109,7 +109,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="55dp"
                             android:layout_marginTop="5dp"
-                            android:text="BMI"
+                            android:text="@string/bmi"
                             android:textColor="#869d9d"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -155,7 +155,7 @@
 
                     android:layout_marginRight="10dp"
                     android:background="@null"
-                    android:text="Health Report >>"
+                    android:text="@string/health_report2"
                     android:textColor="#869d9d" />
             </LinearLayout>
         </LinearLayout>

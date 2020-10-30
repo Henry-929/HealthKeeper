@@ -43,6 +43,7 @@ public class UserActivity extends AppCompatActivity {
     public ImageView imageView_userImage;
     public String gender,username;//用于获取数据库存储的username信息
 
+    MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
 
     public DatabaseReference databaseReference;
     public FirebaseStorage storage;
@@ -135,15 +136,58 @@ public class UserActivity extends AppCompatActivity {
                         startActivity(new Intent(UserActivity.this, MainActivity.class));
                         break;
                     case R.id.navigation_add:
-                        //todo
+                        userChoice();
                         break;
                     case R.id.navigation_user:
-                        startActivity(new Intent(UserActivity.this, UserActivity.class));
                         break;
                 }
                 return true;
             }
         });
+    }
+    public void userChoice(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setIcon(getDrawable(R.drawable.icon_alert));
+        builder.setTitle("Record Method");
+        final String []items=new String[]{"Manual","Photo"};
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+            //which指的是用户选择的条目的下标
+            //dialog:触发这个方法的对话框
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    onManualClick();
+                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                }
+                if (which == 1){
+                    onTakePhotoClick();
+                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public void onManualClick(){
+        Intent intent = new Intent(UserActivity.this, ManuallyInputActivity.class);
+        if (intent != null) {
+            startActivity(intent);
+        }
+    }
+
+    /*
+    Take Photo action
+     */
+
+    public void onTakePhotoClick(){
+        // Check permissions
+        if (!marshmallowPermission.checkPermissionForCamera()
+                || !marshmallowPermission.checkPermissionForExternalStorage()) {
+            marshmallowPermission.requestPermissionForCamera();
+        }  else {
+            Intent intent = new Intent(UserActivity.this, CameraActivity.class);
+            startActivity(intent);
+        }
     }
 
 
