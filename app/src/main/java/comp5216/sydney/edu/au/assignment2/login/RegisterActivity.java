@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity{
         Email=(EditText) findViewById(R.id.logger_signup_email);
         Password=(EditText) findViewById(R.id._logger_signup_password);
         Confirm_password=(EditText) findViewById(R.id.logger_signup_password_confirm);
-        Security=(EditText) findViewById(R.id.logger_signup_security_code);
+        //Security=(EditText) findViewById(R.id.logger_signup_security_code);
 
         BackToSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override

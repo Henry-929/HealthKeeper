@@ -4,18 +4,25 @@ public class al_UsersFood {
 
     private String foodname,quantity,category;
 //    public double d_quantity;
-    private String calorie,carbohydrate,fat,protein;
+    private String calorie,carbs,fat,protein;
 //    public double d_calorie,d_carbohydrate,d_fat,d_protein;
 
     public al_UsersFood(){}
 
-    public al_UsersFood(String foodname,String quantity,String category,String calorie,String carbohydrate,String fat,String protein){
+    public al_UsersFood(String calorie,String carbs,String fat,String protein){
+        this.calorie =calorie;
+        this.carbs = carbs;
+        this.fat = fat;
+        this.protein = protein;
+    }
+
+    public al_UsersFood(String foodname,String quantity,String category,String calorie,String carbs,String fat,String protein){
         this.foodname = foodname;
         this.quantity = quantity;
         this.category = category;
 
         this.calorie =calorie;
-        this.carbohydrate = carbohydrate;
+        this.carbs = carbs;
         this.fat = fat;
         this.protein = protein;
 
@@ -46,8 +53,8 @@ public class al_UsersFood {
         this.calorie = calorie;
     }
 
-    public void setCarbohydrate(String carbohydrate) {
-        this.carbohydrate = carbohydrate;
+    public void setCarbohydrate(String carbs) {
+        this.carbs = carbs;
     }
 
     public void setCategory(String category) {
@@ -78,8 +85,8 @@ public class al_UsersFood {
         return calorie;
     }
 
-    public String getCarbohydrate() {
-        return carbohydrate;
+    public String getCarbs() {
+        return carbs;
     }
 
     public String getFat() {
