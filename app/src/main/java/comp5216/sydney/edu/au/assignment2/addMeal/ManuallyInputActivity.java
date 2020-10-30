@@ -150,6 +150,11 @@ public class ManuallyInputActivity extends AppCompatActivity {
             editTextFoodQuantity.requestFocus();
             return;
         }
+        //判断（点击confirm按钮后，
+        // 若foodname中输入的是一个 在Food db中检索不到的食物，则提示弹窗“用户需要custom food”）
+        // todo
+
+
 
         //将user-food 该用户输入的食物信息存入数据库
        UserFoodAdd_toDatabase();

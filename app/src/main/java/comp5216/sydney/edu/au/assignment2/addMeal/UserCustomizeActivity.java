@@ -145,6 +145,8 @@ public class UserCustomizeActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        //弹窗提示用户"已经成功添加食物"
+
                         //manuallyInput 页面
                         Intent intent = new Intent(UserCustomizeActivity.this, ManuallyInputActivity.class);
                         startActivity(intent);

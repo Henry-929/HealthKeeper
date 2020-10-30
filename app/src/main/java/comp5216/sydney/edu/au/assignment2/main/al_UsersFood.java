@@ -2,10 +2,12 @@ package comp5216.sydney.edu.au.assignment2.main;
 
 public class al_UsersFood {
 
-    public String foodname,quantity,category;
-    public double d_quantity;
-    public String calorie,carbohydrate,fat,protein;
-    public double d_calorie,d_carbohydrate,d_fat,d_protein;
+    private String foodname,quantity,category;
+//    public double d_quantity;
+    private String calorie,carbohydrate,fat,protein;
+//    public double d_calorie,d_carbohydrate,d_fat,d_protein;
+
+    public al_UsersFood(){}
 
     public al_UsersFood(String foodname,String quantity,String category,String calorie,String carbohydrate,String fat,String protein){
         this.foodname = foodname;
@@ -21,43 +23,78 @@ public class al_UsersFood {
 
     }
 
-    public void convertTodouble(){
+//    public void convertTodouble(){
+//
+//        d_quantity = Double.parseDouble(quantity);
+//
+//        d_calorie = Double.parseDouble(calorie);
+//        d_carbohydrate = Double.parseDouble(carbohydrate);
+//        d_fat = Double.parseDouble(fat);
+//        d_protein = Double.parseDouble(protein);
+//
+//        d_calorie = d_calorie * d_quantity;
+//        d_carbohydrate = d_carbohydrate * d_quantity;
+//        d_fat = d_fat * d_quantity;
+//        d_protein = d_protein * d_quantity;
+//
+//    }
 
-        d_quantity = Double.parseDouble(quantity);
 
-        d_calorie = Double.parseDouble(calorie);
-        d_carbohydrate = Double.parseDouble(carbohydrate);
-        d_fat = Double.parseDouble(fat);
-        d_protein = Double.parseDouble(protein);
 
-        d_calorie = d_calorie * d_quantity;
-        d_carbohydrate = d_carbohydrate * d_quantity;
-        d_fat = d_fat * d_quantity;
-        d_protein = d_protein * d_quantity;
 
+    public void setCalorie(String calorie) {
+        this.calorie = calorie;
+    }
+
+    public void setCarbohydrate(String carbohydrate) {
+        this.carbohydrate = carbohydrate;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setFat(String fat) {
+        this.fat = fat;
+    }
+
+    public void setFoodname(String foodname) {
+        this.foodname = foodname;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public double getD_calorie(){
-        return d_calorie;
+    public String getCalorie() {
+        return calorie;
     }
 
-    public double getD_carbohydrate() {
-        return d_carbohydrate;
+    public String getCarbohydrate() {
+        return carbohydrate;
     }
 
-    public double getD_fat() {
-        return d_fat;
+    public String getFat() {
+        return fat;
     }
 
-    public double getD_protein() {
-        return d_protein;
+    public String getFoodname() {
+        return foodname;
     }
 
-    public double getD_quantity() {
-        return d_quantity;
+    public String getProtein() {
+        return protein;
+    }
+
+    public String getQuantity() {
+        return quantity;
     }
 }
