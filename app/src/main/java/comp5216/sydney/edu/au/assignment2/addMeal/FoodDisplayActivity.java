@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
-public class FoodDisplayActivity extends Activity implements AdapterView.OnItemClickListener {
+public class FoodDisplayActivity extends Activity {
 
     private Context mContext;
 
@@ -38,14 +36,12 @@ public class FoodDisplayActivity extends Activity implements AdapterView.OnItemC
         mContext = this;
 
         //1.获取新闻数据用list封装
-        ArrayList<FoodBean> allFood = FoodUtils.getAllFood(mContext);
+        ArrayList<UsersFood> allFood = FoodUtils.getAllFood(mContext);
         //2.找到控件
         ListView listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
         //3.创建一个adapter设置给listview
         FoodAdapter foodAdapter = new FoodAdapter(mContext, allFood);
         listView_breakfast.setAdapter(foodAdapter);
-        //4.设置listview条目的点击事件
-        listView_breakfast.setOnItemClickListener(this);
 
         ll_quit = (LinearLayout)findViewById(R.id.ll_display_food_cancel);
         ll_quit.setOnClickListener(new View.OnClickListener() {
@@ -76,23 +72,5 @@ public class FoodDisplayActivity extends Activity implements AdapterView.OnItemC
         Resources r = getResources();
         linearParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,bar_width,r.getDisplayMetrics());
         progress_bar.setLayoutParams(linearParams);
-    }
-
-    //listview的条目点击时会调用该方法   parent:代表listviw  view:点击的条目上的那个view对象   position:条目的位置  id： 条目的id
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-
-        //需要获取条目上bean对象中url做跳转
-        FoodBean bean = (FoodBean) parent.getItemAtPosition(position);
-
-        String url = bean.news_url;
-
-        //跳转浏览器
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-        startActivity(intent);
-
     }
 }

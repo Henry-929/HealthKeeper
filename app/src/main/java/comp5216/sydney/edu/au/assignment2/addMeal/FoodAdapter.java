@@ -13,11 +13,11 @@ import comp5216.sydney.edu.au.assignment2.R;
 
 public class FoodAdapter extends BaseAdapter {
 
-    private ArrayList<FoodBean> list;
+    private ArrayList<UsersFood> list;
     private Context context;
 
     //通过构造方法接受要显示的食物数据集合
-    public FoodAdapter(Context context, ArrayList<FoodBean> list) {
+    public FoodAdapter(Context context, ArrayList<UsersFood> list) {
         this.list = list;
         this.context = context;
     }
@@ -66,7 +66,7 @@ public class FoodAdapter extends BaseAdapter {
         ImageView food_image = (ImageView) view.findViewById(R.id.food_image);
 
         //3.获取postion位置条目对应的list集合中的新闻数据，Bean对象
-        FoodBean usersFood = list.get(position);
+        UsersFood usersFood = list.get(position);
 
         //4.将数据设置给这些子控件做显示
         food_name.setText(usersFood.foodname);
