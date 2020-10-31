@@ -8,9 +8,25 @@ public class UsersFood {
     public String calorie;
     public Drawable icon;
 
-    public UsersFood(){}
+    public UsersFood(String foodname,String calorie,Drawable icon){
+        this.foodname = foodname;
+        this.calorie = calorie;
+        this.icon = icon;
+    }
 
-    public UsersFood(String foodname,String quantity,String category){
+    public String getFoodname() {
+        return foodname;
+    }
+
+    public String getCalorie() {
+        return calorie;
+    }
+
+    public Drawable getIcon() {
+        return icon;
+    }
+
+    public UsersFood(String foodname, String quantity, String category){
         this.foodname = foodname;
         this.quantity = quantity;
         this.category = category;

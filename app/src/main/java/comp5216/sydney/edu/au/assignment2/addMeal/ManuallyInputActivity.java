@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
@@ -32,6 +35,7 @@ import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
 public class ManuallyInputActivity extends AppCompatActivity {
+    public final int EDIT_ITEM_REQUEST_CODE = 647;
 
     public static String uid;
     DatabaseReference databaseReference;
@@ -122,16 +126,30 @@ public class ManuallyInputActivity extends AppCompatActivity {
             }
         });
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        confirmBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                //将user-food 该用户输入的食物信息存入数据库
+//                UserFoodAdd();
+//                //UserFoodAdd_toDatabase();
+//
+//            }
+//        });
+    }
 
-                //将user-food 该用户输入的食物信息存入数据库
-                UserFoodAdd();
-                //UserFoodAdd_toDatabase();
+    /** Called when the user taps the Send button */
+    public void sendMessage(View view) {
+        editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
+        String message = editTextFoodName.getText().toString();
 
-            }
-        });
+        //跳转到food display页面
+        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+
+        intent.putExtra("foodname", message);
+        //Use the setResult() method with a response code and the Intent with the response data
+        setResult(RESULT_OK, intent);
+        startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
     }
 
     public void UserFoodAdd(){
@@ -178,9 +196,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        //跳转到food display页面
-                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-                                        startActivity(intent);
+
                                     }
                                 });
                     }

@@ -39,6 +39,7 @@
                 android:id="@+id/btn_add_food_custom_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:onClick="sendMessage"
                 android:background="@drawable/btn_confirm"
                 android:textColor="#fff"
                 android:text="@string/confirm" />
