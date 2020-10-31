@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 public class FoodDisplayActivity extends Activity {
     public String Calorie,Protein,Carbohydrate,Fat;
 
-    ListView listView_breakfast;
+    ListView listView_breakfast,listView_lunch,listView_dinner;
     FoodAdapter foodAdapter;
     ArrayList<UsersFood> arrayList = new ArrayList<>();
 
@@ -51,12 +52,42 @@ public class FoodDisplayActivity extends Activity {
         // Get the Intent that started this activity and extract the string
 //        Intent intent = getIntent();
 //        String message = intent.getStringExtra(ManuallyInputActivity.EXTRA_MESSAGE_FOODNAME);
-        listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
-        foodAdapter = new FoodAdapter(this,arrayList);
-        listView_breakfast.setAdapter(foodAdapter);
 
         Intent data = getIntent();
         // Extract name value from result extras
+        String category = data.getExtras().getString("category");
+        switch(category){
+            case "Breakfast" :
+                //语句
+                listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
+                foodAdapter = new FoodAdapter(this,arrayList);
+                listView_breakfast.setAdapter(foodAdapter);
+                Toast.makeText(this, "Added:" + "嗷嗷1", Toast.LENGTH_SHORT).show();
+                break; //可选
+            case "Lunch" :
+                //语句
+                listView_lunch = (ListView) findViewById(R.id.listView_lunch);
+                foodAdapter = new FoodAdapter(this,arrayList);
+                listView_lunch.setAdapter(foodAdapter);
+                Toast.makeText(this, "Added:" + "嗷嗷2", Toast.LENGTH_SHORT).show();
+
+                break; //可选
+            //你可以有任意数量的case语句
+            case "Dinner":
+                //语句
+                listView_dinner = (ListView) findViewById(R.id.listView_dinner);
+                foodAdapter = new FoodAdapter(this,arrayList);
+                listView_dinner.setAdapter(foodAdapter);
+                Toast.makeText(this, "Added:" + "嗷嗷3", Toast.LENGTH_SHORT).show();
+
+                break;
+            default : //可选
+                //语句
+                Toast.makeText(this, "Added:" + "嗷嗷4", Toast.LENGTH_SHORT).show();
+
+        }
+
+
         String addFoodName = data.getExtras().getString("foodname");
         String addCalorie = data.getExtras().getString("calorie");
         Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));

@@ -38,8 +38,7 @@ import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 public class ManuallyInputActivity extends AppCompatActivity {
     public final int EDIT_ITEM_REQUEST_CODE = 647;
 
-    public static String messageCalorie;
-    public String Calorie;
+    public static String Calorie;
     public static String uid;
     DatabaseReference databaseReference;
 
@@ -47,7 +46,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
 
     //define food info
     public String addFoodName,addFoodQuantity,addFoodCategory;
-    private Spinner categorySpinner;
+    public Spinner categorySpinner;
     private ArrayAdapter<String> spinneradapter = null;
 
     private static final String [] FoodCategory ={"Breakfast","Lunch","Dinner","Other"};
@@ -145,6 +144,8 @@ public class ManuallyInputActivity extends AppCompatActivity {
     public void sendMessage() {
         editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
         String message = editTextFoodName.getText().toString();
+        categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
+        String category = categorySpinner.getSelectedItem().toString();
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Food").child(message);
@@ -159,8 +160,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
                         String d_Key = messageSnapshot.getKey();
                         if(d_Key.equals("calorie")){
                             Calorie = messageSnapshot.getValue().toString();
-                            editTextFoodQuantity.setText(Calorie);
-                            messageCalorie = editTextFoodQuantity.getText().toString();
 //                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -173,13 +172,14 @@ public class ManuallyInputActivity extends AppCompatActivity {
             }
         } );
 
-        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+Calorie,Toast.LENGTH_SHORT).show();
         //跳转到food display页面
         Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
 
         intent.putExtra("foodname", message);
-        intent.putExtra("calorie", messageCalorie);
+        intent.putExtra("calorie", Calorie);
         intent.putExtra("icon", R.drawable.examplefood_burger);
+        intent.putExtra("category",category);
         //Use the setResult() method with a response code and the Intent with the response data
         startActivity(intent);
         Toast.makeText(this, "Added:"+message, Toast.LENGTH_SHORT).show();
