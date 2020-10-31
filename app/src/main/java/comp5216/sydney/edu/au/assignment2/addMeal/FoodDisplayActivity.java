@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -50,6 +51,18 @@ public class FoodDisplayActivity extends Activity {
         foodAdapter = new FoodAdapter(this,arrayList);
         listView_breakfast.setAdapter(foodAdapter);
 
+        Intent data = getIntent();
+        // Extract name value from result extras
+        String addFoodName = data.getExtras().getString("foodname");
+        String addCalorie = data.getExtras().getString("calorie");
+        Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));
+
+        UsersFood usersFood = new UsersFood(addFoodName,addCalorie,
+                addIcon);
+        foodAdapter.addfood(usersFood);
+        Log.i("Added Item in list:", addFoodName);
+        Toast.makeText(this, "Added:" + addCalorie, Toast.LENGTH_SHORT).show();
+
 
         ll_quit = (LinearLayout)findViewById(R.id.ll_display_food_cancel);
         ll_quit.setOnClickListener(new View.OnClickListener() {
@@ -82,22 +95,25 @@ public class FoodDisplayActivity extends Activity {
         progress_bar.setLayoutParams(linearParams);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == EDIT_ITEM_REQUEST_CODE){
-            if (resultCode == RESULT_OK){
-                // Extract name value from result extras
-                String addFoodName = data.getExtras().getString("foodname");
-
-                UsersFood usersFood = new UsersFood(addFoodName,"200",
-                        ContextCompat.getDrawable(FoodDisplayActivity.this, R.drawable.examplefood_burger));
-                foodAdapter.add(usersFood);
-                Log.i("Added Item in list:", addFoodName);
-                Toast.makeText(this, "Added:" + addFoodName, Toast.LENGTH_SHORT).show();
-                foodAdapter.notifyDataSetChanged();
-            }
-        }
-    }
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == EDIT_ITEM_REQUEST_CODE){
+//            if (resultCode == RESULT_OK){
+//                data = getIntent();
+//                // Extract name value from result extras
+//                String addFoodName = data.getExtras().getString("foodname");
+//                String addCalorie = data.getExtras().getString("calorie");
+//                Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));
+//
+//                UsersFood usersFood = new UsersFood(addFoodName,addCalorie,
+//                        addIcon);
+//                foodAdapter.add(usersFood);
+//                Log.i("Added Item in list:", addFoodName);
+//                Toast.makeText(this, "Added:" + addCalorie, Toast.LENGTH_SHORT).show();
+//                foodAdapter.notifyDataSetChanged();
+//            }
+//        }
+//    }
 
 //    public static ArrayList<UsersFood> getAllFood(Context context,String foodname) {
 //        ArrayList<UsersFood> arrayList = new ArrayList<UsersFood>();

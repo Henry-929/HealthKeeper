@@ -15,42 +15,47 @@ import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.assignment2.R;
 
-public class FoodAdapter extends ArrayAdapter<UsersFood> {
-    public FoodAdapter(@NonNull Context context, ArrayList<UsersFood> arrayList) {
-        super(context,0,arrayList);
+public class FoodAdapter extends BaseAdapter {
+
+    private ArrayList<UsersFood> list;
+    private Context context;
+
+    //通过构造方法接受要显示的食物数据集合
+    public FoodAdapter(Context context, ArrayList<UsersFood> list) {
+        this.list = list;
+        this.context = context;
     }
 
-//    private ArrayList<UsersFood> list;
-//    private Context context;
-//
-//    //通过构造方法接受要显示的食物数据集合
-//    public FoodAdapter(Context context, ArrayList<UsersFood> list) {
-//        this.list = list;
-//        this.context = context;
-//    }
-//
-//    @Override
-//    public int getCount() {
-//        return list.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return list.get(position);
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//
+    public void addfood(UsersFood usersFood) {
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        list.add(usersFood);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        return list.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //1.复用converView优化listview,创建一个view作为getview的返回值用来显示一个条目
         if(convertView == null){
             //方法一:
             //context:上下文, resource:要转换成view对象的layout的id, root:将layout用root(ViewGroup)包一层作为codify的返回值,一般传null
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_meal_display, parent,false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.view_meal_display,parent,false);
             //将一个布局文件转换成一个view对象
 
             //方法二:
@@ -65,7 +70,7 @@ public class FoodAdapter extends ArrayAdapter<UsersFood> {
         }
 
         //3.获取postion位置条目对应的list集合中的新闻数据，Bean对象
-        UsersFood usersFood = getItem(position);
+        UsersFood usersFood = list.get(position);
 
         //2.获取view上的子控件对象
         TextView food_name = (TextView) convertView.findViewById(R.id.food_name);

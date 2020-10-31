@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -147,9 +148,11 @@ public class ManuallyInputActivity extends AppCompatActivity {
         Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
 
         intent.putExtra("foodname", message);
+        intent.putExtra("calorie", "200");
+        intent.putExtra("icon", R.drawable.examplefood_burger);
         //Use the setResult() method with a response code and the Intent with the response data
-        setResult(RESULT_OK, intent);
-        startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE);
+        startActivity(intent);
+        Toast.makeText(this, "Added:"+message, Toast.LENGTH_SHORT).show();
     }
 
     public void UserFoodAdd(){
