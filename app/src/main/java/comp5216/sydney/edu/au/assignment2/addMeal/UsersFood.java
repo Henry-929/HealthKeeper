@@ -5,10 +5,10 @@ import android.graphics.drawable.Drawable;
 public class UsersFood {
 
     public String foodname,quantity,category;
-    public String calorie;
+    public int calorie;
     public Drawable icon;
 
-    public UsersFood(String foodname,String calorie,Drawable icon){
+    public UsersFood(String foodname,int calorie,Drawable icon){
         this.foodname = foodname;
         this.calorie = calorie;
         this.icon = icon;
@@ -18,7 +18,7 @@ public class UsersFood {
         return foodname;
     }
 
-    public String getCalorie() {
+    public int getCalorie() {
         return calorie;
     }
 

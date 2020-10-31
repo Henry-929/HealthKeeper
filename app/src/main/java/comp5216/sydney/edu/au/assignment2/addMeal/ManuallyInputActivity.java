@@ -144,6 +144,8 @@ public class ManuallyInputActivity extends AppCompatActivity {
     public void sendMessage() {
         editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
         String message = editTextFoodName.getText().toString();
+        editTextFoodQuantity = (EditText)findViewById(R.id.custom_add_food_quantity);
+        String quantity = editTextFoodQuantity.getText().toString();
         categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
         String category = categorySpinner.getSelectedItem().toString();
 
@@ -155,7 +157,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot){
                 if(dataSnapshot.exists()){
                     for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                         String d_Key = messageSnapshot.getKey();
                         if(d_Key.equals("calorie")){
@@ -179,10 +181,11 @@ public class ManuallyInputActivity extends AppCompatActivity {
         intent.putExtra("foodname", message);
         intent.putExtra("calorie", Calorie);
         intent.putExtra("icon", R.drawable.examplefood_burger);
+        intent.putExtra("quantity",quantity);
         intent.putExtra("category",category);
         //Use the setResult() method with a response code and the Intent with the response data
         startActivity(intent);
-        Toast.makeText(this, "Added:"+message, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Added:"+message, Toast.LENGTH_SHORT).show();
     }
 
     public void UserFoodAdd(){

@@ -53,51 +53,63 @@ public class FoodDisplayActivity extends Activity {
 //        Intent intent = getIntent();
 //        String message = intent.getStringExtra(ManuallyInputActivity.EXTRA_MESSAGE_FOODNAME);
 
-        Intent data = getIntent();
-        // Extract name value from result extras
-        String category = data.getExtras().getString("category");
-        switch(category){
-            case "Breakfast" :
-                //语句
-                listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
-                foodAdapter = new FoodAdapter(this,arrayList);
-                listView_breakfast.setAdapter(foodAdapter);
-                Toast.makeText(this, "Added:" + "嗷嗷1", Toast.LENGTH_SHORT).show();
-                break; //可选
-            case "Lunch" :
-                //语句
-                listView_lunch = (ListView) findViewById(R.id.listView_lunch);
-                foodAdapter = new FoodAdapter(this,arrayList);
-                listView_lunch.setAdapter(foodAdapter);
-                Toast.makeText(this, "Added:" + "嗷嗷2", Toast.LENGTH_SHORT).show();
+        try {
+            Intent data = getIntent();
+            // Extract name value from result extras
+            String category = data.getExtras().getString("category");
+            switch(category){
+                case "Breakfast" :
+                    //语句
+                    listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
+                    foodAdapter = new FoodAdapter(this,arrayList);
+                    listView_breakfast.setAdapter(foodAdapter);
+//                    Toast.makeText(this, "Added:" + "嗷嗷1", Toast.LENGTH_SHORT).show();
+                    break; //可选
+                case "Lunch" :
+                    //语句
+                    listView_lunch = (ListView) findViewById(R.id.listView_lunch);
+                    foodAdapter = new FoodAdapter(this,arrayList);
+                    listView_lunch.setAdapter(foodAdapter);
+//                    Toast.makeText(this, "Added:" + "嗷嗷2", Toast.LENGTH_SHORT).show();
 
-                break; //可选
-            //你可以有任意数量的case语句
-            case "Dinner":
-                //语句
-                listView_dinner = (ListView) findViewById(R.id.listView_dinner);
-                foodAdapter = new FoodAdapter(this,arrayList);
-                listView_dinner.setAdapter(foodAdapter);
-                Toast.makeText(this, "Added:" + "嗷嗷3", Toast.LENGTH_SHORT).show();
+                    break; //可选
+                //你可以有任意数量的case语句
+                case "Dinner":
+                    //语句
+                    listView_dinner = (ListView) findViewById(R.id.listView_dinner);
+                    foodAdapter = new FoodAdapter(this,arrayList);
+                    listView_dinner.setAdapter(foodAdapter);
+//                    Toast.makeText(this, "Added:" + "嗷嗷3", Toast.LENGTH_SHORT).show();
 
-                break;
-            default : //可选
-                //语句
-                Toast.makeText(this, "Added:" + "嗷嗷4", Toast.LENGTH_SHORT).show();
+                    break;
+                default : //可选
+                    //语句
+//                    Toast.makeText(this, "Added:" + "嗷嗷4", Toast.LENGTH_SHORT).show();
 
+            }
+
+            String addFoodName = data.getExtras().getString("foodname");
+            String addCalorie = data.getExtras().getString("calorie");
+            String addquantity = data.getExtras().getString("quantity");
+            Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));
+
+            //convert str(String) to i(int)
+            int Calorie = Integer.parseInt(addCalorie);
+            int quantity = Integer.parseInt(addquantity);
+
+            UsersFood usersFood = new UsersFood(addFoodName,Calorie * quantity,
+                    addIcon);
+            foodAdapter.addfood(usersFood);
+            Log.i("Added Item in list:", addFoodName);
+//            Toast.makeText(this, "Added:" + addCalorie, Toast.LENGTH_SHORT).show();
+
+        }catch (Exception e){
+
+            //跳转到food display页面
+            Intent intent = new Intent(FoodDisplayActivity.this, ManuallyInputActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, "Please do it again！" , Toast.LENGTH_SHORT).show();
         }
-
-
-        String addFoodName = data.getExtras().getString("foodname");
-        String addCalorie = data.getExtras().getString("calorie");
-        Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));
-
-        UsersFood usersFood = new UsersFood(addFoodName,addCalorie,
-                addIcon);
-        foodAdapter.addfood(usersFood);
-        Log.i("Added Item in list:", addFoodName);
-        Toast.makeText(this, "Added:" + addCalorie, Toast.LENGTH_SHORT).show();
-
 
         ll_quit = (LinearLayout)findViewById(R.id.ll_display_food_cancel);
         ll_quit.setOnClickListener(new View.OnClickListener() {
