@@ -38,6 +38,8 @@ import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 public class ManuallyInputActivity extends AppCompatActivity {
     public final int EDIT_ITEM_REQUEST_CODE = 647;
 
+    public static String messageCalorie;
+    public String Calorie;
     public static String uid;
     DatabaseReference databaseReference;
 
@@ -127,28 +129,56 @@ public class ManuallyInputActivity extends AppCompatActivity {
             }
         });
 
-//        confirmBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                //将user-food 该用户输入的食物信息存入数据库
-//                UserFoodAdd();
-//                //UserFoodAdd_toDatabase();
-//
-//            }
-//        });
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //将user-food 该用户输入的食物信息存入数据库
+                UserFoodAdd();
+                //UserFoodAdd_toDatabase();
+
+            }
+        });
     }
 
     /** Called when the user taps the Send button */
-    public void sendMessage(View view) {
+    public void sendMessage() {
         editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
         String message = editTextFoodName.getText().toString();
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            Calorie = messageSnapshot.getValue().toString();
+                            editTextFoodQuantity.setText(Calorie);
+                            messageCalorie = editTextFoodQuantity.getText().toString();
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+
+        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
         //跳转到food display页面
         Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
 
         intent.putExtra("foodname", message);
-        intent.putExtra("calorie", "200");
+        intent.putExtra("calorie", messageCalorie);
         intent.putExtra("icon", R.drawable.examplefood_burger);
         //Use the setResult() method with a response code and the Intent with the response data
         startActivity(intent);
@@ -199,7 +229,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
+                                        sendMessage();
                                     }
                                 });
                     }
@@ -208,10 +238,5 @@ public class ManuallyInputActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
     }
-
-
 }

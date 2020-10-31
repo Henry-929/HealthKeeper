@@ -19,16 +19,20 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class FoodDisplayActivity extends Activity {
+    public String Calorie,Protein,Carbohydrate,Fat;
 
-    public final int EDIT_ITEM_REQUEST_CODE = 647;
-
-    private Context mContext;
     ListView listView_breakfast;
     FoodAdapter foodAdapter;
     ArrayList<UsersFood> arrayList = new ArrayList<>();
@@ -128,4 +132,33 @@ public class FoodDisplayActivity extends Activity {
 //        return arrayList;
 //    }
 
+//    public void getFoodInfofromDatabase(){
+//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("Food").child("Hamburger");
+//
+//        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot){
+//                if(dataSnapshot.exists()){
+//                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(FoodDisplayActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+//
+//                        String d_Key = messageSnapshot.getKey();
+//                        if(d_Key.equals("calorie")){
+//                            Calorie = messageSnapshot.getValue().toString();
+//                            TextView_FoodCalorie.setText(Calorie);
+////                            Toast.makeText(AddMealActivity.this,"嗷嗷",Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        } );
+//
+//    }
 }
