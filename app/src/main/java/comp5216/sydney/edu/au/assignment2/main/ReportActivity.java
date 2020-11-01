@@ -40,7 +40,7 @@ import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
 
 public class ReportActivity extends AppCompatActivity {
-    public String ff;
+
     public static String uid;
     public TextView textView_bmi,textView_weight;
     //用于获取数据库存储的体重信息和bmi值

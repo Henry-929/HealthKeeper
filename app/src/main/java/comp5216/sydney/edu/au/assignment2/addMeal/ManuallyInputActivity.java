@@ -133,8 +133,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-                ManuallyInputActivity.this.startActivity(intent);
 
                 //将user-food 该用户输入的食物信息存入数据库
                 //sendMessage();
@@ -243,8 +241,8 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         //跳转到food display页面
-//                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-//                                        startActivity(intent);
+                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+                                        startActivity(intent);
 
                                     }
                                 });
