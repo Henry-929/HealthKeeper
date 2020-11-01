@@ -132,7 +132,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //将user-food 该用户输入的食物信息存入数据库
-                sendMessage();
+                //sendMessage();
                 UserFoodAdd();
                 //UserFoodAdd_toDatabase();
 

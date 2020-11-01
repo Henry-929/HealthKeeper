@@ -68,6 +68,7 @@ public class ReportActivity extends AppCompatActivity {
     ImageView LabelCalorie;
     ImageView LabelNutrient;
     TextView percentBreakfast,statusBreakfast,percentLunch,statusLunch,percentDinner,statusDinner,percentOther,statusOther;
+    TextView diversityNumber,energyStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,9 @@ public class ReportActivity extends AppCompatActivity {
         statusDinner = (TextView)findViewById(R.id.report_display_status_dinner);
         percentOther = (TextView)findViewById(R.id.report_display_percent_other);
         statusOther = (TextView)findViewById(R.id.report_display_status_other);
+
+        diversityNumber = (TextView)findViewById(R.id.report_display_diversity_number);
+        energyStatus = (TextView)findViewById(R.id.report_display_energy_status);
 
 
         //获取BMI和weight from database
@@ -384,7 +388,9 @@ public class ReportActivity extends AppCompatActivity {
 
                                                     //for(usersFoodArrayList)
                                                     //【？？】为啥两种食物？各个print两遍？？！！
+                                                    int typesCount = 0;
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
+                                                        typesCount = customFoodArrayList.size();
                                                         System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
 
                                                         //计算所有meal的Calorie
@@ -406,6 +412,14 @@ public class ReportActivity extends AppCompatActivity {
                                                             System.out.println("=====allCalorieCount=="+allCalorieCount);
 
                                                         }
+                                                        //setFoodIntake diversity
+                                                        diversityNumber.setText(typesCount+" types");
+                                                        System.out.println("=========typesCount=="+typesCount);
+                                                        System.out.println("=========allCalorieCount=="+allCalorieCount);
+
+                                                        energyStatus.setText(Double.toString(allCalorieCount));
+
+
                                                         //计算早餐Calorie
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String breakfast_foodname = usersFoodArrayList1.get(i).getFoodname();
@@ -573,6 +587,9 @@ public class ReportActivity extends AppCompatActivity {
                                                             statusOther.setText("-");
                                                         }
                                                     }
+
+
+
                                                 }
                                             });
 
@@ -604,13 +621,14 @@ public class ReportActivity extends AppCompatActivity {
 
 
     public void setFoodIntake(int number,boolean status){
-        TextView mealNumber = (TextView)findViewById(R.id.report_display_diversity_number);
-        TextView mealStatus = (TextView)findViewById(R.id.report_display_energy_status);
-        mealNumber.setText(number+" types");
+//        TextView mealNumber = (TextView)findViewById(R.id.report_display_diversity_number);
+//        TextView mealStatus = (TextView)findViewById(R.id.report_display_energy_status);
+
+        diversityNumber.setText(number+" types");
         if(status){
-            mealStatus.setText("+");
+            energyStatus.setText("+");
         }else{
-            mealStatus.setText("-");
+            energyStatus.setText("-");
         }
     }
 
