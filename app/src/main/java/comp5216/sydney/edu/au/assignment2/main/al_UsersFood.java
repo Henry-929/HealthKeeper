@@ -1,6 +1,7 @@
 package comp5216.sydney.edu.au.assignment2.main;
 
 public class al_UsersFood {
+    private static int foodCount = 0;
 
     private String foodname,quantity,category;
 //    public double d_quantity;
@@ -30,24 +31,25 @@ public class al_UsersFood {
 
     }
 
-//    public void convertTodouble(){
-//
-//        d_quantity = Double.parseDouble(quantity);
-//
-//        d_calorie = Double.parseDouble(calorie);
-//        d_carbohydrate = Double.parseDouble(carbohydrate);
-//        d_fat = Double.parseDouble(fat);
-//        d_protein = Double.parseDouble(protein);
-//
-//        d_calorie = d_calorie * d_quantity;
-//        d_carbohydrate = d_carbohydrate * d_quantity;
-//        d_fat = d_fat * d_quantity;
-//        d_protein = d_protein * d_quantity;
-//
-//    }
+    public void clear_al_UsersFood(){
+        this.foodname = null;
+        this.quantity = null;
+        this.category = null;
 
+        this.calorie =null;
+        this.carbs = null;
+        this.fat = null;
+        this.protein = null;
 
+    }
 
+    public static void incrementFoodCount() {
+        foodCount = foodCount +1;
+    }
+
+    public static int getFoodCount() {
+        return foodCount;
+    }
 
     public void setCalorie(String calorie) {
         this.calorie = calorie;
