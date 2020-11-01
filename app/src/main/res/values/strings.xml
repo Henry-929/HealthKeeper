@@ -41,9 +41,9 @@
     <string name="you_can_change_it_by_clicking_on_it_if_there_are_any_errors">You can change it by clicking on it, if there are any errors.</string>
     <string name="add_meal">Add meal</string>
     <string name="intake">Intake</string>
-    <string name="your_can_still_intake">Your can still intake</string>
+    <string name="your_can_still_intake">Your can still intake : </string>
     <string name="kilojoules">kilojoules</string>
-    <string name="recommended_intake">Recommended intake:</string>
+    <string name="recommended_intake">Recommended intake : </string>
     <string name="healthkeeper">HealthKeeper</string>
     <string name="slogan">Eat healthy, live better.</string>
     <string name="health_report">Health Report</string>

@@ -29,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.login.LoginActivity;
+import comp5216.sydney.edu.au.assignment2.login.RegisterActivity;
 import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
 import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.UserInfo;
@@ -131,10 +133,15 @@ public class ManuallyInputActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+                ManuallyInputActivity.this.startActivity(intent);
+
                 //将user-food 该用户输入的食物信息存入数据库
                 //sendMessage();
                 UserFoodAdd();
                 //UserFoodAdd_toDatabase();
+
+
 
             }
         });
@@ -235,6 +242,9 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        //跳转到food display页面
+//                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+//                                        startActivity(intent);
 
                                     }
                                 });

@@ -212,7 +212,7 @@ public class ReportActivity extends AppCompatActivity {
         calPercentage();
 
         //todo set Food intake (Today)
-        setFoodIntake(5,true);
+        //setFoodIntake(5,true);
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
@@ -620,17 +620,6 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    public void setFoodIntake(int number,boolean status){
-//        TextView mealNumber = (TextView)findViewById(R.id.report_display_diversity_number);
-//        TextView mealStatus = (TextView)findViewById(R.id.report_display_energy_status);
-
-        diversityNumber.setText(number+" types");
-        if(status){
-            energyStatus.setText("+");
-        }else{
-            energyStatus.setText("-");
-        }
-    }
 
 
 

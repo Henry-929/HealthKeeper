@@ -93,10 +93,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/kilojoules"/>
+
                 </LinearLayout>
 
 
@@ -104,16 +101,14 @@
                     android:layout_width="250dp"
                     android:layout_height="10dp"
                     android:orientation="horizontal">
-                        <LinearLayout
+                        <ProgressBar
                             android:id="@+id/calorie_progress_bar"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:background="#207f4c"
-                            android:orientation="horizontal" />
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:background="#d8e3e7"/>
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+
+                             />
+
 
 
                 </LinearLayout>
