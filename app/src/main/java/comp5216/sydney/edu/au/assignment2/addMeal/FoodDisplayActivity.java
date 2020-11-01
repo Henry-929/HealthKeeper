@@ -53,7 +53,7 @@ public class FoodDisplayActivity extends Activity {
 //        Intent intent = getIntent();
 //        String message = intent.getStringExtra(ManuallyInputActivity.EXTRA_MESSAGE_FOODNAME);
 
-        try {
+
             Intent data = getIntent();
             // Extract name value from result extras
             String category = data.getExtras().getString("category");
@@ -85,6 +85,11 @@ public class FoodDisplayActivity extends Activity {
                 default : //可选
                     //语句
 //                    Toast.makeText(this, "Added:" + "嗷嗷4", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(FoodDisplayActivity.this, MainActivity.class);
+                    if (intent != null) {
+                        FoodDisplayActivity.this.startActivity(intent);
+                    }
+                    break;
 
             }
 
@@ -94,22 +99,15 @@ public class FoodDisplayActivity extends Activity {
             Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));
 
             //convert str(String) to i(int)
-            int Calorie = Integer.parseInt(addCalorie);
+//            int Calorie = Integer.parseInt(addCalorie);
             int quantity = Integer.parseInt(addquantity);
 
-            UsersFood usersFood = new UsersFood(addFoodName,Calorie * quantity,
+            UsersFood usersFood = new UsersFood(addFoodName,addCalorie,
                     addIcon);
             foodAdapter.addfood(usersFood);
             Log.i("Added Item in list:", addFoodName);
 //            Toast.makeText(this, "Added:" + addCalorie, Toast.LENGTH_SHORT).show();
 
-        }catch (Exception e){
-
-            //跳转到food display页面
-            Intent intent = new Intent(FoodDisplayActivity.this, ManuallyInputActivity.class);
-            startActivity(intent);
-            Toast.makeText(this, "Please do it again！" , Toast.LENGTH_SHORT).show();
-        }
 
         ll_quit = (LinearLayout)findViewById(R.id.ll_display_food_cancel);
         ll_quit.setOnClickListener(new View.OnClickListener() {
