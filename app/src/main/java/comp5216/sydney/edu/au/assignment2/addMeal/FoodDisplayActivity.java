@@ -69,29 +69,28 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        ll_quit = (LinearLayout)findViewById(R.id.ll_display_food_cancel);
+        ll_quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FoodDisplayActivity.this, MainActivity.class);
+                if (intent != null) {
+                    FoodDisplayActivity.this.startActivity(intent);
+                }
+            }
+        });
+
         calorieIntake = (TextView)findViewById(R.id.meal_display_already_intake);
         calorieTotal = (TextView)findViewById(R.id.meal_display_total_intake);
         calorieLeft= (TextView)findViewById(R.id.meal_display_left_intake);
-
         progressBar = (ProgressBar) findViewById(R.id.calorie_progress_bar);
-
-
         getIntakefromDatabaseandDisplay();
 
-//        userIntake = "1250";
-//        userTotal="2500";
-//        calorieIntake.setText(userIntake);
-//        calorieTotal.setText(userTotal);
-//
-//        calorieLeft.setText(userLeft);
+        //todo..
+        //listview breakfast lunch dinner
 
 
-//        bar_width = (float)Integer.parseInt(userIntake)/(float)Integer.parseInt(userTotal)*250;
-//        System.out.println(bar_width+"111111111111111111111111111111111");
-//        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) progressBar.getLayoutParams();
-//        Resources r = getResources();
-//        linearParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,bar_width,r.getDisplayMetrics());
-//        progressBar.setLayoutParams(linearParams);
+
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
@@ -403,8 +402,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         }
 
                                                     }
-
-
+                                                    
 
                                                 }
                                             });
@@ -422,21 +420,13 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
                             }//========[end of]for (DataSnapshot dd : d.getChildren())
                         }//=========[end of]for (DataSnapshot d : snapshot.getChildren())
-
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
-
-
     }
-
-
-
 }
 
 
