@@ -67,7 +67,7 @@ public class ReportActivity extends AppCompatActivity {
     LinearLayout NutrientView;
     ImageView LabelCalorie;
     ImageView LabelNutrient;
-    TextView percentBreakfast,statusBreakfast;
+    TextView percentBreakfast,statusBreakfast,percentLunch,statusLunch,percentDinner,statusDinner,percentOther,statusOther;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +88,12 @@ public class ReportActivity extends AppCompatActivity {
 
         percentBreakfast = (TextView)findViewById(R.id.report_display_percent_breakfast);
         statusBreakfast = (TextView)findViewById(R.id.report_display_status_breakfast);
+        percentLunch = (TextView)findViewById(R.id.report_display_percent_lunch);
+        statusLunch = (TextView)findViewById(R.id.report_display_status_lunch);
+        percentDinner = (TextView)findViewById(R.id.report_display_percent_dinner);
+        statusDinner = (TextView)findViewById(R.id.report_display_status_dinner);
+        percentOther = (TextView)findViewById(R.id.report_display_percent_other);
+        statusOther = (TextView)findViewById(R.id.report_display_status_other);
 
 
         //获取BMI和weight from database
@@ -198,14 +204,9 @@ public class ReportActivity extends AppCompatActivity {
         //下面的是例子，percent就是占比，status就是吃多吃少
         //status: true means user eat too much
         //        false means user eat too less
-        //setBreakfast();
-        calBreakfast();
 
+        calPercentage();
 
-
-        setLunch(20,false);
-        setDinner(40,true);
-        setOther(10,true);
         //todo set Food intake (Today)
         setFoodIntake(5,true);
     }
@@ -278,7 +279,6 @@ public class ReportActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -288,7 +288,7 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    public void calBreakfast(){
+    public void calPercentage(){
 
         //1. select * from Users
         //2. select * from Food where foodname = "从User哪里获取到的"
@@ -316,46 +316,6 @@ public class ReportActivity extends AppCompatActivity {
                                 if (dd_Key.equals("foodname")) {
                                     foodname = dd_Value;
                                     customFood.setFoodname(foodname);
-//                                    al_usersFood.setFoodname(foodname);
-//
-//                                    Toast.makeText(ReportActivity.this, al_usersFood.getFoodname()+"!name!"+foodname, Toast.LENGTH_LONG).show();
-//                                    System.out.println("==============foodname======"+foodname);
-//
-//
-//                                    //获取 quantity &category
-//                                    Query q1 = databaseReference.child("Users").child(uid)
-//                                            .orderByChild("foodname")
-//                                            .equalTo(foodname);
-//
-//                                    q1.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                            if(dataSnapshot.exists()){
-//                                                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-//                                                    quantity = dataSnapshot1.child("quantity").getValue().toString();
-//                                                    category = dataSnapshot1.child("category").getValue().toString();
-//
-//                                                    al_usersFood.setQuantity(quantity);
-//                                                    al_usersFood.setCategory(category);
-//                                                    System.out.println("=====quantity*category===="+quantity+" "+category);
-//
-//                                                    al_usersFood.incrementFoodCount();
-//
-//
-//                                                    allFoodArrayList.add(al_usersFood);
-//                                                    System.out.println("===allfoodlist====="+allFoodArrayList.size());
-//                                                }
-//                                            }
-//                                        }
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                        }
-//                                    });
-//
-//
-//                                    System.out.println("===呃呃呃allfoodlist====="+allFoodArrayList.size());
-//
 
                                     //2. select * from Food where foodname = "从User哪里获取到的"
                                     Query query = databaseReference.child("Food")
@@ -371,7 +331,6 @@ public class ReportActivity extends AppCompatActivity {
 
 //                                            al_usersFood.setFoodname(foodname);
                                             if(dataSnapshot.exists()){
-//
 
                                                 System.out.println("==============dataS======"+dataSnapshot.getValue().toString());
 
@@ -401,7 +360,6 @@ public class ReportActivity extends AppCompatActivity {
                                                     customFoodArrayList.add(customFood);
                                                     System.out.println("==============allFoodArrayList======"+customFoodArrayList.size());
 
-
                                                 }
                                             }
 
@@ -414,9 +372,15 @@ public class ReportActivity extends AppCompatActivity {
 
                                                     double totQuan,totCalorie = 0,totCarbs,totFat,totPro;
                                                     double totQuan_b,totCalorie_b=0;
+                                                    double totQuan_l,totCalorie_l=0;
+                                                    double totQuan_d,totCalorie_d=0;
+                                                    double totQuan_o,totCalorie_o=0;
 
                                                     double allCalorieCount = 0;
                                                     double allCalorieCount_b = 0;
+                                                    double allCalorieCount_l = 0;
+                                                    double allCalorieCount_d = 0;
+                                                    double allCalorieCount_o = 0;
 
                                                     //for(usersFoodArrayList)
                                                     //【？？】为啥两种食物？各个print两遍？？！！
@@ -464,6 +428,72 @@ public class ReportActivity extends AppCompatActivity {
                                                             }
 
                                                         }
+                                                        //计算午餐餐Calorie
+                                                        for(int i=0; i < usersFoodArrayList1.size();i++){
+                                                            String lunch_foodname = usersFoodArrayList1.get(i).getFoodname();
+                                                            String lunch_category = usersFoodArrayList1.get(i).getCategory();
+                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
+
+                                                            totQuan_l = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
+
+                                                            if(lunch_category.equals("Lunch")){
+
+                                                                for(int j =0; j < customFoodArrayList.size();j++){
+                                                                    if(customFoodArrayList.get(j).getFoodname().equals(lunch_foodname)){
+                                                                        totCalorie_l = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
+                                                                        totCalorie_l = totCalorie_l * totQuan_l;
+
+                                                                    }
+                                                                }
+                                                                allCalorieCount_l = allCalorieCount_l + totCalorie_l;
+                                                                System.out.println("=====LUNCHCalorieCount=="+allCalorieCount_l);
+                                                            }
+
+                                                        }
+                                                        //计算晚餐Calorie
+                                                        for(int i=0; i < usersFoodArrayList1.size();i++){
+                                                            String dinner_foodname = usersFoodArrayList1.get(i).getFoodname();
+                                                            String dinner_category = usersFoodArrayList1.get(i).getCategory();
+                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
+
+                                                            totQuan_d = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
+
+                                                            if(dinner_category.equals("Dinner")){
+
+                                                                for(int j =0; j < customFoodArrayList.size();j++){
+                                                                    if(customFoodArrayList.get(j).getFoodname().equals(dinner_foodname)){
+                                                                        totCalorie_d = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
+                                                                        totCalorie_d = totCalorie_b * totQuan_d;
+
+                                                                    }
+                                                                }
+                                                                allCalorieCount_d = allCalorieCount_d + totCalorie_d;
+                                                                System.out.println("=====DINNERCalorieCount=="+allCalorieCount_d);
+                                                            }
+
+                                                        }
+                                                        //计算other餐Calorie
+                                                        for(int i=0; i < usersFoodArrayList1.size();i++){
+                                                            String other_foodname = usersFoodArrayList1.get(i).getFoodname();
+                                                            String other_category = usersFoodArrayList1.get(i).getCategory();
+                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
+
+                                                            totQuan_o = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
+
+                                                            if(other_category.equals("Other")){
+
+                                                                for(int j =0; j < customFoodArrayList.size();j++){
+                                                                    if(customFoodArrayList.get(j).getFoodname().equals(other_foodname)){
+                                                                        totCalorie_o = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
+                                                                        totCalorie_o = totCalorie_o * totQuan_o;
+
+                                                                    }
+                                                                }
+                                                                allCalorieCount_o = allCalorieCount_o + totCalorie_o;
+                                                                System.out.println("=====OtherCalorieCount=="+allCalorieCount_o);
+                                                            }
+
+                                                        }
 
                                                     }
 
@@ -471,25 +501,78 @@ public class ReportActivity extends AppCompatActivity {
                                                     //计算并保留1位小数
                                                     DecimalFormat df = new DecimalFormat("0.0");
                                                     double d_breakfastPercent = allCalorieCount_b/allCalorieCount;
+                                                    double d_lunchPercent = allCalorieCount_l/allCalorieCount;
+                                                    double d_dinnerPercent = allCalorieCount_d/allCalorieCount;
+                                                    double d_otherPercent = allCalorieCount_o/allCalorieCount;
+
                                                     d_breakfastPercent = d_breakfastPercent * 100;
+                                                    d_lunchPercent = d_lunchPercent * 100;
+                                                    d_dinnerPercent = d_dinnerPercent * 100;
+                                                    d_otherPercent = d_otherPercent * 100;
+
                                                     String str_breakfastPercent = df.format(d_breakfastPercent);//format返回String
+                                                    String str_lunchPercent = df.format(d_lunchPercent);
+                                                    String str_dinnerPercent = df.format(d_dinnerPercent);
+                                                    String str_otherPercent = df.format(d_otherPercent);
 
 
                                                     //判断当d_breakfastPercent值存在
+                                                    //早：中：晚 ：other = 2.75  :3.5: 2.75：1
                                                     if(d_breakfastPercent >0 || d_breakfastPercent ==0){
-                                                        System.out.println("=======WHYY=="+d_breakfastPercent);
+                                                        System.out.println("=======d_breakfastPercent=="+d_breakfastPercent);
                                                         boolean status = false;
                                                         if(d_breakfastPercent < 27.5)
                                                             status = true;
                                                         percentBreakfast.setText("("+str_breakfastPercent+"%)");
                                                         if(status){
-                                                            statusBreakfast.setText("嗷嗷");
+                                                            statusBreakfast.setText("+");
 
                                                         }else{
                                                             statusBreakfast.setText("-");
                                                         }
                                                     }
+                                                    //lunch
+                                                    if(d_lunchPercent >0 || d_lunchPercent ==0){
+                                                        System.out.println("=======d_lunchPercent=="+d_lunchPercent);
+                                                        boolean status = false;
+                                                        if(d_lunchPercent < 35.0)
+                                                            status = true;
+                                                        percentLunch.setText("("+str_lunchPercent+"%)");
+                                                        if(status){
+                                                            statusLunch.setText("+");
 
+                                                        }else{
+                                                            statusLunch.setText("-");
+                                                        }
+                                                    }
+                                                    //dinner
+                                                    if(d_dinnerPercent >0 || d_breakfastPercent ==0){
+                                                        System.out.println("=======d_dinnerPercent=="+d_dinnerPercent);
+                                                        boolean status = false;
+                                                        if(d_dinnerPercent < 27.5)
+                                                            status = true;
+                                                        percentDinner.setText("("+str_dinnerPercent+"%)");
+                                                        if(status){
+                                                            statusDinner.setText("+");
+
+                                                        }else{
+                                                            statusDinner.setText("-");
+                                                        }
+                                                    }
+                                                    //other
+                                                    if(d_otherPercent >0 || d_otherPercent ==0){
+                                                        System.out.println("=======d_otherPercent=="+d_otherPercent);
+                                                        boolean status = false;
+                                                        if(d_otherPercent < 10)
+                                                            status = true;
+                                                        percentOther.setText("("+str_otherPercent+"%)");
+                                                        if(status){
+                                                            statusOther.setText("+");
+
+                                                        }else{
+                                                            statusOther.setText("-");
+                                                        }
+                                                    }
                                                 }
                                             });
 
@@ -502,7 +585,6 @@ public class ReportActivity extends AppCompatActivity {
 
 
                                 }//=========[end of] if (dd_Key.equals("foodname")) {
-
 
 
                             }//========[end of]for (DataSnapshot dd : d.getChildren())
@@ -520,253 +602,6 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
-//    public void calBreakfast() {
-//
-//        //step：
-//        //【UsersDB】下 所有的 breakfast 占 所有的meal 的比例
-//        //1- 将一个user的所有食物信息 加入 allFoodArrayList中
-//        //2- 遍历allFoodArrayList中，计算比例
-//
-//
-//        //获取userID
-//        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//
-//
-//        //1- 将一个user的所有食物信息 加入 allFoodArrayList中
-//        databaseReference.child("Users").child(uid)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                        for (DataSnapshot d : snapshot.getChildren()) {
-//                            //d.getKey()是userInfo的key
-//                            final String userInfo_Key = d.getKey();
-//
-//                            final al_UsersFood al_usersFood = new al_UsersFood();
-//                            for (DataSnapshot dd : d.getChildren()) {
-//                                String dd_Key = dd.getKey();
-//                                String dd_Value = dd.getValue().toString();
-//
-//                                //所有的meal
-//                                if (dd_Key.equals("foodname")) {
-//                                    foodname = dd_Value;
-//
-//                                    al_usersFood.setFoodname(foodname);
-//                                    //Toast.makeText(ReportActivity.this, al_usersFood.getFoodname()+"!name!"+foodname, Toast.LENGTH_LONG).show();
-//
-//
-//                                    //【Food DB】中获取 calorie,carbohydrate,fat,protein信息
-//                                    databaseReference.child("Food").addListenerForSingleValueEvent(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                                            for (DataSnapshot food_d : snapshot.getChildren()) {
-//
-//                                                for (DataSnapshot food_dd : food_d.getChildren()) {
-//
-//                                                    String food_dd_Key = food_dd.getKey();
-//                                                    String food_dd_Value = food_dd.getValue().toString();
-//
-//                                                    if (food_dd_Key.equals("calorie")) {
-//                                                        calorie = food_dd_Value;
-//                                                    }
-//                                                    if (food_dd_Key.equals("carbs")) {
-//                                                        carbohydrate = food_dd_Value;
-//                                                    }
-//                                                    if (food_dd_Key.equals("fat")) {
-//                                                        fat = food_dd_Value;
-//                                                    }
-//                                                    if (food_dd_Key.equals("protein")) {
-//                                                        protein = food_dd_Value;
-//                                                    }
-//
-//                                                    //【Food】中的foodname == 【Users】中的foodname
-//                                                    //【Food DB】中对比foodname信息
-//
-//
-//                                                    databaseReference.child("Food").addListenerForSingleValueEvent(new ValueEventListener() {
-//                                                        @Override
-//                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                                            //breakfindFood:
-//                                                            for (DataSnapshot food_d2 : snapshot.getChildren()) {
-//
-//                                                                for (DataSnapshot food_dd2 : food_d2.getChildren()) {
-//
-//                                                                    String food_dd2_Key = food_dd2.getKey();
-//                                                                    String food_dd2_Value = food_dd2.getValue().toString();
-//
-//                                                                    if (food_dd2_Value.equals(al_usersFood.getFoodname())) {
-//                                                                        Toast.makeText(ReportActivity.this, al_usersFood.getFoodname()+"al_usersFood.getFoodname()", Toast.LENGTH_LONG).show();
-//
-//
-//                                                                        //break breakfindFood;
-//                                                                        al_usersFood.setCalorie(calorie);
-//                                                                        al_usersFood.setCarbohydrate(carbohydrate);
-//                                                                        al_usersFood.setFat(fat);
-//                                                                        al_usersFood.setProtein(protein);
-//
-//                                                                        Toast.makeText(ReportActivity.this, calorie+"!CALORIE!"+carbohydrate+"!fat"+fat+"!P"+protein, Toast.LENGTH_LONG).show();
-//
-//                                                                        Toast.makeText(ReportActivity.this, al_usersFood.getCalorie()+"!carb!"+al_usersFood.getCarbs()+"!fat"+al_usersFood.getFat()+"!P"+al_usersFood.getProtein(), Toast.LENGTH_LONG).show();
-//
-//
-//                                                                    }
-//                                                                }
-//                                                            }
-//
-//                                                        }
-//
-//                                                        @Override
-//                                                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                                        }
-//                                                    });
-//
-//
-//
-//
-//
-//                                                }//=====end of一个食物的信息循环======
-//
-//
-//                                            }//==========end of 所有食物的信息 循环=====
-//
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                        }
-//                                    });
-//
-//                                }
-//                                if (dd_Key.equals("quantity")) {
-//                                    quantity = dd.getValue().toString();
-//                                    al_usersFood.setQuantity(quantity);
-//                                    //Toast.makeText(ReportActivity.this, al_usersFood.getQuantity()+"!quan!"+quantity, Toast.LENGTH_LONG).show();
-//
-//                                }
-//                                if (dd_Key.equals("category")) {
-//                                    category = dd.getValue().toString();
-//                                    al_usersFood.setCategory(category);
-//                                    //Toast.makeText(ReportActivity.this, al_usersFood.getCategory()+"!category!"+category, Toast.LENGTH_LONG).show();
-//
-//                                }
-//
-//                            }
-//                            // 一个foodname循环结束
-//                            //开始将 信息 加入 allFoodArrayList中
-//                            if (al_usersFood.getFoodname() != null) {
-//                                allFoodArrayList.add(al_usersFood);
-//                            }
-//                            //Toast.makeText(ReportActivity.this, allFoodArrayList.size() + "!size", Toast.LENGTH_LONG).show();
-//                        }
-//
-//                        Toast.makeText(ReportActivity.this, allFoodArrayList.size() + "!嗷size嗷", Toast.LENGTH_LONG).show();
-//
-//
-//                        //2- 遍历allFoodArrayList中，计算比例
-////                        double breakfastCalorieCount = 0;
-////                        double allmealCalorieCount = 0;
-////                        for (al_UsersFood item : allFoodArrayList) {
-////
-////                            double d_quantity = Double.parseDouble(item.getQuantity());
-////
-////                            double d_all_calorie = Double.parseDouble(item.getCalorie());
-////                            Toast.makeText(ReportActivity.this, d_all_calorie + "!d_all_calorie", Toast.LENGTH_LONG).show();
-//
-////                            d_all_calorie = d_all_calorie * d_quantity;
-////                            allmealCalorieCount = allmealCalorieCount + d_all_calorie;
-////                            Toast.makeText(ReportActivity.this, allmealCalorieCount + "!allmealCalorieCount", Toast.LENGTH_LONG).show();
-////
-////                            if (item.getCategory().equals("Breakfast")) {
-////                                double d_breakfast_calorie = d_all_calorie;
-////                                breakfastCalorieCount = breakfastCalorieCount + d_breakfast_calorie;
-////                                Toast.makeText(ReportActivity.this, breakfastCalorieCount + "!breakfast", Toast.LENGTH_LONG).show();
-////
-////                            }
-//
-////                        }
-//                        //计算 比例
-//                        //并保留1位小数：
-////                        DecimalFormat df = new DecimalFormat("0.0");
-////                        double d_breakfastPercent = breakfastCalorieCount / allmealCalorieCount;
-////                        d_breakfastPercent = d_breakfastPercent * 100;
-////                        String breakfastPercent = df.format(d_breakfastPercent);//format 返回的是字符串
-////
-////                        percentBreakfast.setText("(" + breakfastPercent + "%)");
-////                        boolean status = false;
-////                        if (d_breakfastPercent < 27.7) {
-////                            status = true;
-////                        }
-////                        if (status) {
-////                            statusBreakfast.setText("+");
-////                        } else {
-////                            statusBreakfast.setText("-");
-////                        }
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//
-//                });
-//
-//
-//    }
-
-//    public void setBreakfast(){
-//
-//
-//        double d_breakfastPercent = calBreakfast();
-//        boolean status = false;
-//        if(d_breakfastPercent < 27.5 )
-//            status = true;
-//
-//        TextView percentBreakfast = (TextView)findViewById(R.id.report_display_percent_breakfast);
-//        TextView statusBreakfast = (TextView)findViewById(R.id.report_display_status_breakfast);
-//        percentBreakfast.setText("("+d_breakfastPercent+"%)");
-//        if(status){
-//            statusBreakfast.setText("+");
-//        }else{
-//            statusBreakfast.setText("-");
-//        }
-//    }
-
-    public void setLunch(int percent, boolean status){
-        TextView percentLunch = (TextView)findViewById(R.id.report_display_percent_lunch);
-        TextView statusLunch = (TextView)findViewById(R.id.report_display_status_lunch);
-        percentLunch.setText("("+percent+"%)");
-        if(status){
-            statusLunch.setText("+");
-        }else{
-            statusLunch.setText("-");
-        }
-    }
-    public void setDinner(int percent, boolean status){
-        TextView percentDinner = (TextView)findViewById(R.id.report_display_percent_dinner);
-        TextView statusDinner = (TextView)findViewById(R.id.report_display_status_dinner);
-        percentDinner.setText("("+percent+"%)");
-        if(status){
-            statusDinner.setText("+");
-        }else{
-            statusDinner.setText("-");
-        }
-    }
-    public void setOther(int percent, boolean status){
-        TextView percentOther = (TextView)findViewById(R.id.report_display_percent_other);
-        TextView statusOther = (TextView)findViewById(R.id.report_display_status_other);
-        percentOther.setText("("+percent+"%)");
-        if(status){
-            statusOther.setText("+");
-        }else{
-            statusOther.setText("-");
-        }
-    }
 
     public void setFoodIntake(int number,boolean status){
         TextView mealNumber = (TextView)findViewById(R.id.report_display_diversity_number);
