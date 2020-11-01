@@ -34,11 +34,13 @@ import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.addMeal.CustomFood;
 import comp5216.sydney.edu.au.assignment2.addMeal.FoodDisplayActivity;
 import comp5216.sydney.edu.au.assignment2.addMeal.ManuallyInputActivity;
+import comp5216.sydney.edu.au.assignment2.addMeal.MyCallBack;
 import comp5216.sydney.edu.au.assignment2.addMeal.UsersFood;
 import comp5216.sydney.edu.au.assignment2.login.User;
 import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
 
 public class ReportActivity extends AppCompatActivity {
+    public String ff;
     public static String uid;
     public TextView textView_bmi,textView_weight;
     //用于获取数据库存储的体重信息和bmi值
@@ -50,6 +52,8 @@ public class ReportActivity extends AppCompatActivity {
 //    public double allmealCalorie= 0;
 
     public ArrayList<al_UsersFood> allFoodArrayList = new ArrayList<>();
+    public ArrayList<UsersFood> usersFoodArrayList = new ArrayList<>();
+    public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
 
 //    public double d_quantity,d_calorie,d_carbohydrate,d_fat,d_protein;
 
@@ -196,12 +200,93 @@ public class ReportActivity extends AppCompatActivity {
         //        false means user eat too less
         //setBreakfast();
         calBreakfast();
+
+
+
         setLunch(20,false);
         setDinner(40,true);
         setOther(10,true);
         //todo set Food intake (Today)
         setFoodIntake(5,true);
     }
+
+    public void getQuantityCategory(final MyCallBack myCallBack){
+        //获取userID
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child("Users").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot d : snapshot.getChildren()) {
+                            //d.getKey()是userInfo的key
+                            final String userInfo_Key = d.getKey();
+
+                            //final al_UsersFood al_usersFood = new al_UsersFood();
+                            final UsersFood usersFood = new UsersFood();
+                            for (DataSnapshot dd : d.getChildren()) {
+                                String dd_Key = dd.getKey();
+                                String dd_Value = dd.getValue().toString();
+
+
+                                if (dd_Key.equals("foodname")) {
+                                    foodname = dd_Value;
+                                    usersFood.setFoodname(foodname);
+                                    //al_usersFood.setFoodname(foodname);
+
+                                    //Toast.makeText(ReportActivity.this, al_usersFood.getFoodname() + "!name!" + foodname, Toast.LENGTH_LONG).show();
+                                    System.out.println("==============foodname======" + foodname);
+
+
+                                    //获取 quantity &category
+                                    Query q1 = databaseReference.child("Users").child(uid)
+                                            .orderByChild("foodname")
+                                            .equalTo(foodname);
+
+                                    q1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                                    quantity = dataSnapshot1.child("quantity").getValue().toString();
+                                                    category = dataSnapshot1.child("category").getValue().toString();
+
+                                                    usersFood.setQuantity(quantity);
+                                                    usersFood.setCategory(category);
+//                                                    al_usersFood.setQuantity(quantity);
+//                                                    al_usersFood.setCategory(category);
+                                                    System.out.println("=====quantity*category====" + quantity + " " + category);
+
+                                                    //al_usersFood.incrementFoodCount();
+
+                                                    //allFoodArrayList.add(al_usersFood);
+                                                    usersFood.incrementFoodCount();
+                                                    usersFoodArrayList.add(usersFood);
+                                                    //System.out.println("===allfoodlist=====" + usersFood.toString());
+
+                                                    myCallBack.onCallback(usersFoodArrayList);
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
 
     public void calBreakfast(){
 
@@ -220,18 +305,57 @@ public class ReportActivity extends AppCompatActivity {
                             //d.getKey()是userInfo的key
                             final String userInfo_Key = d.getKey();
 
-                            final al_UsersFood al_usersFood = new al_UsersFood();
+                            //final al_UsersFood al_usersFood = new al_UsersFood();
+                            final CustomFood customFood = new CustomFood();
                             for (DataSnapshot dd : d.getChildren()) {
                                 String dd_Key = dd.getKey();
                                 String dd_Value = dd.getValue().toString();
 
+
                                 //所有的meal
                                 if (dd_Key.equals("foodname")) {
                                     foodname = dd_Value;
-                                    al_usersFood.setFoodname(foodname);
-
-                                    Toast.makeText(ReportActivity.this, al_usersFood.getFoodname()+"!name!"+foodname, Toast.LENGTH_LONG).show();
-                                    System.out.println("==============foodname======"+foodname);
+                                    customFood.setFoodname(foodname);
+//                                    al_usersFood.setFoodname(foodname);
+//
+//                                    Toast.makeText(ReportActivity.this, al_usersFood.getFoodname()+"!name!"+foodname, Toast.LENGTH_LONG).show();
+//                                    System.out.println("==============foodname======"+foodname);
+//
+//
+//                                    //获取 quantity &category
+//                                    Query q1 = databaseReference.child("Users").child(uid)
+//                                            .orderByChild("foodname")
+//                                            .equalTo(foodname);
+//
+//                                    q1.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                            if(dataSnapshot.exists()){
+//                                                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+//                                                    quantity = dataSnapshot1.child("quantity").getValue().toString();
+//                                                    category = dataSnapshot1.child("category").getValue().toString();
+//
+//                                                    al_usersFood.setQuantity(quantity);
+//                                                    al_usersFood.setCategory(category);
+//                                                    System.out.println("=====quantity*category===="+quantity+" "+category);
+//
+//                                                    al_usersFood.incrementFoodCount();
+//
+//
+//                                                    allFoodArrayList.add(al_usersFood);
+//                                                    System.out.println("===allfoodlist====="+allFoodArrayList.size());
+//                                                }
+//                                            }
+//                                        }
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                        }
+//                                    });
+//
+//
+//                                    System.out.println("===呃呃呃allfoodlist====="+allFoodArrayList.size());
+//
 
                                     //2. select * from Food where foodname = "从User哪里获取到的"
                                     Query query = databaseReference.child("Food")
@@ -242,12 +366,12 @@ public class ReportActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             //clear
-                                            al_usersFood.clear_al_UsersFood();
+                                            //al_usersFood.clear_al_UsersFood();
 //                                            System.out.println("==============al======"+al_usersFood.toString());
 
 //                                            al_usersFood.setFoodname(foodname);
                                             if(dataSnapshot.exists()){
-//                                                System.out.println("==============getFoodname======"+al_usersFood.getFoodname());
+//
 
                                                 System.out.println("==============dataS======"+dataSnapshot.getValue().toString());
 
@@ -261,24 +385,113 @@ public class ReportActivity extends AppCompatActivity {
                                                     protein = data.child("protein").getValue().toString();
                                                     System.out.println("===allinfo====="+name+"+"+calorie+"+"+carbohydrate+"+"+fat+"+"+protein);
 
-                                                    al_usersFood.setFoodname(name);
-                                                    al_usersFood.setCalorie(calorie);
-                                                    al_usersFood.setCarbohydrate(carbohydrate);
-                                                    al_usersFood.setFat(fat);
-                                                    al_usersFood.setProtein(protein);
 
-                                                    System.out.println("===alINFO====="+al_usersFood.getFoodname()+"+"+al_usersFood.getCalorie()+"+"+al_usersFood.getCarbs()+"+"+al_usersFood.getFat()+"+"+al_usersFood.getProtein());
+                                                    customFood.setFoodname(name);
+                                                    customFood.setCalorie(calorie);
+                                                    customFood.setCarbs(carbohydrate);
+                                                    customFood.setFat(fat);
+                                                    customFood.setProtein(protein);
 
-                                                    al_usersFood.incrementFoodCount();
-                                                    System.out.println("==============foodcount======"+al_usersFood.getFoodCount());
-                                                    allFoodArrayList.add(al_usersFood);
-                                                    System.out.println("==============allFoodArrayList======"+allFoodArrayList.size());
+                                                    System.out.println("===alINFO====="+customFood.getFoodname()+"+"+customFood.getCalorie()+"+"+customFood.getCarbs()+"+"+customFood.getFat()+"+"+customFood.getProtein());
+
+                                                    //al_usersFood.incrementFoodCount();
+                                                    customFood.incrementFoodCount();
+                                                    System.out.println("==============foodcount======"+customFood.getFoodCount());
+                                                    //allFoodArrayList.add(al_UsersFood);
+                                                    customFoodArrayList.add(customFood);
+                                                    System.out.println("==============allFoodArrayList======"+customFoodArrayList.size());
 
 
                                                 }
                                             }
 
-//                                            System.out.println("==========a嗷嗷=="+allFoodArrayList.size());
+                                            System.out.println("==========a嗷嗷=="+customFoodArrayList.size());
+
+
+                                            getQuantityCategory(new MyCallBack() {
+                                                @Override
+                                                public void onCallback(ArrayList<UsersFood> usersFoodArrayList1) {
+
+                                                    double totQuan,totCalorie = 0,totCarbs,totFat,totPro;
+                                                    double totQuan_b,totCalorie_b=0;
+
+                                                    double allCalorieCount = 0;
+                                                    double allCalorieCount_b = 0;
+
+                                                    //for(usersFoodArrayList)
+                                                    //【？？】为啥两种食物？各个print两遍？？！！
+                                                    if(usersFoodArrayList1.size() == customFoodArrayList.size()){
+                                                        System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
+
+                                                        //计算所有meal的Calorie
+                                                        for(int i=0; i < usersFoodArrayList1.size();i++){
+                                                            String tmp_foodname = usersFoodArrayList1.get(i).getFoodname();
+                                                            System.out.println("=====customFoodArrayList=="+tmp_foodname);
+
+                                                            totQuan = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
+
+
+                                                            for(int j =0; j < customFoodArrayList.size();j++){
+                                                                if(customFoodArrayList.get(j).getFoodname().equals(tmp_foodname)){
+                                                                    totCalorie = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
+                                                                    totCalorie = totCalorie * totQuan;
+
+                                                                }
+                                                            }
+                                                            allCalorieCount = allCalorieCount + totCalorie;
+                                                            System.out.println("=====allCalorieCount=="+allCalorieCount);
+
+                                                        }
+                                                        //计算早餐Calorie
+                                                        for(int i=0; i < usersFoodArrayList1.size();i++){
+                                                            String breakfast_foodname = usersFoodArrayList1.get(i).getFoodname();
+                                                            String breakfast_category = usersFoodArrayList1.get(i).getCategory();
+                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
+
+                                                            totQuan_b = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
+
+                                                            if(breakfast_category.equals("Breakfast")){
+
+                                                                for(int j =0; j < customFoodArrayList.size();j++){
+                                                                    if(customFoodArrayList.get(j).getFoodname().equals(breakfast_foodname)){
+                                                                        totCalorie_b = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
+                                                                        totCalorie_b = totCalorie_b * totQuan_b;
+
+                                                                    }
+                                                                }
+                                                                allCalorieCount_b = allCalorieCount_b + totCalorie_b;
+                                                                System.out.println("=====BREAKFASTCalorieCount=="+allCalorieCount_b);
+                                                            }
+
+                                                        }
+
+                                                    }
+
+                                                    //设置早餐的比例和status
+                                                    //计算并保留1位小数
+                                                    DecimalFormat df = new DecimalFormat("0.0");
+                                                    double d_breakfastPercent = allCalorieCount_b/allCalorieCount;
+                                                    d_breakfastPercent = d_breakfastPercent * 100;
+                                                    String str_breakfastPercent = df.format(d_breakfastPercent);//format返回String
+
+
+                                                    //判断当d_breakfastPercent值存在
+                                                    if(d_breakfastPercent >0 || d_breakfastPercent ==0){
+                                                        System.out.println("=======WHYY=="+d_breakfastPercent);
+                                                        boolean status = false;
+                                                        if(d_breakfastPercent < 27.5)
+                                                            status = true;
+                                                        percentBreakfast.setText("("+str_breakfastPercent+"%)");
+                                                        if(status){
+                                                            statusBreakfast.setText("嗷嗷");
+
+                                                        }else{
+                                                            statusBreakfast.setText("-");
+                                                        }
+                                                    }
+
+                                                }
+                                            });
 
                                         }
                                         @Override
@@ -286,10 +499,10 @@ public class ReportActivity extends AppCompatActivity {
 
                                         }
                                     });
-                                    //这里获取不到了
-                                    System.out.println("==========a嗷嗷=="+allFoodArrayList.size());
+
 
                                 }//=========[end of] if (dd_Key.equals("foodname")) {
+
 
 
                             }//========[end of]for (DataSnapshot dd : d.getChildren())
@@ -303,9 +516,6 @@ public class ReportActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
 
 
     }
