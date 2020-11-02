@@ -86,6 +86,7 @@ public class ImageConfirmActivity extends Activity {
         });
 
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         Translation();
@@ -234,7 +235,10 @@ public class ImageConfirmActivity extends Activity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         //跳转到food display页面
+                                        String message = editTextFoodName.getText().toString();
+
                                         Intent intent = new Intent(ImageConfirmActivity.this, FoodDisplayActivity.class);
+                                        intent.putExtra("foodname2", message);
                                         startActivity(intent);
                                     }
                                 });
