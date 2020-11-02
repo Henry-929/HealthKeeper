@@ -114,127 +114,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
     }
 
-    public void getItent(){
-        //获取数据
-        Intent intent = getIntent();
-        //从intent取出bundle
-        Bundle data = intent.getBundleExtra("data");
-        if (data != null) {
-
-            String addFoodName = data.getString("foodname");
-            custom_get_food_name.setText(addFoodName);
-            System.out.println("---------------------------------------------------"+addFoodName);
-            getCalorie_Manually(addFoodName);
-//            Bitmap getbmp = getFoodImage(addImage);
-
-        }
-
-        //从intent取出bundle
-        Bundle data2 = intent.getBundleExtra("data_image");
-        if (data2 != null) {
-
-            String addFoodName2 = data2.getString("foodname2");
-            custom_get_food_name.setText(addFoodName2);
-            System.out.println("---------------------------------------------------"+addFoodName2);
-            getCalorie_ImageConfirm(addFoodName2);
-//            Bitmap getbmp = getFoodImage(addImage);
-
-        }
-    }
-
-    public void getCalorie_Manually(String message){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
-
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("calorie")){
-                            mCalorie = messageSnapshot.getValue().toString();
-                            custom_get_food_calorie.setText(mCalorie);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("protein")){
-                            mProtein = messageSnapshot.getValue().toString();
-                            custom_get_food_protein.setText(mProtein);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("carbs")){
-                            mCarbohydrate = messageSnapshot.getValue().toString();
-                            custom_get_food_carbohydrate.setText(mCarbohydrate);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("fat")){
-                            mFat = messageSnapshot.getValue().toString();
-                            custom_get_food_fat.setText(mFat);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-    }
-
-    public void getCalorie_ImageConfirm(String message){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
-
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("calorie")){
-                            mCalorie = messageSnapshot.getValue().toString();
-                            custom_get_food_calorie.setText(mCalorie);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("protein")){
-                            mProtein = messageSnapshot.getValue().toString();
-                            custom_get_food_protein.setText(mProtein);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("carbs")){
-                            mCarbohydrate = messageSnapshot.getValue().toString();
-                            custom_get_food_carbohydrate.setText(mCarbohydrate);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("fat")){
-                            mFat = messageSnapshot.getValue().toString();
-                            custom_get_food_fat.setText(mFat);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-    }
-
-
     public void getQuantityCategory(final MyCallBack myCallBack){
         //获取userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -570,6 +449,126 @@ public class FoodDisplayActivity extends AppCompatActivity {
                 });
     }
 
+    public void getItent(){
+        //获取数据
+        Intent intent = getIntent();
+        //从intent取出bundle
+        Bundle data = intent.getBundleExtra("data");
+        if (data != null) {
+
+            String addFoodName = data.getString("foodname");
+            custom_get_food_name.setText(addFoodName);
+            System.out.println("---------------------------------------------------"+addFoodName);
+            getCalorie_Manually(addFoodName);
+//            Bitmap getbmp = getFoodImage(addImage);
+
+        }
+
+        //从intent取出bundle
+        Bundle data2 = intent.getBundleExtra("data_image");
+        if (data2 != null) {
+
+            String addFoodName2 = data2.getString("foodname2");
+            custom_get_food_name.setText(addFoodName2);
+            System.out.println("---------------------------------------------------"+addFoodName2);
+            getCalorie_ImageConfirm(addFoodName2);
+//            Bitmap getbmp = getFoodImage(addImage);
+
+        }
+    }
+
+    public void getCalorie_Manually(String message){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            mCalorie = messageSnapshot.getValue().toString();
+                            custom_get_food_calorie.setText(mCalorie);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("protein")){
+                            mProtein = messageSnapshot.getValue().toString();
+                            custom_get_food_protein.setText(mProtein);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("carbs")){
+                            mCarbohydrate = messageSnapshot.getValue().toString();
+                            custom_get_food_carbohydrate.setText(mCarbohydrate);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("fat")){
+                            mFat = messageSnapshot.getValue().toString();
+                            custom_get_food_fat.setText(mFat);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+    }
+
+    public void getCalorie_ImageConfirm(String message){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            mCalorie = messageSnapshot.getValue().toString();
+                            custom_get_food_calorie.setText(mCalorie);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("protein")){
+                            mProtein = messageSnapshot.getValue().toString();
+                            custom_get_food_protein.setText(mProtein);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("carbs")){
+                            mCarbohydrate = messageSnapshot.getValue().toString();
+                            custom_get_food_carbohydrate.setText(mCarbohydrate);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("fat")){
+                            mFat = messageSnapshot.getValue().toString();
+                            custom_get_food_fat.setText(mFat);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+    }
+
     public Bitmap getFoodImage(final String message){
         final String[] Food = {null};
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -671,6 +670,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
         } );
         return bmp;
     }
-    
+
+
 
 }
