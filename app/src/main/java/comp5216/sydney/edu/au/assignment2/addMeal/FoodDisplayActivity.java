@@ -74,12 +74,9 @@ public class FoodDisplayActivity extends AppCompatActivity {
         custom_get_food_fat = (TextView) findViewById(R.id.custom_get_food_fat);
 
         Intent data = getIntent();
-
-        String addFoodName;
-
         if (data != null) {
 
-            addFoodName = data.getExtras().getString("foodname");
+            String addFoodName = data.getExtras().getString("foodname");
             custom_get_food_name.setText(addFoodName);
             getCalorie(addFoodName);
 //            Bitmap getbmp = getFoodImage(addImage);
