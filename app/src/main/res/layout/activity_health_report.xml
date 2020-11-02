@@ -108,7 +108,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -351,7 +352,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="10dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -409,7 +410,7 @@
             android:text="@string/calorie_today"
             android:textColor="#869d9d"
             android:textSize="20sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"/>
 
         <LinearLayout
@@ -604,13 +605,14 @@
             android:text="@string/food_intake_today"
             android:textColor="#869d9d"
             android:textSize="20sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
