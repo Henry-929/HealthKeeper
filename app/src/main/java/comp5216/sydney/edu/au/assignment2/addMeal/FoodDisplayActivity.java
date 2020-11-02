@@ -71,9 +71,11 @@ public class FoodDisplayActivity extends AppCompatActivity {
         switch(category){
             case "Breakfast" :
                 //语句
+
                 arrayList = new ArrayList<UsersFood>();
                 listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
                 foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
+
                 listView_breakfast.setAdapter(foodAdapter);
 //                    Toast.makeText(this, "Added:" + "嗷嗷1", Toast.LENGTH_SHORT).show();
                 break; //可选

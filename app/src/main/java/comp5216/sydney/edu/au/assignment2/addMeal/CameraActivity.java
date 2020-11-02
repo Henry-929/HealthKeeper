@@ -315,10 +315,13 @@ public class CameraActivity extends Activity{
                 JSONObject res = aipImageClassify.plantDetect(content, options);
                 try {
                     JSONArray data = res.getJSONArray("result");
+                    Bundle bundle = new Bundle();
                     foodName = data.getJSONObject(0).getString("name");
                     //pass the food name and photo to confirm activity
                     Intent intent = new Intent(CameraActivity.this,ImageConfirmActivity.class);
                     if (intent != null) {
+                        bundle.putBinder("bitmap", new BitmapBinder(bitmap));
+                        intent.putExtras(bundle);
                         intent.putExtra("foodName", foodName);
                         startActivity(intent);
                     }

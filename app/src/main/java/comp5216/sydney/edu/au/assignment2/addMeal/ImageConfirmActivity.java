@@ -53,12 +53,16 @@ public class ImageConfirmActivity extends Activity {
 //        foodName = bundle.getString("foodName");
         foodNameInChinse = this.getIntent().getExtras().get("foodName").toString();
 //        foodImage = bundle.getParcelable("foodPhoto");
+        BitmapBinder bitmapBinder = (BitmapBinder) bundle.getBinder("bitmap");
+        Bitmap bitmap = bitmapBinder.getBitmap();
+
 
         final Button confirmBtn=findViewById(R.id.btn_add_food_photo_confirm);
         final LinearLayout cancelBtn = findViewById(R.id.ll_add_food_photo_cancel);
         Button addCustom = (Button)findViewById(R.id.btn_add_custom_food);
 
         foodImageDisplay= (ImageView)findViewById(R.id.add_food_display_photo);
+        foodImageDisplay.setImageBitmap(bitmap);
         editTextFoodName = (EditText)findViewById(R.id.photo_add_food_name);
         editTextFoodQuantity= (EditText)findViewById(R.id.photo_add_food_quantity);
 

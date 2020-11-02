@@ -1,6 +1,7 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,9 @@ public class FoodAdapter extends BaseAdapter {
         if (list == null) {
             list = new ArrayList<UsersFood>();
         }
-        list.add(usersFood);
+            list.add(usersFood);
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++"+list.size());
+
         notifyDataSetChanged();
     }
 

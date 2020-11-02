@@ -151,7 +151,7 @@
         <ListView
             android:id="@+id/listView_breakfast"
             android:layout_width="fill_parent"
-            android:layout_height="130dp" />
+            android:layout_height="200dp" />
     </LinearLayout>
 
     <LinearLayout
