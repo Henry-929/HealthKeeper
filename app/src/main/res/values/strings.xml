@@ -122,4 +122,5 @@
     <string name="weight2">Weight</string>
     <string name="age">Age</string>
     <string name="image_processing">Image Processing</string>
+    <string name="predicted_weight">Predicted weight</string>
 </resources>

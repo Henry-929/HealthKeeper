@@ -70,6 +70,11 @@ public class ReportActivity extends AppCompatActivity {
     TextView percentBreakfast,statusBreakfast,percentLunch,statusLunch,percentDinner,statusDinner,percentOther,statusOther;
     TextView diversityNumber,energyStatus;
 
+    //weight prediction display textView
+    //predicted_weight = current_weight + 0.4*calorie_intake - 600
+    //based on the ML model Yukun created
+    TextView standardWeightTV,predictedWeightTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +104,8 @@ public class ReportActivity extends AppCompatActivity {
         diversityNumber = (TextView)findViewById(R.id.report_display_diversity_number);
         energyStatus = (TextView)findViewById(R.id.report_display_energy_status);
 
+        standardWeightTV = (TextView)findViewById(R.id.standard_weight);
+        predictedWeightTV = (TextView)findViewById(R.id.predicted_weight);
 
         //获取BMI和weight from database
         get_Weight_BMI_fromDatabase();

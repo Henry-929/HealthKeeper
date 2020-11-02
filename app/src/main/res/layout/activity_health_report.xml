@@ -347,10 +347,56 @@
                     android:text="@string/obesity"
                     android:textColor="#869d9d" />
             </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Standard weight"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/standard_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="25sp"/>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/predicted_weight"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/predicted_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="25sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
-
-
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
