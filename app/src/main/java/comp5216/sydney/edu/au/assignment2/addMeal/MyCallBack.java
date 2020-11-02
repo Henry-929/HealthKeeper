@@ -5,5 +5,6 @@ import java.util.ArrayList;
 public interface MyCallBack {
     //void onCallback(String value);
     //void onCallback(UsersFood usersFood);
+//    void onCallback(String weight);
     void onCallback(ArrayList<UsersFood> arrayList);
 }

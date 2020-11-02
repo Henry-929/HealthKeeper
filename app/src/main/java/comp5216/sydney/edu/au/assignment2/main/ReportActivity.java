@@ -35,7 +35,7 @@ public class ReportActivity extends AppCompatActivity {
     public static String uid;
     public TextView textView_bmi,textView_weight;
     //用于获取数据库存储的体重信息和bmi值
-    public String weight,bmi;
+    public String weight,bmi,height;
     public String foodname,quantity,category;
     public String calorie,carbohydrate,fat,protein;
 
@@ -125,8 +125,10 @@ public class ReportActivity extends AppCompatActivity {
         //获取BMI和weight from database
         get_Weight_BMI_fromDatabase();
 
+
         //获取Calorie（Today）
-        initCalorie();
+        //setNutrient()
+        initCalorie_initNutrient();
 
         toMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,8 +157,7 @@ public class ReportActivity extends AppCompatActivity {
                 LabelCalorie.setVisibility(View.INVISIBLE);
                 LabelNutrient.setVisibility(View.VISIBLE);
                 NutrientView.setVisibility(View.VISIBLE);
-                //initNutrient();
-                //calNutrient();
+
             }
         });
 
@@ -193,8 +194,12 @@ public class ReportActivity extends AppCompatActivity {
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
                                                     textView_weight.setText(weight);
+                                                    //standardWeightTV.setText(weight);
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
+                                                }
+                                                if(d_Key.equals("height")){
+                                                    height = d.getValue().toString();
                                                 }
 
                                                 if(d_Key.equals("bmi")){
@@ -204,6 +209,13 @@ public class ReportActivity extends AppCompatActivity {
 
                                                 }
                                             }
+                                            //计算standard weight 范围
+                                            DecimalFormat df = new DecimalFormat("0.0");
+                                            Double min_weight = 18.5* Double.parseDouble(height)*Double.parseDouble(height)/10000;
+                                            Double max_weight = 24 *Double.parseDouble(height)*Double.parseDouble(height)/10000;
+                                            String str_min_weight = df.format(min_weight);
+                                            String str_max_weight = df.format(max_weight);
+                                            standardWeightTV.setText(str_min_weight+"kg - "+str_max_weight+"kg");
 
                                         }
 
@@ -226,17 +238,81 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
-    public void initCalorie(){
-        //todo set Calorie (Today)
-        //下面的是例子，percent就是占比，status就是吃多吃少
-        //status: true means user eat too much
-        //        false means user eat too less
+    public void getWeight(final WeightCallBack weightCallBack){
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        calPercentage();
+        //从数据库获取当前用户的 weight height
+        databaseReference.child("Users").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
 
-        //todo set Food intake (Today)
-        //setFoodIntake(5,true);
+                        if(user!=null){
+                            //将birthday weight 写入database
+
+                            for(DataSnapshot d: snapshot.getChildren()){
+                                //d.getKey()是userInfo的key
+
+                                String userInfo_Key = d.getKey();
+                                if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
+
+                                    databaseReference.child("Users").child(uid)
+                                            .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot d: dataSnapshot.getChildren()) {
+
+                                                String d_Key = d.getKey();
+                                                if(d_Key.equals("weight")){
+                                                    weight = d.getValue().toString();
+                                                    textView_weight.setText(weight);
+
+                                                    weightCallBack.onCallback(weight);
+                                                }
+
+                                            }
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        }else{
+                            Toast.makeText(ReportActivity.this,"displayHeight_BMI ERROR!!!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
     }
+
+    public void showPredictedWeight(){
+
+        //step
+        //1- 获取今天吃的calorie
+        //2 -获得今天的weight
+        //3 -预测weight并展示
+
+
+        //1- 获取今天吃的calorie
+
+        //2 -获得今天的weight
+        //3 -预测weight并展示
+
+
+
+    }
+
+
 
     public void getQuantityCategory(final MyCallBack myCallBack){
         //获取userID
@@ -315,7 +391,7 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    public void calPercentage(){
+    public void initCalorie_initNutrient(){
 
         //1. select * from Users
         //2. select * from Food where foodname = "从User哪里获取到的"
@@ -452,6 +528,8 @@ public class ReportActivity extends AppCompatActivity {
                                                             System.out.println("=====allCalorieCount=="+allCalorieCount);
 
                                                         }
+
+
                                                         //setFoodIntake diversity
                                                         diversityNumber.setText(typesCount+" types");
                                                         System.out.println("=========typesCount=="+typesCount);
@@ -469,8 +547,33 @@ public class ReportActivity extends AppCompatActivity {
                                                         }
                                                         if(calStatus){
                                                             calorieStatus.setText("+");
+                                                            //predictedWeight 变轻
+                                                            //每少吃1000calorie 变轻0。25kg
+                                                            Double left = (2078 - allCalorieCount)/1000;
+                                                            final Double less = left*0.25;
+                                                            getWeight(new WeightCallBack() {
+                                                                @Override
+                                                                public void onCallback(String weight) {
+                                                                    DecimalFormat df = new DecimalFormat("0.0");
+                                                                    String str_predict = df.format(Double.parseDouble(weight)-less);
+                                                                    predictedWeightTV.setText(str_predict+"kg");
+                                                                }
+                                                            });
                                                         }else{
                                                             calorieStatus.setText("-");
+                                                            //predictedWeight 变重
+                                                            //每多吃1000calorie 变重0。5kg
+                                                            Double left = (allCalorieCount - 2078)/1000;
+                                                            final Double more = left*0.5;
+                                                            getWeight(new WeightCallBack() {
+                                                                @Override
+                                                                public void onCallback(String weight) {
+                                                                    DecimalFormat df = new DecimalFormat("0.0");
+                                                                    String str_predict = df.format(Double.parseDouble(weight)+more);
+                                                                    predictedWeightTV.setText(str_predict+"kg");
+                                                                }
+                                                            });
+
                                                         }
                                                         //Protein
                                                         proteinTotal.setText(Double.toString(allProteinCount));
@@ -508,8 +611,6 @@ public class ReportActivity extends AppCompatActivity {
                                                         }else{
                                                             fatStatus.setText("-");
                                                         }
-
-
 
 
 
@@ -712,50 +813,6 @@ public class ReportActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-    //======================以下是 NUTRIENT View 分割线 ========================
-
-//    public void calNutrient(){
-//
-//    }
-
-//    public void initNutrient(){
-//        //todo set Nutrient
-//        //这也是例子，具体的值你们传过来直接输进去就ok，然后我只暂时做了2个set，因为不知道后续有多少量
-//        setNutrientCal(6000,14000,true);
-//        setNutrientProtein(3000,5000,false);
-//    }
-
-//    public void setNutrientCal(int total,int goal,boolean status){
-//        TextView calorieTotal = (TextView)findViewById(R.id.report_display_nutrient_calorie_total);
-//        TextView calorieGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
-//        TextView calorieStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
-//        calorieTotal.setText(""+total);
-//        calorieGoal.setText(""+goal);
-//        if(status){
-//            calorieStatus.setText("+");
-//            System.out.println("1");
-//        }else{
-//            calorieStatus.setText("-");
-//        }
-//    }
-//
-//    public void setNutrientProtein(int total,int goal,boolean status){
-//        TextView proteinTotal = (TextView)findViewById(R.id.report_display_nutrient_protein_total);
-//        TextView proteinGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
-//        TextView proteinStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
-//        proteinTotal.setText(""+total);
-//        proteinGoal.setText(""+goal);
-//        if(status){
-//            proteinStatus.setText("+");
-//        }else{
-//            proteinStatus.setText("-");
-//        }
-//    }
 
 
 
