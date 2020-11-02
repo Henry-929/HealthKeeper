@@ -66,6 +66,11 @@ public class ReportActivity extends AppCompatActivity {
     //based on the ML model Yukun created
     TextView standardWeightTV,predictedWeightTV;
 
+    TextView calorieTotal,calorieGoal,calorieStatus;
+    TextView proteinTotal,proteinGoal,proteinStatus;
+    TextView carbsTotal,carbsGoal,carbsStatus;
+    TextView fatTotal, fatGoal,fatStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +102,25 @@ public class ReportActivity extends AppCompatActivity {
 
         standardWeightTV = (TextView)findViewById(R.id.standard_weight);
         predictedWeightTV = (TextView)findViewById(R.id.predicted_weight);
+
+        calorieTotal = (TextView)findViewById(R.id.report_display_nutrient_calorie_total);
+        calorieGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
+        calorieStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
+
+        proteinTotal = (TextView)findViewById(R.id.report_display_nutrient_protein_total);
+        proteinGoal = (TextView)findViewById(R.id.report_display_nutrient_protein_goal);
+        proteinStatus = (TextView)findViewById(R.id.report_display_nutrient_protein_condition);
+
+        carbsTotal = (TextView)findViewById(R.id.report_display_nutrient_carbohydrate_total);
+        carbsGoal = (TextView)findViewById(R.id.report_display_nutrient_carbohydrate_goal);
+        carbsStatus = (TextView) findViewById(R.id.report_display_nutrient_carbohydrate_condition);
+
+        fatTotal = (TextView) findViewById(R.id.report_display_nutrient_fat_total);
+        fatGoal = (TextView) findViewById(R.id.report_display_nutrient_fat_goal);
+        fatStatus = (TextView) findViewById(R.id.report_display_nutrient_fat_condition);
+
+
+
 
         //获取BMI和weight from database
         get_Weight_BMI_fromDatabase();
@@ -131,7 +155,8 @@ public class ReportActivity extends AppCompatActivity {
                 LabelCalorie.setVisibility(View.INVISIBLE);
                 LabelNutrient.setVisibility(View.VISIBLE);
                 NutrientView.setVisibility(View.VISIBLE);
-                initNutrient();
+                //initNutrient();
+                //calNutrient();
             }
         });
 
@@ -372,7 +397,7 @@ public class ReportActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onCallback(ArrayList<UsersFood> usersFoodArrayList1) {
 
-                                                    double totQuan,totCalorie = 0,totCarbs,totFat,totPro;
+                                                    double totQuan,totCalorie = 0;
                                                     double totQuan_b,totCalorie_b=0;
                                                     double totQuan_l,totCalorie_l=0;
                                                     double totQuan_d,totCalorie_d=0;
@@ -383,6 +408,11 @@ public class ReportActivity extends AppCompatActivity {
                                                     double allCalorieCount_l = 0;
                                                     double allCalorieCount_d = 0;
                                                     double allCalorieCount_o = 0;
+
+                                                    double totProtein=0,allProteinCount = 0;
+                                                    double totCarbs = 0, allCarbsCount =0;
+                                                    double totFat = 0, allFatCount =0;
+
 
                                                     //for(usersFoodArrayList)
                                                     //【？？】为啥两种食物？各个print两遍？？！！
@@ -404,9 +434,21 @@ public class ReportActivity extends AppCompatActivity {
                                                                     totCalorie = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
                                                                     totCalorie = totCalorie * totQuan;
 
+                                                                    totProtein = Double.parseDouble(customFoodArrayList.get(j).getProtein());
+                                                                    totProtein = totProtein * totQuan;
+
+                                                                    totCarbs = Double.parseDouble(customFoodArrayList.get(j).getCarbs());
+                                                                    totCarbs = totCarbs * totQuan;
+
+                                                                    totFat = Double.parseDouble(customFoodArrayList.get(j).getFat());
+                                                                    totFat = totFat * totQuan;
+
                                                                 }
                                                             }
                                                             allCalorieCount = allCalorieCount + totCalorie;
+                                                            allProteinCount = allProteinCount + totProtein;
+                                                            allCarbsCount = allCarbsCount + totCarbs;
+                                                            allFatCount = allFatCount + totFat;
                                                             System.out.println("=====allCalorieCount=="+allCalorieCount);
 
                                                         }
@@ -416,6 +458,60 @@ public class ReportActivity extends AppCompatActivity {
                                                         System.out.println("=========allCalorieCount=="+allCalorieCount);
 
                                                         energyStatus.setText(Double.toString(allCalorieCount));
+
+                                                        //setNutrient
+                                                        //calorie
+                                                        calorieTotal.setText(Double.toString(allCalorieCount));
+                                                        calorieGoal.setText("2078");
+                                                        boolean calStatus = false;
+                                                        if( (2078 - allCalorieCount) > 0 ){
+                                                            calStatus =true;
+                                                        }
+                                                        if(calStatus){
+                                                            calorieStatus.setText("+");
+                                                        }else{
+                                                            calorieStatus.setText("-");
+                                                        }
+                                                        //Protein
+                                                        proteinTotal.setText(Double.toString(allProteinCount));
+                                                        proteinGoal.setText("37");
+                                                        boolean proStatus = false;
+                                                        if( (37 - allProteinCount) > 0 ){
+                                                            proStatus =true;
+                                                        }
+                                                        if(proStatus){
+                                                            proteinStatus.setText("+");
+                                                        }else{
+                                                            proteinStatus.setText("-");
+                                                        }
+                                                        //Carbs
+                                                        carbsTotal.setText(Double.toString(allCarbsCount));
+                                                        carbsGoal.setText("290");
+                                                        boolean carbohydrateStatus = false;
+                                                        if( (290 - allCarbsCount) > 0 ){
+                                                            carbohydrateStatus =true;
+                                                        }
+                                                        if(carbohydrateStatus){
+                                                            carbsStatus.setText("+");
+                                                        }else{
+                                                            carbsStatus.setText("-");
+                                                        }
+                                                        //Fat
+                                                        fatTotal.setText(Double.toString(allFatCount));
+                                                        fatGoal.setText("27");
+                                                        boolean fattttStatus = false;
+                                                        if( (27 - allFatCount) > 0 ){
+                                                            fattttStatus =true;
+                                                        }
+                                                        if(fattttStatus){
+                                                            fatStatus.setText("+");
+                                                        }else{
+                                                            fatStatus.setText("-");
+                                                        }
+
+
+
+
 
 
                                                         //计算早餐Calorie
@@ -623,39 +719,43 @@ public class ReportActivity extends AppCompatActivity {
 
     //======================以下是 NUTRIENT View 分割线 ========================
 
-    public void initNutrient(){
-        //todo set Nutrient
-        //这也是例子，具体的值你们传过来直接输进去就ok，然后我只暂时做了2个set，因为不知道后续有多少量
-        setNutrientCal(6000,14000,true);
-        setNutrientProtein(3000,5000,false);
-    }
+//    public void calNutrient(){
+//
+//    }
 
-    public void setNutrientCal(int total,int goal,boolean status){
-        TextView calorieTotal = (TextView)findViewById(R.id.report_display_nutrient_calorie_total);
-        TextView calorieGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
-        TextView calorieStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
-        calorieTotal.setText(""+total);
-        calorieGoal.setText(""+goal);
-        if(status){
-            calorieStatus.setText("+");
-            System.out.println("1");
-        }else{
-            calorieStatus.setText("-");
-        }
-    }
+//    public void initNutrient(){
+//        //todo set Nutrient
+//        //这也是例子，具体的值你们传过来直接输进去就ok，然后我只暂时做了2个set，因为不知道后续有多少量
+//        setNutrientCal(6000,14000,true);
+//        setNutrientProtein(3000,5000,false);
+//    }
 
-    public void setNutrientProtein(int total,int goal,boolean status){
-        TextView proteinTotal = (TextView)findViewById(R.id.report_display_nutrient_protein_total);
-        TextView proteinGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
-        TextView proteinStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
-        proteinTotal.setText(""+total);
-        proteinGoal.setText(""+goal);
-        if(status){
-            proteinStatus.setText("+");
-        }else{
-            proteinStatus.setText("-");
-        }
-    }
+//    public void setNutrientCal(int total,int goal,boolean status){
+//        TextView calorieTotal = (TextView)findViewById(R.id.report_display_nutrient_calorie_total);
+//        TextView calorieGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
+//        TextView calorieStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
+//        calorieTotal.setText(""+total);
+//        calorieGoal.setText(""+goal);
+//        if(status){
+//            calorieStatus.setText("+");
+//            System.out.println("1");
+//        }else{
+//            calorieStatus.setText("-");
+//        }
+//    }
+//
+//    public void setNutrientProtein(int total,int goal,boolean status){
+//        TextView proteinTotal = (TextView)findViewById(R.id.report_display_nutrient_protein_total);
+//        TextView proteinGoal = (TextView)findViewById(R.id.report_display_nutrient_calorie_goal);
+//        TextView proteinStatus = (TextView)findViewById(R.id.report_display_nutrient_calorie_condition);
+//        proteinTotal.setText(""+total);
+//        proteinGoal.setText(""+goal);
+//        if(status){
+//            proteinStatus.setText("+");
+//        }else{
+//            proteinStatus.setText("-");
+//        }
+//    }
 
 
 
