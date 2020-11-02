@@ -84,11 +84,11 @@ public class ImageConfirmActivity extends Activity {
 
             }
         });
-        editTextFoodName.setText(foodNameInChinse);
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-
+        Translation();
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +149,49 @@ public class ImageConfirmActivity extends Activity {
                 //UserFoodAdd_toDatabase();
             }
         });
+    }
+
+    //to translate chinese API language to English
+    public void Translation(){
+        if(foodNameInChinse.equals("苹果")){
+            editTextFoodName.setText("apple");
+        }
+        if(foodNameInChinse.equals("香蕉")){
+            editTextFoodName.setText("banana");
+        }
+        if(foodNameInChinse.equals("胡萝卜")){
+            editTextFoodName.setText("carrot");
+        }
+        if(foodNameInChinse.equals("黄瓜")){
+            editTextFoodName.setText("cucumber");
+        }
+        if(foodNameInChinse.equals("洋葱")){
+            editTextFoodName.setText("onion");
+        }
+        if(foodNameInChinse.equals("甜橙")){
+            editTextFoodName.setText("orange");
+        }
+        if(foodNameInChinse.equals("土豆")){
+            editTextFoodName.setText("potato");
+        }
+        if(foodNameInChinse.equals("番茄")){
+            editTextFoodName.setText("tomato");
+        }
+        if(foodNameInChinse.equals("猕猴桃")){
+            editTextFoodName.setText("kiwifruit");
+        }
+        if(foodNameInChinse.equals("花椰菜")){
+            editTextFoodName.setText("broccoli");
+        }
+
+        if(foodNameInChinse.equals("番薯")){
+            editTextFoodName.setText("sweet potato");
+        }
+        if(foodNameInChinse.equals("草莓")){
+            editTextFoodName.setText("strawberry");
+        }
+
+
     }
 
     public void UserFoodAdd(){
