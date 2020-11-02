@@ -122,16 +122,27 @@ public class FoodDisplayActivity extends AppCompatActivity {
         if (data != null) {
 
             String addFoodName = data.getString("foodname");
-            String addFoodName2 = data.getString("foodname2");
             custom_get_food_name.setText(addFoodName);
             System.out.println("---------------------------------------------------"+addFoodName);
-            getCalorie(addFoodName);
+            getCalorie_Manually(addFoodName);
+//            Bitmap getbmp = getFoodImage(addImage);
+
+        }
+
+        //从intent取出bundle
+        Bundle data2 = intent.getBundleExtra("data_image");
+        if (data2 != null) {
+
+            String addFoodName2 = data2.getString("foodname2");
+            custom_get_food_name.setText(addFoodName2);
+            System.out.println("---------------------------------------------------"+addFoodName2);
+            getCalorie_ImageConfirm(addFoodName2);
 //            Bitmap getbmp = getFoodImage(addImage);
 
         }
     }
 
-    public void getCalorie(String message){
+    public void getCalorie_Manually(String message){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Food").child(message);
 
@@ -177,6 +188,53 @@ public class FoodDisplayActivity extends AppCompatActivity {
         } );
     }
 
+    public void getCalorie_ImageConfirm(String message){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            mCalorie = messageSnapshot.getValue().toString();
+                            custom_get_food_calorie.setText(mCalorie);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("protein")){
+                            mProtein = messageSnapshot.getValue().toString();
+                            custom_get_food_protein.setText(mProtein);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("carbs")){
+                            mCarbohydrate = messageSnapshot.getValue().toString();
+                            custom_get_food_carbohydrate.setText(mCarbohydrate);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("fat")){
+                            mFat = messageSnapshot.getValue().toString();
+                            custom_get_food_fat.setText(mFat);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+    }
+
+
     public void getQuantityCategory(final MyCallBack myCallBack){
         //获取userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -201,7 +259,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                     //al_usersFood.setFoodname(foodname);
 
                                     //Toast.makeText(ReportActivity.this, al_usersFood.getFoodname() + "!name!" + foodname, Toast.LENGTH_LONG).show();
-                                    System.out.println("==============foodname======" + foodname);
+//                                    System.out.println("==============foodname======" + foodname);
 
 
                                     //获取 quantity &category
@@ -221,7 +279,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     usersFood.setCategory(category);
 //                                                    al_usersFood.setQuantity(quantity);
 //                                                    al_usersFood.setCategory(category);
-                                                    System.out.println("=====quantity*category====" + quantity + " " + category);
+//                                                    System.out.println("=====quantity*category====" + quantity + " " + category);
 
                                                     //al_usersFood.incrementFoodCount();
 
@@ -297,17 +355,17 @@ public class FoodDisplayActivity extends AppCompatActivity {
 //                                            al_usersFood.setFoodname(foodname);
                                             if(dataSnapshot.exists()){
 
-                                                System.out.println("==============dataS======"+dataSnapshot.getValue().toString());
+//                                                System.out.println("==============dataS======"+dataSnapshot.getValue().toString());
 
                                                 for(DataSnapshot data:dataSnapshot.getChildren()){
-                                                    System.out.println("==============data======"+data.getValue().toString());
+//                                                    System.out.println("==============data======"+data.getValue().toString());
 
                                                     String name = data.child("foodname").getValue().toString();
                                                     calorie = data.child("calorie").getValue().toString();
                                                     carbohydrate = data.child("carbs").getValue().toString();
                                                     fat = data.child("fat").getValue().toString();
                                                     protein = data.child("protein").getValue().toString();
-                                                    System.out.println("===allinfo====="+name+"+"+calorie+"+"+carbohydrate+"+"+fat+"+"+protein);
+//                                                    System.out.println("===allinfo====="+name+"+"+calorie+"+"+carbohydrate+"+"+fat+"+"+protein);
 
 
                                                     customFood.setFoodname(name);
@@ -316,19 +374,19 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     customFood.setFat(fat);
                                                     customFood.setProtein(protein);
 
-                                                    System.out.println("===alINFO====="+customFood.getFoodname()+"+"+customFood.getCalorie()+"+"+customFood.getCarbs()+"+"+customFood.getFat()+"+"+customFood.getProtein());
+//                                                    System.out.println("===alINFO====="+customFood.getFoodname()+"+"+customFood.getCalorie()+"+"+customFood.getCarbs()+"+"+customFood.getFat()+"+"+customFood.getProtein());
 
                                                     //al_usersFood.incrementFoodCount();
                                                     customFood.incrementFoodCount();
-                                                    System.out.println("==============foodcount======"+customFood.getFoodCount());
+//                                                    System.out.println("==============foodcount======"+customFood.getFoodCount());
                                                     //allFoodArrayList.add(al_UsersFood);
                                                     customFoodArrayList.add(customFood);
-                                                    System.out.println("==============allFoodArrayList======"+customFoodArrayList.size());
+//                                                    System.out.println("==============allFoodArrayList======"+customFoodArrayList.size());
 
                                                 }
                                             }
 
-                                            System.out.println("==========a嗷嗷=="+customFoodArrayList.size());
+//                                            System.out.println("==========a嗷嗷=="+customFoodArrayList.size());
 
 
                                             getQuantityCategory(new MyCallBack() {
@@ -352,12 +410,12 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     int typesCount = 0;
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
                                                         typesCount = customFoodArrayList.size();
-                                                        System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
+//                                                        System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
 
                                                         //计算所有meal的Calorie
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String tmp_foodname = usersFoodArrayList1.get(i).getFoodname();
-                                                            System.out.println("=====customFoodArrayList=="+tmp_foodname);
+//                                                            System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -370,7 +428,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                 }
                                                             }
                                                             allCalorieCount = allCalorieCount + totCalorie;
-                                                            System.out.println("=====allCalorieCount=="+allCalorieCount);
+//                                                            System.out.println("=====allCalorieCount=="+allCalorieCount);
 
                                                         }
                                                         //set total intake
@@ -409,7 +467,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_b = allCalorieCount_b + totCalorie_b;
-                                                                System.out.println("=====BREAKFASTCalorieCount=="+allCalorieCount_b);
+//                                                                System.out.println("=====BREAKFASTCalorieCount=="+allCalorieCount_b);
 
 
                                                                 //todo..
@@ -436,7 +494,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_l = allCalorieCount_l + totCalorie_l;
-                                                                System.out.println("=====LUNCHCalorieCount=="+allCalorieCount_l);
+//                                                                System.out.println("=====LUNCHCalorieCount=="+allCalorieCount_l);
                                                             }
 
                                                         }
@@ -458,7 +516,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_d = allCalorieCount_d + totCalorie_d;
-                                                                System.out.println("=====DINNERCalorieCount=="+allCalorieCount_d);
+//                                                                System.out.println("=====DINNERCalorieCount=="+allCalorieCount_d);
                                                             }
 
                                                         }
@@ -480,7 +538,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_o = allCalorieCount_o + totCalorie_o;
-                                                                System.out.println("=====OtherCalorieCount=="+allCalorieCount_o);
+//                                                                System.out.println("=====OtherCalorieCount=="+allCalorieCount_o);
                                                             }
 
                                                         }
@@ -512,106 +570,4 @@ public class FoodDisplayActivity extends AppCompatActivity {
                 });
     }
 
-    public Bitmap getFoodImage(final String message){
-        final String[] Food = {null};
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
-
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("foodname")){
-                            Food[0] = messageSnapshot.getValue().toString();
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-
-                            StorageReference appleRef = storageReference.child("FoodImage/icon_Apple.jpeg");
-                            StorageReference bananaRef = storageReference.child("FoodImage/icon_Banana.jpeg");
-                            StorageReference burgerRef = storageReference.child("FoodImage/icon_Burger.jpeg");
-                            StorageReference onionRef = storageReference.child("FoodImage/icon_Onion.jpeg");
-
-
-                            final long ONE_MEGABYTE = 1024 * 1024;
-                            if(Food[0].equals("Apple")){
-
-                                appleRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Banana")){
-
-                                bananaRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Hamburger")){
-
-                                burgerRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Onion")){
-
-                                onionRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-        return bmp;
-    }
-    
 }

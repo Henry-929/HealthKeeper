@@ -158,17 +158,17 @@ public class ManuallyInputActivity extends AppCompatActivity {
 //        getFoodImage(message);
 //        getCalorie(message);
 //        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+Calorie,Toast.LENGTH_SHORT).show();
+        // 实例化一个Bundle
         Bundle bundle = new Bundle();
-
-        //跳转到food display页面
+        // 实例化一个intent
         Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-
+        // 把数据保存到Bundle里
         bundle.putString("foodname", message);
         bundle.putString("calorie", message);
         bundle.putString("icon", message);
         bundle.putString("quantity",quantity);
         bundle.putString("category",category);
-
+        // 把bundle放入intent里
         intent.putExtra("data", bundle);
         //Use the setResult() method with a response code and the Intent with the response data
         startActivity(intent);

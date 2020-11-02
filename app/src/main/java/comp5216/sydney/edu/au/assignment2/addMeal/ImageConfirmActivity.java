@@ -236,10 +236,18 @@ public class ImageConfirmActivity extends Activity {
                                     public void onSuccess(Void aVoid) {
                                         //跳转到food display页面
                                         String message = editTextFoodName.getText().toString();
+                                        System.out.println("===================================我的天"+message);
 
+                                        // 实例化一个Bundle
+                                        Bundle bundle = new Bundle();
+                                        // 实例化一个intent
                                         Intent intent = new Intent(ImageConfirmActivity.this, FoodDisplayActivity.class);
-                                        intent.putExtra("foodname2", message);
+                                        // 把数据保存到Bundle里
+                                        bundle.putString("foodname2", message);
+                                        // 把bundle放入intent里
+                                        intent.putExtra("data_image", bundle);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                     }
