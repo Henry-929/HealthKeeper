@@ -2,6 +2,8 @@ package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,25 +28,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.login.LoginActivity;
-import comp5216.sydney.edu.au.assignment2.login.RegisterActivity;
-import comp5216.sydney.edu.au.assignment2.login.User;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.UserInfo;
-import comp5216.sydney.edu.au.assignment2.main.MainActivity;
-import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 
 public class ManuallyInputActivity extends AppCompatActivity {
 
-    public static String Calorie;
+    public static String Calorie,Food;
     public static String uid;
-    DatabaseReference databaseReference;
+
+    public DatabaseReference databaseReference;
+    public FirebaseStorage storage;
+    public StorageReference storageReference;
 
     private EditText editTextFoodName, editTextFoodQuantity;
+    public Bitmap bmp;
 
     //define food info
     public String addFoodName,addFoodQuantity,addFoodCategory;
@@ -68,6 +68,8 @@ public class ManuallyInputActivity extends AppCompatActivity {
         categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
         spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,FoodCategory);
 
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         categorySpinner.setAdapter(spinneradapter);
         categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
@@ -153,14 +155,15 @@ public class ManuallyInputActivity extends AppCompatActivity {
         categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
         String category = categorySpinner.getSelectedItem().toString();
 
-        getCalorie(message);
-        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+Calorie,Toast.LENGTH_SHORT).show();
+//        getFoodImage(message);
+//        getCalorie(message);
+//        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+Calorie,Toast.LENGTH_SHORT).show();
         //跳转到food display页面
         Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
 
         intent.putExtra("foodname", message);
-        intent.putExtra("calorie", Calorie);
-        intent.putExtra("icon", R.drawable.examplefood_burger);
+        intent.putExtra("calorie", message);
+        intent.putExtra("icon", message);
         intent.putExtra("quantity",quantity);
         intent.putExtra("category",category);
         //Use the setResult() method with a response code and the Intent with the response data
@@ -169,32 +172,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
 
     }
 
-    public void getCalorie(String message){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
-
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("calorie")){
-                            Calorie = messageSnapshot.getValue().toString();
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-    }
 
     public void UserFoodAdd(){
 
@@ -241,9 +218,9 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         //跳转到food display页面
-                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-                                        startActivity(intent);
-
+//                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
+//                                        startActivity(intent);
+                                        sendMessage();
                                     }
                                 });
                     }

@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 public class UsersFood {
@@ -8,11 +9,11 @@ public class UsersFood {
 
     public String foodname,quantity,category;
     public String calorie;
-    public Drawable icon;
+    public Bitmap icon;
 
     public UsersFood(){}
 
-    public UsersFood(String foodname,String calorie,Drawable icon){
+    public UsersFood(String foodname,String calorie,Bitmap icon){
         this.foodname = foodname;
         this.calorie = calorie;
         this.icon = icon;
@@ -56,7 +57,7 @@ public class UsersFood {
         return calorie;
     }
 
-    public Drawable getIcon() {
+    public Bitmap getIcon() {
         return icon;
     }
 

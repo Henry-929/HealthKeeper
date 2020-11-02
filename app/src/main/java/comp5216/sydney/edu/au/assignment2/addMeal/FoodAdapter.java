@@ -28,7 +28,7 @@ public class FoodAdapter extends BaseAdapter {
 
     public void addfood(UsersFood usersFood) {
         if (list == null) {
-            list = new ArrayList<>();
+            list = new ArrayList<UsersFood>();
         }
         list.add(usersFood);
         notifyDataSetChanged();
@@ -80,7 +80,7 @@ public class FoodAdapter extends BaseAdapter {
         //4.将数据设置给这些子控件做显示
         food_name.setText(usersFood.getFoodname());
         food_intake_calorie.setText(usersFood.getCalorie());
-        food_image.setImageDrawable(usersFood.getIcon());
+        food_image.setImageBitmap(usersFood.getIcon());
         //设置imageView的图片
 
         return convertView;

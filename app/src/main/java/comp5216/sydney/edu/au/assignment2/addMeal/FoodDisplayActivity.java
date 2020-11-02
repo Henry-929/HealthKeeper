@@ -1,21 +1,14 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
-import android.app.Activity;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -40,16 +37,12 @@ import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class FoodDisplayActivity extends AppCompatActivity {
 
-
     public static String uid;
     DatabaseReference databaseReference;
     public String foodname,quantity,category;
     public String calorie,carbohydrate,fat,protein;
     public ArrayList<UsersFood> usersFoodArrayList = new ArrayList<>();
     public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
-
-
-    public String Calorie,Protein,Carbohydrate,Fat;
 
     ListView listView_breakfast,listView_lunch,listView_dinner;
     FoodAdapter foodAdapter;
@@ -58,14 +51,87 @@ public class FoodDisplayActivity extends AppCompatActivity {
     private LinearLayout ll_quit;
     ProgressBar progressBar;
     private TextView calorieIntake,calorieTotal,calorieLeft;
-    private String userIntake,userTotal,userLeft;
-    private int leftInt;
-    private float bar_width;
+
+    public Bitmap bmp;
+    public FirebaseStorage storage;
+    public StorageReference storageReference;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        Intent data = getIntent();
+
+        String category = data.getExtras().getString("category");
+        switch(category){
+            case "Breakfast" :
+                //语句
+                arrayList = new ArrayList<UsersFood>();
+                listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
+                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
+                listView_breakfast.setAdapter(foodAdapter);
+//                    Toast.makeText(this, "Added:" + "嗷嗷1", Toast.LENGTH_SHORT).show();
+                break; //可选
+            case "Lunch" :
+                //语句
+                arrayList = new ArrayList<UsersFood>();
+                listView_lunch = (ListView) findViewById(R.id.listView_lunch);
+                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
+                listView_lunch.setAdapter(foodAdapter);
+//                    Toast.makeText(this, "Added:" + "嗷嗷2", Toast.LENGTH_SHORT).show();
+                break; //可选
+            case "Dinner":
+                //语句
+                arrayList = new ArrayList<UsersFood>();
+                listView_dinner = (ListView) findViewById(R.id.listView_dinner);
+                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
+                listView_dinner.setAdapter(foodAdapter);
+//                    Toast.makeText(this, "Added:" + "嗷嗷3", Toast.LENGTH_SHORT).show();
+
+                break;
+            default : //可选
+                //语句
+//                    Toast.makeText(this, "Added:" + "嗷嗷4", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FoodDisplayActivity.this, MainActivity.class);
+                if (intent != null) {
+                    FoodDisplayActivity.this.startActivity(intent);
+                }
+                break;
+
+        }
+
+        //convert str(String) to i(int)
+//            int Calorie = Integer.parseInt(addCalorie);
+//            int quantity = Integer.parseInt(addquantity);
+
+        String addFoodName;
+        String addCalorie;
+        String addquantity;
+        String addImage;
+
+        if (data != null) {
+
+            addFoodName = data.getExtras().getString("foodname");
+            addCalorie = data.getExtras().getString("calorie");
+            addquantity = data.getExtras().getString("quantity");
+            addImage = data.getExtras().getString("icon");
+
+            String getCalorie = getCalorie(addCalorie);
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+getCalorie(addCalorie));
+
+            Bitmap getbmp = getFoodImage(addImage);
+
+            UsersFood usersFood = new UsersFood(addFoodName, getCalorie,
+                    getbmp);
+            foodAdapter.addfood(usersFood);
+
+        }
+
+        //------------------------------------------------------------------------------------------------
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -91,6 +157,137 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public String getCalorie(String message){
+        final String[] Calorie = {null};
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            Calorie[0] = messageSnapshot.getValue().toString();
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+        return Calorie[0];
+    }
+
+    public Bitmap getFoodImage(final String message){
+        final String[] Food = {null};
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("foodname")){
+                            Food[0] = messageSnapshot.getValue().toString();
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+
+                            StorageReference appleRef = storageReference.child("FoodImage/icon_Apple.jpeg");
+                            StorageReference bananaRef = storageReference.child("FoodImage/icon_Banana.jpeg");
+                            StorageReference burgerRef = storageReference.child("FoodImage/icon_Burger.jpeg");
+                            StorageReference onionRef = storageReference.child("FoodImage/icon_Onion.jpeg");
+
+
+                            final long ONE_MEGABYTE = 1024 * 1024;
+                            if(Food[0].equals("Apple")){
+
+                                appleRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }else if(Food[0].equals("Banana")){
+
+                                bananaRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }else if(Food[0].equals("Hamburger")){
+
+                                burgerRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }else if(Food[0].equals("Onion")){
+
+                                onionRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+        return bmp;
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
