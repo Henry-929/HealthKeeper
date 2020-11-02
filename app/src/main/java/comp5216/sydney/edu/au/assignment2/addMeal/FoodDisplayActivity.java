@@ -1,14 +1,21 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
-
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,8 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -37,12 +40,16 @@ import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class FoodDisplayActivity extends AppCompatActivity {
 
+
     public static String uid;
     DatabaseReference databaseReference;
     public String foodname,quantity,category;
     public String calorie,carbohydrate,fat,protein;
     public ArrayList<UsersFood> usersFoodArrayList = new ArrayList<>();
     public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
+
+
+    public String Calorie,Protein,Carbohydrate,Fat;
 
     ListView listView_breakfast,listView_lunch,listView_dinner;
     FoodAdapter foodAdapter;
@@ -51,42 +58,14 @@ public class FoodDisplayActivity extends AppCompatActivity {
     private LinearLayout ll_quit;
     ProgressBar progressBar;
     private TextView calorieIntake,calorieTotal,calorieLeft;
-
-    public Bitmap bmp;
-    public String Calorie,Protein,Carbohydrate,Fat;
-    public FirebaseStorage storage;
-    public StorageReference storageReference;
-    private TextView custom_get_food_name,custom_get_food_calorie,custom_get_food_protein,
-            custom_get_food_carbohydrate,custom_get_food_fat;
+    private String userIntake,userTotal,userLeft;
+    private int leftInt;
+    private float bar_width;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
-
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
-        custom_get_food_name = (TextView) findViewById(R.id.custom_get_food_name);
-        custom_get_food_calorie = (TextView) findViewById(R.id.custom_get_food_calorie);
-        custom_get_food_protein = (TextView) findViewById(R.id.custom_get_food_protein);
-        custom_get_food_carbohydrate = (TextView) findViewById(R.id.custom_get_food_carbohydrate);
-        custom_get_food_fat = (TextView) findViewById(R.id.custom_get_food_fat);
-
-        Intent data = getIntent();
-
-        String addFoodName;
-
-        if (data != null) {
-
-            addFoodName = data.getExtras().getString("foodname");
-            custom_get_food_name.setText(addFoodName);
-            getCalorie(addFoodName);
-//            Bitmap getbmp = getFoodImage(addImage);
-
-        }
-
-        //------------------------------------------------------------------------------------------------
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -110,52 +89,8 @@ public class FoodDisplayActivity extends AppCompatActivity {
         //todo..
         //listview breakfast lunch dinner
 
-    }
 
-    public void getCalorie(String message){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
 
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("calorie")){
-                            Calorie = messageSnapshot.getValue().toString();
-                            custom_get_food_calorie.setText(Calorie);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("protein")){
-                            Protein = messageSnapshot.getValue().toString();
-                            custom_get_food_protein.setText(Protein);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("carbs")){
-                            Carbohydrate = messageSnapshot.getValue().toString();
-                            custom_get_food_carbohydrate.setText(Carbohydrate);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-
-                        if(d_Key.equals("fat")){
-                            Fat = messageSnapshot.getValue().toString();
-                            custom_get_food_fat.setText(Fat);
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
@@ -492,108 +427,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    public Bitmap getFoodImage(final String message){
-        final String[] Food = {null};
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
-
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("foodname")){
-                            Food[0] = messageSnapshot.getValue().toString();
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-
-                            StorageReference appleRef = storageReference.child("FoodImage/icon_Apple.jpeg");
-                            StorageReference bananaRef = storageReference.child("FoodImage/icon_Banana.jpeg");
-                            StorageReference burgerRef = storageReference.child("FoodImage/icon_Burger.jpeg");
-                            StorageReference onionRef = storageReference.child("FoodImage/icon_Onion.jpeg");
-
-
-                            final long ONE_MEGABYTE = 1024 * 1024;
-                            if(Food[0].equals("Apple")){
-
-                                appleRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Banana")){
-
-                                bananaRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Hamburger")){
-
-                                burgerRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Onion")){
-
-                                onionRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-        return bmp;
-    }
-
 }
+
 
