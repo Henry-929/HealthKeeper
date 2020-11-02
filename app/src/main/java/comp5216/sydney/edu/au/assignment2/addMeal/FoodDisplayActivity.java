@@ -495,141 +495,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                 });
     }
 
-
-    public String getCalorie(String message){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
-
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("calorie")){
-                            Calorie = messageSnapshot.getValue().toString();
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-        return Calorie;
-    }
-
-    public Bitmap getFoodImage(final String message){
-        final String[] Food = {null};
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
-
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("foodname")){
-                            Food[0] = messageSnapshot.getValue().toString();
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-
-                            StorageReference appleRef = storageReference.child("FoodImage/icon_Apple.jpeg");
-                            StorageReference bananaRef = storageReference.child("FoodImage/icon_Banana.jpeg");
-                            StorageReference burgerRef = storageReference.child("FoodImage/icon_Burger.jpeg");
-                            StorageReference onionRef = storageReference.child("FoodImage/icon_Onion.jpeg");
-
-
-                            final long ONE_MEGABYTE = 1024 * 1024;
-                            if(Food[0].equals("Apple")){
-
-                                appleRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Banana")){
-
-                                bananaRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Hamburger")){
-
-                                burgerRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }else if(Food[0].equals("Onion")){
-
-                                onionRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                        food_image.setImageBitmap(bmp);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-        return bmp;
-    }
-
-}
-
-
-//package comp5216.sydney.edu.au.assignment2.addMeal;
+    //package comp5216.sydney.edu.au.assignment2.addMeal;
 //
 //import android.app.Activity;
 //import android.content.Context;
@@ -784,6 +650,142 @@ public class FoodDisplayActivity extends AppCompatActivity {
 //    }
 //
 //
+
+
+    public String getCalorie(String message){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            Calorie = messageSnapshot.getValue().toString();
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+        return Calorie;
+    }
+
+    public Bitmap getFoodImage(final String message){
+        final String[] Food = {null};
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
+
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("foodname")){
+                            Food[0] = messageSnapshot.getValue().toString();
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+
+                            StorageReference appleRef = storageReference.child("FoodImage/icon_Apple.jpeg");
+                            StorageReference bananaRef = storageReference.child("FoodImage/icon_Banana.jpeg");
+                            StorageReference burgerRef = storageReference.child("FoodImage/icon_Burger.jpeg");
+                            StorageReference onionRef = storageReference.child("FoodImage/icon_Onion.jpeg");
+
+
+                            final long ONE_MEGABYTE = 1024 * 1024;
+                            if(Food[0].equals("Apple")){
+
+                                appleRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }else if(Food[0].equals("Banana")){
+
+                                bananaRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }else if(Food[0].equals("Hamburger")){
+
+                                burgerRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }else if(Food[0].equals("Onion")){
+
+                                onionRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                        food_image.setImageBitmap(bmp);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getApplicationContext(), "Loading FoodImage Male ERROR!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
+        return bmp;
+    }
+
+}
+
+
+
 ////    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 ////        super.onActivityResult(requestCode, resultCode, data);
 ////        if(requestCode == EDIT_ITEM_REQUEST_CODE){
