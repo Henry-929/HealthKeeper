@@ -20,8 +20,11 @@
     <string name="confirm">Confirm</string>
     <string name="add_food_manually">Add Food Manually</string>
     <string name="custom_alert">*In order to avoid confusion in the food record data,\n custom food can not be changed after creation.</string>
-    <string name="fat">Fat</string>
-    <string name="carbohydrate">Carbohydrate</string>
+    <string name="custom_alert_2">*Intake indicates the total number of calories you have consumed so far.</string>
+    <string name="custom_alert_3">*Details Information indicates the amount of each nutrient in the food you are eating (this content
+        standard is scientifically based).</string>
+    <string name="fat">Fat:</string>
+    <string name="carbohydrate">Carbohydrate:</string>
     <string name="gram">gram</string>
     <string name="protein">Protein:</string>
     <string name="details_information">Details Information</string>

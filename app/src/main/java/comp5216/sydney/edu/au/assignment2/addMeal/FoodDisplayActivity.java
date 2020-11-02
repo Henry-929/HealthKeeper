@@ -52,10 +52,12 @@ public class FoodDisplayActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private TextView calorieIntake,calorieTotal,calorieLeft;
 
-    public static Bitmap bmp;
-    public static String Calorie;
+    public Bitmap bmp;
+    public String Calorie,Protein,Carbohydrate,Fat;
     public FirebaseStorage storage;
     public StorageReference storageReference;
+    private TextView custom_get_food_name,custom_get_food_calorie,custom_get_food_protein,
+            custom_get_food_carbohydrate,custom_get_food_fat;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,72 +67,22 @@ public class FoodDisplayActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+        custom_get_food_name = (TextView) findViewById(R.id.custom_get_food_name);
+        custom_get_food_calorie = (TextView) findViewById(R.id.custom_get_food_calorie);
+        custom_get_food_protein = (TextView) findViewById(R.id.custom_get_food_protein);
+        custom_get_food_carbohydrate = (TextView) findViewById(R.id.custom_get_food_carbohydrate);
+        custom_get_food_fat = (TextView) findViewById(R.id.custom_get_food_fat);
+
         Intent data = getIntent();
 
-        String category = data.getExtras().getString("category");
-        switch(category){
-            case "Breakfast" :
-                //语句
-
-                arrayList = new ArrayList<UsersFood>();
-                listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
-                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
-
-                listView_breakfast.setAdapter(foodAdapter);
-//                    Toast.makeText(this, "Added:" + "嗷嗷1", Toast.LENGTH_SHORT).show();
-                break; //可选
-            case "Lunch" :
-                //语句
-                arrayList = new ArrayList<UsersFood>();
-                listView_lunch = (ListView) findViewById(R.id.listView_lunch);
-                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
-                listView_lunch.setAdapter(foodAdapter);
-//                    Toast.makeText(this, "Added:" + "嗷嗷2", Toast.LENGTH_SHORT).show();
-                break; //可选
-            case "Dinner":
-                //语句
-                arrayList = new ArrayList<UsersFood>();
-                listView_dinner = (ListView) findViewById(R.id.listView_dinner);
-                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
-                listView_dinner.setAdapter(foodAdapter);
-//                    Toast.makeText(this, "Added:" + "嗷嗷3", Toast.LENGTH_SHORT).show();
-
-                break;
-            default : //可选
-                //语句
-//                    Toast.makeText(this, "Added:" + "嗷嗷4", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(FoodDisplayActivity.this, MainActivity.class);
-                if (intent != null) {
-                    FoodDisplayActivity.this.startActivity(intent);
-                }
-                break;
-
-        }
-
-        //convert str(String) to i(int)
-//            int Calorie = Integer.parseInt(addCalorie);
-//            int quantity = Integer.parseInt(addquantity);
-
         String addFoodName;
-        String addCalorie;
-        String addquantity;
-        String addImage;
 
         if (data != null) {
 
             addFoodName = data.getExtras().getString("foodname");
-            addCalorie = data.getExtras().getString("calorie");
-            addquantity = data.getExtras().getString("quantity");
-            addImage = data.getExtras().getString("icon");
-
-            String getCalorie = getCalorie(addCalorie);
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+getCalorie(addCalorie));
-
-            Bitmap getbmp = getFoodImage(addImage);
-
-            UsersFood usersFood = new UsersFood(addFoodName, getCalorie,
-                    getbmp);
-            foodAdapter.addfood(usersFood);
+            custom_get_food_name.setText(addFoodName);
+            getCalorie(addFoodName);
+//            Bitmap getbmp = getFoodImage(addImage);
 
         }
 
@@ -158,8 +110,52 @@ public class FoodDisplayActivity extends AppCompatActivity {
         //todo..
         //listview breakfast lunch dinner
 
+    }
 
+    public void getCalorie(String message){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Food").child(message);
 
+        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                        String d_Key = messageSnapshot.getKey();
+                        if(d_Key.equals("calorie")){
+                            Calorie = messageSnapshot.getValue().toString();
+                            custom_get_food_calorie.setText(Calorie);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("protein")){
+                            Protein = messageSnapshot.getValue().toString();
+                            custom_get_food_protein.setText(Protein);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("carbs")){
+                            Carbohydrate = messageSnapshot.getValue().toString();
+                            custom_get_food_carbohydrate.setText(Carbohydrate);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+
+                        if(d_Key.equals("fat")){
+                            Fat = messageSnapshot.getValue().toString();
+                            custom_get_food_fat.setText(Fat);
+//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
@@ -471,7 +467,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         }
 
                                                     }
-                                                    
+
 
                                                 }
                                             });
@@ -497,35 +493,84 @@ public class FoodDisplayActivity extends AppCompatActivity {
                 });
     }
 
+    ////    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+////        super.onActivityResult(requestCode, resultCode, data);
+////        if(requestCode == EDIT_ITEM_REQUEST_CODE){
+////            if (resultCode == RESULT_OK){
+////                data = getIntent();
+////                // Extract name value from result extras
+////                String addFoodName = data.getExtras().getString("foodname");
+////                String addCalorie = data.getExtras().getString("calorie");
+////                Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));
+////
+////                UsersFood usersFood = new UsersFood(addFoodName,addCalorie,
+////                        addIcon);
+////                foodAdapter.add(usersFood);
+////                Log.i("Added Item in list:", addFoodName);
+////                Toast.makeText(this, "Added:" + addCalorie, Toast.LENGTH_SHORT).show();
+////                foodAdapter.notifyDataSetChanged();
+////            }
+////        }
+////    }
+//
+////    public static ArrayList<UsersFood> getAllFood(Context context,String foodname) {
+////        ArrayList<UsersFood> arrayList = new ArrayList<UsersFood>();
+////
+////            UsersFood  usersFood = new UsersFood();
+////            usersFood.foodname = foodname;
+////            usersFood.calorie = "100";
+////            usersFood.icon = ContextCompat.getDrawable(context, R.drawable.examplefood_burger);
+////            //通过context对象将一个资源id转换成一个Drawable对象。;
+////            arrayList.add(usersFood);
+////
+////        return arrayList;
+////    }
 
-    public String getCalorie(String message){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Food").child(message);
+//        String category = data.getExtras().getString("category");
+//        switch(category){
+//            case "Breakfast" :
+//                //语句
+//
+//                arrayList = new ArrayList<UsersFood>();
+//                listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
+//                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
+//
+//                listView_breakfast.setAdapter(foodAdapter);
+////                    Toast.makeText(this, "Added:" + "嗷嗷1", Toast.LENGTH_SHORT).show();
+//                break; //可选
+//            case "Lunch" :
+//                //语句
+//                arrayList = new ArrayList<UsersFood>();
+//                listView_lunch = (ListView) findViewById(R.id.listView_lunch);
+//                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
+//                listView_lunch.setAdapter(foodAdapter);
+////                    Toast.makeText(this, "Added:" + "嗷嗷2", Toast.LENGTH_SHORT).show();
+//                break; //可选
+//            case "Dinner":
+//                //语句
+//                arrayList = new ArrayList<UsersFood>();
+//                listView_dinner = (ListView) findViewById(R.id.listView_dinner);
+//                foodAdapter = new FoodAdapter(FoodDisplayActivity.this,(ArrayList<UsersFood>)arrayList);
+//                listView_dinner.setAdapter(foodAdapter);
+////                    Toast.makeText(this, "Added:" + "嗷嗷3", Toast.LENGTH_SHORT).show();
+//
+//                break;
+//            default : //可选
+//                //语句
+////                    Toast.makeText(this, "Added:" + "嗷嗷4", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(FoodDisplayActivity.this, MainActivity.class);
+//                if (intent != null) {
+//                    FoodDisplayActivity.this.startActivity(intent);
+//                }
+//                break;
+//
+//        }
 
-        myRef.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-//                        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+//convert str(String) to i(int)
+//            int Calorie = Integer.parseInt(addCalorie);
+//            int quantity = Integer.parseInt(addquantity);
 
-                        String d_Key = messageSnapshot.getKey();
-                        if(d_Key.equals("calorie")){
-                            Calorie = messageSnapshot.getValue().toString();
-//                            Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+messageCalorie,Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        } );
-        return Calorie;
-    }
-
+    
     public Bitmap getFoodImage(final String message){
         final String[] Food = {null};
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -630,37 +675,3 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
 }
 
-
-
-////    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-////        super.onActivityResult(requestCode, resultCode, data);
-////        if(requestCode == EDIT_ITEM_REQUEST_CODE){
-////            if (resultCode == RESULT_OK){
-////                data = getIntent();
-////                // Extract name value from result extras
-////                String addFoodName = data.getExtras().getString("foodname");
-////                String addCalorie = data.getExtras().getString("calorie");
-////                Drawable addIcon = Drawable.createFromPath(data.getExtras().getString("icon"));
-////
-////                UsersFood usersFood = new UsersFood(addFoodName,addCalorie,
-////                        addIcon);
-////                foodAdapter.add(usersFood);
-////                Log.i("Added Item in list:", addFoodName);
-////                Toast.makeText(this, "Added:" + addCalorie, Toast.LENGTH_SHORT).show();
-////                foodAdapter.notifyDataSetChanged();
-////            }
-////        }
-////    }
-//
-////    public static ArrayList<UsersFood> getAllFood(Context context,String foodname) {
-////        ArrayList<UsersFood> arrayList = new ArrayList<UsersFood>();
-////
-////            UsersFood  usersFood = new UsersFood();
-////            usersFood.foodname = foodname;
-////            usersFood.calorie = "100";
-////            usersFood.icon = ContextCompat.getDrawable(context, R.drawable.examplefood_burger);
-////            //通过context对象将一个资源id转换成一个Drawable对象。;
-////            arrayList.add(usersFood);
-////
-////        return arrayList;
-////    }
