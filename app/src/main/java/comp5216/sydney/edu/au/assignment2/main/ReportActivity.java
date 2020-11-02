@@ -1,12 +1,9 @@
 package comp5216.sydney.edu.au.assignment2.main;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.media.audiofx.Visualizer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,12 +11,9 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,12 +26,9 @@ import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.addMeal.CustomFood;
-import comp5216.sydney.edu.au.assignment2.addMeal.FoodDisplayActivity;
-import comp5216.sydney.edu.au.assignment2.addMeal.ManuallyInputActivity;
 import comp5216.sydney.edu.au.assignment2.addMeal.MyCallBack;
 import comp5216.sydney.edu.au.assignment2.addMeal.UsersFood;
 import comp5216.sydney.edu.au.assignment2.login.User;
-import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.InfoActivity_2;
 
 public class ReportActivity extends AppCompatActivity {
 
