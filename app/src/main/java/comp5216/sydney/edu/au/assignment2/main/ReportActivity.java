@@ -39,14 +39,9 @@ public class ReportActivity extends AppCompatActivity {
     public String foodname,quantity,category;
     public String calorie,carbohydrate,fat,protein;
 
-//    public double breakfastCalorie = 0;
-//    public double allmealCalorie= 0;
 
-    public ArrayList<al_UsersFood> allFoodArrayList = new ArrayList<>();
     public ArrayList<UsersFood> usersFoodArrayList = new ArrayList<>();
     public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
-
-//    public double d_quantity,d_calorie,d_carbohydrate,d_fat,d_protein;
 
 
     DatabaseReference databaseReference;

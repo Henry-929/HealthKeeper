@@ -25,7 +25,6 @@ import comp5216.sydney.edu.au.assignment2.login.User;
 
 public class InfoActivity_1 extends AppCompatActivity {
     public static String uid;
-    public static String notFirstTime;
 
     private EditText Height;
     public String height,gender;//用于数据库存储的String值
