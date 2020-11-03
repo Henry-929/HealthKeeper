@@ -673,7 +673,7 @@
 
                     <TextView
                         android:id="@+id/report_display_diversity_number"
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="130dp"
                         android:layout_marginTop="5dp"
@@ -684,7 +684,7 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
