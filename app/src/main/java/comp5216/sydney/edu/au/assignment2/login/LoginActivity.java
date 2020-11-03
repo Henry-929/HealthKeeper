@@ -112,44 +112,51 @@ public class LoginActivity extends AppCompatActivity{
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
-                    
+                    //Verify email address
+                    if(mAuth.getCurrentUser().isEmailVerified()){
+                        Toast.makeText(LoginActivity.this, "Verified successfully",
+                                Toast.LENGTH_SHORT).show();
 
-                    databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                    //判断是否是第一次登录 从database中 【读取数据】
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot data: snapshot.getChildren()){
+                        //判断是否是第一次登录 从database中 【读取数据】
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot data: snapshot.getChildren()){
 
-                                if(data.getKey().equals("notFirstTime")){
+                                    if(data.getKey().equals("notFirstTime")){
 
 
-                                    if(data.getValue().equals("false")){
-                                        //是第一次登录，进入user info add界面
+                                        if(data.getValue().equals("false")){
+                                            //是第一次登录，进入user info add界面
 
-                                        //进入user info add界面
-                                        //Toast.makeText(LoginActivity.this,"Signed in successfully, please add your information!",Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(LoginActivity.this, InfoActivity_1.class));
-                                        break;
-                                        // The user is new
+                                            //进入user info add界面
+                                            //Toast.makeText(LoginActivity.this,"Signed in successfully, please add your information!",Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(LoginActivity.this, InfoActivity_1.class));
+                                            break;
+                                            // The user is new
 
-                                    }
-                                    else{
-                                        Toast.makeText(LoginActivity.this,"Sign in successfully,welcome back!",Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                        // This is an existing user
+                                        }
+                                        else{
+                                            Toast.makeText(LoginActivity.this,"Sign in successfully,welcome back!",Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                            // This is an existing user
 
+                                        }
                                     }
                                 }
                             }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                            }
+                        });
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Please verify your email address",
+                                Toast.LENGTH_SHORT).show();
+                    }
 
                 }else{
                     Toast.makeText(LoginActivity.this,"Sign in failed, incorrect email or password!",Toast.LENGTH_LONG).show();
