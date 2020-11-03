@@ -111,11 +111,12 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
+                //Verify email address
                 if (task.isSuccessful()){
-                    //Verify email address
+
                     if(mAuth.getCurrentUser().isEmailVerified()){
-                        Toast.makeText(LoginActivity.this, "Verified successfully",
-                                Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "Verified successfully",
+//                                Toast.LENGTH_SHORT).show();
 
                         databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -128,12 +129,11 @@ public class LoginActivity extends AppCompatActivity{
 
                                     if(data.getKey().equals("notFirstTime")){
 
-
                                         if(data.getValue().equals("false")){
                                             //是第一次登录，进入user info add界面
 
                                             //进入user info add界面
-                                            //Toast.makeText(LoginActivity.this,"Signed in successfully, please add your information!",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(LoginActivity.this,"Verified successfully, please add your information!",Toast.LENGTH_LONG).show();
                                             startActivity(new Intent(LoginActivity.this, InfoActivity_1.class));
                                             break;
                                             // The user is new

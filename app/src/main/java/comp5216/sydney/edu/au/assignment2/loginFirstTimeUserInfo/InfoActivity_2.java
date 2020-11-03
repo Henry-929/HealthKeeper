@@ -77,9 +77,6 @@ public class InfoActivity_2 extends AppCompatActivity {
 
         userInfoAdd_toDatabase2();
 
-//        Intent intent = new Intent(InfoActivity_2.this, MainActivity.class);
-//        InfoActivity_2.this.startActivity(intent);
-
     }
 
     public void userInfoAdd_toDatabase2(){
@@ -113,7 +110,7 @@ public class InfoActivity_2 extends AppCompatActivity {
                                 }
                                 if(dd_Key.equals("bmi")) {
 
-                                    Toast.makeText(InfoActivity_2.this,"嗷嗷"+bmi,Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(InfoActivity_2.this,"嗷嗷"+bmi,Toast.LENGTH_SHORT).show();
 
                                     //将 bmi写入数据库
                                     //先获取 height- 再计算bmi- 再将bmi写入数据库
@@ -126,8 +123,7 @@ public class InfoActivity_2 extends AppCompatActivity {
                                                 String d_Key = ddd.getKey();
                                                 if (d_Key.equals("height")) {
                                                     height = ddd.getValue().toString();
-                                                    Toast.makeText(InfoActivity_2.this,"嗷嗷"+height,Toast.LENGTH_SHORT).show();
-
+//                                                    Toast.makeText(InfoActivity_2.this,"嗷嗷"+height,Toast.LENGTH_SHORT).show();
 
                                                     //计算bmi
                                                     //将String转Double,并保留2位小数：
@@ -151,7 +147,6 @@ public class InfoActivity_2 extends AppCompatActivity {
                                                     databaseReference.child("Users").child(uid)
                                                             .child(userInfo_Key).child("bmi").setValue(bmi);
 
-
                                                 }
                                             }
                                         }
@@ -174,7 +169,7 @@ public class InfoActivity_2 extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(InfoActivity_2.this, "notFirstTime = TRUE !", Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(InfoActivity_2.this, "notFirstTime = TRUE !", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(InfoActivity_2.this, MainActivity.class);
                                         InfoActivity_2.this.startActivity(intent);
                                     }
@@ -185,9 +180,6 @@ public class InfoActivity_2 extends AppCompatActivity {
 
                     }
                 });
-
-
-
 
     }
 }

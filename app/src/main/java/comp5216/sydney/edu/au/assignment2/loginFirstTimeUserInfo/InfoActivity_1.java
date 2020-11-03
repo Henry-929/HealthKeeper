@@ -61,7 +61,7 @@ public class InfoActivity_1 extends AppCompatActivity {
                     case R.id.label_gender_female: gender = "Female";break;
                 }
 
-                Toast.makeText(InfoActivity_1.this,gender,Toast.LENGTH_LONG).show();
+//                Toast.makeText(InfoActivity_1.this,gender,Toast.LENGTH_LONG).show();
 
             }
         });
