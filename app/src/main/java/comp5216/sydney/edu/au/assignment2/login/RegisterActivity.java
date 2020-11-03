@@ -27,15 +27,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private EditText Name,Email,Password,Confirm_password;
     private DatabaseReference databaseReference;
-
-    private static final String TAG = "RegisterActivity";
-
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity{
         Email=(EditText) findViewById(R.id.logger_signup_email);
         Password=(EditText) findViewById(R.id._logger_signup_password);
         Confirm_password=(EditText) findViewById(R.id.logger_signup_password_confirm);
+        progressBar=(ProgressBar) findViewById(R.id.sign_up_progress_bar);
+        progressBar.setVisibility(View.GONE);
         //Security=(EditText) findViewById(R.id.logger_signup_security_code);
 
         BackToSignUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +65,8 @@ public class RegisterActivity extends AppCompatActivity{
         RegisterInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                registerusers();
+                progressBar.setVisibility(View.VISIBLE);
+                registerusers(v);
                 //将Users-username存入UsersFood中
                 initUsersFood_username();
 
@@ -75,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity{
 
 
 
-    public void registerusers(){
+    public void registerusers(final View v){
 
         final String username=Name.getText().toString().trim();
         final String email=Email.getText().toString().trim();
@@ -131,6 +133,7 @@ public class RegisterActivity extends AppCompatActivity{
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    progressBar.setVisibility(v.GONE);
                                     if(task.isSuccessful()){
                                         // send verification link
                                         FirebaseUser fuser = mAuth.getCurrentUser();

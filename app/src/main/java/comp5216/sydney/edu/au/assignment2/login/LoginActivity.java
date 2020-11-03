@@ -6,6 +6,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private EditText Email, Password;
+    private ProgressBar progressBar;
 
     //define login status
     public final int LOGIN_SUCCESS_CODE = 100;
@@ -56,6 +58,8 @@ public class LoginActivity extends AppCompatActivity{
         final Button ResetBtn = findViewById(R.id.btn_reset_password);
         Email=(EditText) findViewById(R.id.logger_signin_email);
         Password=(EditText) findViewById(R.id.logger_signin_password);
+        progressBar=(ProgressBar) findViewById(R.id.sign_in_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +72,8 @@ public class LoginActivity extends AppCompatActivity{
         SignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userlogin();
+                progressBar.setVisibility(v.VISIBLE);
+                userlogin(v);
             }
         });
 
@@ -81,7 +86,7 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
-    public void userlogin(){
+    public void userlogin(final View v){
         String email=Email.getText().toString().trim();
         String password=Password.getText().toString().trim();
 
@@ -110,7 +115,7 @@ public class LoginActivity extends AppCompatActivity{
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
+                progressBar.setVisibility(v.GONE);
                 //Verify email address
                 if (task.isSuccessful()){
 
