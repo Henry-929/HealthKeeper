@@ -74,14 +74,14 @@
         android:padding="20dp">
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="2dp"
             android:layout_marginLeft="10dp"
             android:background="@color/colorGrey">
 
             <LinearLayout
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 android:orientation="vertical">
@@ -100,14 +100,17 @@
                         android:layout_marginStart="20dp"
                         android:background="@drawable/icon_setting_info"/>
                     <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="@string/my_profile"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
                     <TextView
-                        android:layout_marginStart="30dp"
                         android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
@@ -137,26 +140,30 @@
                         android:layout_marginStart="20dp"
                         android:background="@drawable/icon_setting_report"/>
                     <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="@string/health_report"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
                     <TextView
-                        android:layout_marginStart="30dp"
                         android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"
                         android:text="@string/right"
                         android:textSize="20sp"
                         android:textColor="#869d9d" />
-                </LinearLayout>                <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/colorGrey"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
 
                 <LinearLayout
                     android:id="@+id/setting_ll_log_out"
@@ -172,14 +179,17 @@
                         android:layout_marginStart="20dp"
                         android:background="@drawable/icon_setting_report"/>
                     <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="@string/log_out"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
                     <TextView
-                        android:layout_marginStart="30dp"
                         android:layout_width="50dp"
                         android:layout_height="30dp"
                         android:background="@null"

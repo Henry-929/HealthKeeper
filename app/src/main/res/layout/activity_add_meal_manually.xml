@@ -75,7 +75,7 @@
             <EditText
                 android:id="@+id/custom_add_food_name"
                 android:gravity="right"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/e_g_hamburger"/>
@@ -102,7 +102,7 @@
                 android:layout_weight="1"/>
             <EditText
                 android:id="@+id/custom_add_food_quantity"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:background="@null"
@@ -131,7 +131,7 @@
             <Spinner
                 android:gravity="right"
                 android:id="@+id/custom_add_food_category"
-                android:layout_width="120dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout

@@ -311,7 +311,7 @@ public class CameraActivity extends Activity{
                 aipImageClassify.setConnectionTimeoutInMillis(2000);
                 aipImageClassify.setSocketTimeoutInMillis(6000);
                 HashMap<String, String> options = new HashMap<String, String>();
-                options.put("baike_num", "//你要返回的结果数目");
+                options.put("baike_num", "1");
                 JSONObject res = aipImageClassify.plantDetect(content, options);
                 try {
                     JSONArray data = res.getJSONArray("result");
