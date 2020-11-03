@@ -92,8 +92,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
         custom_get_food_carbohydrate = (TextView) findViewById(R.id.custom_get_food_carbohydrate);
         custom_get_food_fat = (TextView) findViewById(R.id.custom_get_food_fat);
 
-        getIntent();
-
+        getPassItent();
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -437,7 +436,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                 });
     }
 
-    public void getItent(){
+    public void getPassItent(){
         //获取数据
         Intent intent = getIntent();
 
