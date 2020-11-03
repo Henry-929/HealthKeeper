@@ -462,7 +462,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
             String addFoodName = data.getString("foodname");
             custom_get_food_name.setText(addFoodName);
             System.out.println("---------------------------------------------------"+addFoodName);
-            getCalorie_Manually(addFoodName);
+            getAddFoodName_FoodInfo(addFoodName);
 //            Bitmap getbmp = getFoodImage(addImage);
 
         }
