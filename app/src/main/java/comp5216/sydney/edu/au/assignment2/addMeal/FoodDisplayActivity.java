@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -67,10 +68,12 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
     public Bitmap bmp;
     public String mCalorie,mProtein,mCarbohydrate,mFat;
-    public FirebaseStorage storage;
-    public StorageReference storageReference;
     private TextView custom_get_food_name,custom_get_food_calorie,custom_get_food_protein,
             custom_get_food_carbohydrate,custom_get_food_fat;
+
+    public FirebaseStorage storage;
+    public StorageReference storageReference;
+    ImageView food_display_photo;
 
 
     @Override
@@ -102,9 +105,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
         //---------------------------------------------------------------------------
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
         custom_get_food_name = (TextView) findViewById(R.id.custom_get_food_name);
         custom_get_food_calorie = (TextView) findViewById(R.id.custom_get_food_calorie);
         custom_get_food_protein = (TextView) findViewById(R.id.custom_get_food_protein);
@@ -112,6 +112,12 @@ public class FoodDisplayActivity extends AppCompatActivity {
         custom_get_food_fat = (TextView) findViewById(R.id.custom_get_food_fat);
 
         getItent();
+
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        food_display_photo = (ImageView) findViewById(R.id.food_display_photo);
+
 
     }
 
@@ -463,6 +469,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
             custom_get_food_name.setText(addFoodName);
             System.out.println("---------------------------------------------------"+addFoodName);
             getAddFoodName_FoodInfo(addFoodName);
+
 //            Bitmap getbmp = getFoodImage(addImage);
 
         }
@@ -482,7 +489,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
         }
     }
 
-    public void getAddFoodName_FoodInfo(String oneFoodName){
+    public void getAddFoodName_FoodInfo(final String oneFoodName){
         Query q_foodInfo = databaseReference.child("Food")
                 .orderByChild("foodname")
                 .equalTo(oneFoodName);
@@ -503,6 +510,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                         custom_get_food_fat.setText(mFat);
                     }
                 }
+                getAddFoodImage(oneFoodName);
             }
 
             @Override
@@ -513,6 +521,25 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
     }
 
+    public void getAddFoodImage(String oneFoodName){
+        StorageReference imgRef = storageReference.child("FoodImage/"+oneFoodName+".jpg");
+        final long ONE_MEGABYTE = 1024*1024;
+
+        imgRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                food_display_photo.setImageBitmap(bmp);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+
+    }
 
     public void getCalorie_ImageConfirm(String message){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
