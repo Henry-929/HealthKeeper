@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity{
         final Button SignInBtn = findViewById(R.id.btn_sign_in);
         final Button SignUpBtn = findViewById(R.id.btn_sign_up);
         final Button ResetBtn = findViewById(R.id.btn_reset_password);
-        Email=(EditText) findViewById(R.id.logger_signin_email) ;
+        Email=(EditText) findViewById(R.id.logger_signin_email);
         Password=(EditText) findViewById(R.id.logger_signin_password);
 
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,11 +106,13 @@ public class LoginActivity extends AppCompatActivity{
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
+                    
 
                     databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid());

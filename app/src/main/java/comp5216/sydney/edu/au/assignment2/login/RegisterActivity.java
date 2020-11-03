@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
-    private EditText Name,Email,Password,Confirm_password,Security;
+    private EditText Name,Email,Password,Confirm_password;
     private DatabaseReference databaseReference;
 
     private static final String TAG = "RegisterActivity";
@@ -81,8 +81,6 @@ public class RegisterActivity extends AppCompatActivity{
         final String email=Email.getText().toString().trim();
         final String password=Password.getText().toString().trim();
         final String confirm_password=Confirm_password.getText().toString().trim();
-        final String security=Security.getText().toString().trim();
-
 
 
         if(username.isEmpty()){
@@ -120,11 +118,6 @@ public class RegisterActivity extends AppCompatActivity{
             Confirm_password.requestFocus();
             return;
         }
-        if(security.isEmpty()){
-            Security.setError("Security question answer is required");
-            Security.requestFocus();
-            return;
-        }
 
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -132,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            User user=new User(username,email,password,confirm_password,security);
+                            User user=new User(username,email,password,confirm_password);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -141,19 +134,35 @@ public class RegisterActivity extends AppCompatActivity{
                                     if(task.isSuccessful()){
                                         // send verification link
                                         FirebaseUser fuser = mAuth.getCurrentUser();
-                                        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                            }
-                                        });
+                                        fuser.sendEmailVerification().
+                                                addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if(task.isSuccessful()){
+                                                            Toast.makeText(RegisterActivity.this, "Registered Successfully, please verify your email.",
+                                                                    Toast.LENGTH_SHORT).show();
 
-                                        Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
+                                                        }else{
+                                                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(),
+                                                                    Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+
+//                                        FirebaseUser fuser = mAuth.getCurrentUser();
+//                                        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }).addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+//                                            }
+//                                        });
+
+//                                        Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                                         if ( i != null) {
                                             RegisterActivity.this.startActivity(i);

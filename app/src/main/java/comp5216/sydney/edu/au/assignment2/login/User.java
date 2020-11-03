@@ -8,16 +8,15 @@ public class User {
     public UserInfo userInfo;
     public String userID;
     public String notFirstTime;
-    public String username,email,password,confirm_password,security;
+    public String username,email,password,confirm_password;
 
     public User(){}
-    public User(String username,String email, String password,String confirm_password,String security){
+    public User(String username,String email, String password,String confirm_password){
         this.userID = "null";
         this.username=username;
         this.email=email;
         this.password=password;
         this.confirm_password=confirm_password;
-        this.security=security;
         this.notFirstTime = "false";
         //this.userInfo = "null";
     }
@@ -46,10 +45,6 @@ public class User {
         this.confirm_password = confirm_password;
     }
 
-    public void setSecurity(String security) {
-        this.security = security;
-    }
-
     public void setNotFirstTime(String notFirstTime) {
         this.notFirstTime = notFirstTime;
     }
@@ -72,10 +67,6 @@ public class User {
 
     public String getConfirm_password() {
         return confirm_password;
-    }
-
-    public String getSecurity() {
-        return security;
     }
 
     public String getNotFirstTime() {
