@@ -575,8 +575,9 @@ public class ReportActivity extends AppCompatActivity {
                                                             });
 
                                                         }
+                                                        DecimalFormat df = new DecimalFormat("0.0");
                                                         //Protein
-                                                        proteinTotal.setText(Double.toString(allProteinCount));
+                                                        proteinTotal.setText(df.format(allProteinCount));
                                                         proteinGoal.setText("37");
                                                         boolean proStatus = false;
                                                         if( (37 - allProteinCount) > 0 ){
@@ -588,7 +589,7 @@ public class ReportActivity extends AppCompatActivity {
                                                             proteinStatus.setText("-");
                                                         }
                                                         //Carbs
-                                                        carbsTotal.setText(Double.toString(allCarbsCount));
+                                                        carbsTotal.setText(df.format(allCarbsCount));
                                                         carbsGoal.setText("290");
                                                         boolean carbohydrateStatus = false;
                                                         if( (290 - allCarbsCount) > 0 ){
@@ -600,7 +601,7 @@ public class ReportActivity extends AppCompatActivity {
                                                             carbsStatus.setText("-");
                                                         }
                                                         //Fat
-                                                        fatTotal.setText(Double.toString(allFatCount));
+                                                        fatTotal.setText(df.format(allFatCount));
                                                         fatGoal.setText("27");
                                                         boolean fattttStatus = false;
                                                         if( (27 - allFatCount) > 0 ){
