@@ -673,7 +673,7 @@ public class ReportActivity extends AppCompatActivity {
                                                                 for(int j =0; j < customFoodArrayList.size();j++){
                                                                     if(customFoodArrayList.get(j).getFoodname().equals(dinner_foodname)){
                                                                         totCalorie_d = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
-                                                                        totCalorie_d = totCalorie_b * totQuan_d;
+                                                                        totCalorie_d = totCalorie_d * totQuan_d;
 
                                                                     }
                                                                 }
