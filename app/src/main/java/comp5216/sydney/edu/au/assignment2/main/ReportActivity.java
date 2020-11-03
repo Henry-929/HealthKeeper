@@ -756,7 +756,7 @@ public class ReportActivity extends AppCompatActivity {
                                                         }
                                                     }
                                                     //dinner
-                                                    if(d_dinnerPercent >0 || d_breakfastPercent ==0){
+                                                    if(d_dinnerPercent >0 || d_dinnerPercent ==0){
                                                         System.out.println("=======d_dinnerPercent=="+d_dinnerPercent);
                                                         boolean status = false;
                                                         if(d_dinnerPercent < 27.5)

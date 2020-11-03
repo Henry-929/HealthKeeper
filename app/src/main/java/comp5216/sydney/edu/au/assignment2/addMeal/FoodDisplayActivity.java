@@ -301,12 +301,13 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         //已经摄入的
                                                         calorieIntake.setText(Double.toString(allCalorieCount));
 
-                                                        //推荐总量 默认2500
+                                                        //推荐总量 默认2078cal = 8700kj
                                                         //todo.. 按照年龄大小分总量（从数据库获取）
-                                                        calorieTotal.setText("2500 cal");
+                                                        //2500cal
+                                                        calorieTotal.setText("2078 cal");
 
                                                         //剩余量
-                                                        Double d_calorieLeft = 2500- allCalorieCount;
+                                                        Double d_calorieLeft = 2078- allCalorieCount;
                                                         calorieLeft.setText(Double.toString(d_calorieLeft)+" cal");
 
                                                         //progressBar
