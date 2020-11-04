@@ -163,7 +163,7 @@ public class ImageConfirmActivity extends Activity {
             }
         });
     }
-
+    
     //to translate chinese API language to English
     public void Translation(){
         if(foodNameInChinse.equals("苹果")){

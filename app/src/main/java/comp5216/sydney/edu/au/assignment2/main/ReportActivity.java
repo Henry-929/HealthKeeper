@@ -33,7 +33,6 @@ import comp5216.sydney.edu.au.assignment2.login.User;
 public class ReportActivity extends AppCompatActivity {
 
     public static String uid;
-    public TextView textView_bmi,textView_weight;
     //用于获取数据库存储的体重信息和bmi值
     public String weight,bmi,height;
     public String foodname,quantity,category;
@@ -80,7 +79,6 @@ public class ReportActivity extends AppCompatActivity {
 
 
         //bmi bar
-
         bubble_lean = (ImageView) findViewById(R.id.bubble_lean);
         bubble_normal = (ImageView) findViewById(R.id.bubble_normal);
         bubble_overweight = (ImageView) findViewById(R.id.bubble_overweight);
@@ -104,8 +102,6 @@ public class ReportActivity extends AppCompatActivity {
         NutrientView = (LinearLayout)findViewById(R.id.ll_report_nutrient);
         LabelCalorie = (ImageView)findViewById(R.id.label_report_calorie);
         LabelNutrient = (ImageView)findViewById(R.id.label_report_nutrient);
-        //textView_weight = (TextView) findViewById(R.id.report_display_current_weight);
-
 
         percentBreakfast = (TextView)findViewById(R.id.report_display_percent_breakfast);
         statusBreakfast = (TextView)findViewById(R.id.report_display_status_breakfast);
@@ -194,10 +190,8 @@ public class ReportActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
 
                                 String userInfo_Key = d.getKey();
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
@@ -207,15 +201,11 @@ public class ReportActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for(DataSnapshot d: dataSnapshot.getChildren()) {
-                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
-                                                    //textView_weight.setText(weight);
                                                     currentWeightTV.setText(weight+"kg");
-                                                    //standardWeightTV.setText(weight);
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
                                                 }
                                                 if(d_Key.equals("height")){
@@ -224,8 +214,6 @@ public class ReportActivity extends AppCompatActivity {
 
                                                 if(d_Key.equals("bmi")){
                                                     bmi = d.getValue().toString();
-                                                    //textView_bmi.setText(bmi);
-
 
                                                     Double d_bmi = Double.parseDouble(bmi);
                                                     DecimalFormat df = new DecimalFormat("0.00");
@@ -260,14 +248,6 @@ public class ReportActivity extends AppCompatActivity {
 
                                                 }
                                             }
-//                                            //计算standard weight 范围
-//                                            DecimalFormat df = new DecimalFormat("0.0");
-//                                            Double min_weight = 18.5* Double.parseDouble(height)*Double.parseDouble(height)/10000;
-//                                            Double max_weight = 24 *Double.parseDouble(height)*Double.parseDouble(height)/10000;
-//                                            String str_min_weight = df.format(min_weight);
-//                                            String str_max_weight = df.format(max_weight);
-//                                            standardWeightTV.setText(str_min_weight+"kg - "+str_max_weight+"kg");
-
                                         }
 
                                         @Override
@@ -290,22 +270,6 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
-    public void showPredictedWeight(){
-
-        //step
-        //1- 获取今天吃的calorie
-        //2 -获得今天的weight
-        //3 -预测weight并展示
-
-
-        //1- 获取今天吃的calorie
-
-        //2 -获得今天的weight
-        //3 -预测weight并展示
-
-
-
-    }
     public void getWeight(final WeightCallBack weightCallBack){
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

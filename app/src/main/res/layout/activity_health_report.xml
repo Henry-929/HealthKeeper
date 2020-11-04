@@ -115,105 +115,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
             android:background="#fff">
 
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/rl_report_weight"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/label_current_weight"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:layout_marginStart="10dp"-->
-<!--                    android:layout_marginTop="35dp"-->
-<!--                    android:text="@string/current_weight"-->
-<!--                    android:textSize="15sp" />-->
-
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="10dp"-->
-<!--                    android:layout_marginStart="24dp"-->
-<!--                    android:layout_marginTop="42dp"-->
-<!--                    android:layout_marginEnd="40dp"-->
-<!--                    android:layout_marginBottom="20dp"-->
-<!--                    android:layout_toEndOf="@+id/label_current_weight"-->
-<!--                    android:background="#d8e3e7" />-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/report_weight_bar"-->
-<!--                    android:layout_toEndOf="@+id/label_current_weight"-->
-<!--                    android:layout_marginTop="42dp"-->
-<!--                    android:layout_marginStart="80dp"-->
-<!--                    android:layout_marginBottom="20dp"-->
-<!--                    android:layout_marginEnd="40dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_width="60dp"-->
-<!--                    android:layout_height="10dp"-->
-<!--                    android:background="#207f4c"/>-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/report_weight_container"-->
-<!--                    android:layout_marginStart="-70dp"-->
-<!--                    android:layout_toEndOf="@id/report_weight_bar"-->
-<!--                    android:layout_width="50dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    app:srcCompat="@drawable/icon_bubble"/>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/report_display_current_weight"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text=""-->
-<!--                    android:layout_toEndOf="@id/report_weight_container"-->
-<!--                    android:layout_marginStart="-40dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:textSize="15sp"/>-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/kg"-->
-<!--                    android:layout_toEndOf="@id/report_display_current_weight"-->
-
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:textSize="15sp"/>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/report_minimum_weight"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#869d9d"-->
-<!--                    android:text="@string/_53_5kg"-->
-<!--                    android:layout_toEndOf="@id/report_weight_bar"-->
-<!--                    android:layout_marginStart="-145dp"-->
-<!--                    android:layout_marginTop="50dp"/>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/report_weight_condition"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/normal"-->
-<!--                    android:layout_toEndOf="@id/report_minimum_weight"-->
-<!--                    android:layout_marginStart="10dp"-->
-<!--                    android:layout_marginTop="50dp"/>-->
-
-
-<!--                <TextView-->
-<!--                    android:id="@+id/report_maximum_weight"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="#869d9d"-->
-<!--                    android:text="@string/_59_5kg"-->
-<!--                    android:layout_toEndOf="@id/report_minimum_weight"-->
-<!--                    android:layout_marginStart="65dp"-->
-<!--                    android:layout_marginTop="50dp"/>-->
-<!--            </RelativeLayout>-->
             <RelativeLayout
                 android:id="@+id/rl_report_BMI"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <TextView
                     android:id="@+id/label_current_BMI"
@@ -459,13 +368,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:layout_marginTop="2dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -487,7 +398,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:layout_marginTop="2dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -731,13 +643,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#fff"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -771,7 +685,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp">
 
                     <TextView
                         android:layout_width="100dp"

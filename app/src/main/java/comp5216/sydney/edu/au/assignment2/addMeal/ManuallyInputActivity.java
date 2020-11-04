@@ -3,7 +3,6 @@ package comp5216.sydney.edu.au.assignment2.addMeal;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -12,16 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,12 +29,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.main.MainActivity;
-import comp5216.sydney.edu.au.assignment2.userSetting.MyProfileActivity;
 
 public class ManuallyInputActivity extends AppCompatActivity {
 
-    public static String Calorie,Food;
     public static String uid;
 
     public DatabaseReference databaseReference;
@@ -49,7 +39,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
     public StorageReference storageReference;
 
     private EditText editTextFoodName, editTextFoodQuantity;
-    public Bitmap bmp;
 
     //define food info
     public String addFoodName,addFoodQuantity,addFoodCategory;
