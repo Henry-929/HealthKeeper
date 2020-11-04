@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
@@ -35,7 +39,6 @@ public class ImageConfirmActivity extends Activity {
     DatabaseReference databaseReference;
 
     public String foodNameInChinse,addFoodName,addFoodQuantity,addFoodCategory;
-    public Bitmap foodImage;
 
     private Spinner categorySpinner;
     private ArrayAdapter<String> spinneradapter = null;
@@ -44,15 +47,15 @@ public class ImageConfirmActivity extends Activity {
     private ImageView foodImageDisplay;
     private EditText editTextFoodName,editTextFoodQuantity;
 
+    public boolean FoodExisted;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal_byphoto);
 
         Bundle bundle = this.getIntent().getExtras();
-//        foodName = bundle.getString("foodName");
         foodNameInChinse = this.getIntent().getExtras().get("foodName").toString();
-//        foodImage = bundle.getParcelable("foodPhoto");
         BitmapBinder bitmapBinder = (BitmapBinder) bundle.getBinder("bitmap");
         Bitmap bitmap = bitmapBinder.getBitmap();
 
@@ -145,9 +148,18 @@ public class ImageConfirmActivity extends Activity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //将user-food 该用户输入的食物信息存入数据库
-                UserFoodAdd();
+
+                //【steps】
+                //判断DB中是否有用户输入的食物
+                //（有）- 将该用户输入的食物信息存入 Users数据库
+                //（无）- 弹窗 提示用户"Food db中不存在该食物，令用户add custom food"
+
+
+                FoodExistOrNot();
+
+                //UserFoodAdd();
                 //UserFoodAdd_toDatabase();
+
             }
         });
     }
@@ -195,9 +207,114 @@ public class ImageConfirmActivity extends Activity {
 
     }
 
+    public void sendMessage() {
+        editTextFoodName = (EditText)findViewById(R.id.photo_add_food_name);
+        String message = editTextFoodName.getText().toString().toLowerCase();
+        editTextFoodQuantity = (EditText)findViewById(R.id.photo_add_food_quantity);
+        String quantity = editTextFoodQuantity.getText().toString();
+        categorySpinner = (Spinner)findViewById(R.id.photo_add_food_category);
+        String category = categorySpinner.getSelectedItem().toString();
+
+
+        // 实例化一个Bundle
+        Bundle bundle = new Bundle();
+        // 实例化一个intent
+        Intent intent = new Intent(ImageConfirmActivity.this, FoodDisplayActivity.class);
+        // 把数据保存到Bundle里
+        bundle.putString("foodname", message);
+        bundle.putString("calorie", message);
+        bundle.putString("icon", message);
+        bundle.putString("quantity",quantity);
+        bundle.putString("category",category);
+        // 把bundle放入intent里
+        intent.putExtra("data", bundle);
+        //Use the setResult() method with a response code and the Intent with the response data
+        startActivity(intent);
+        finish();
+    }
+
+    public void FoodExistOrNot(){
+        //判断DB中是否有用户输入的食物
+
+        FoodExisted = false;
+        addFoodName = editTextFoodName.getText().toString().toLowerCase();
+
+        //遍历Food db 查找食物是否存在
+        databaseReference.child("Food").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot d : dataSnapshot.getChildren()){
+                    for(DataSnapshot dd : d.getChildren()){
+                        String dd_key = dd.getKey();
+                        String dd_value = dd.getValue().toString();
+
+                        //System.out.println(dd_key+"==========addFoodName======="+dd_value);
+
+                        if(dd_key.equals("foodname") && dd_value.equals(addFoodName)){
+
+                            // db中存在该食物
+                            FoodExisted = true;
+                            //System.out.println(dd_key+"==========FoodExisted = true;======="+dd_value);
+
+                        }
+
+                    }//=======[end of] for(DataSnapshot dd : d.getChildren()){
+                }//=====[end of] for(DataSnapshot d : dataSnapshot.getChildren()){
+
+                //（无）- 弹窗 提示用户"db中不存在该食物，令用户add custom food"
+                if(FoodExisted == false){
+
+                    //System.out.println("======food NOOO exist===="+addFoodName);
+                    // 并跳转到 UserCustomizeActivity
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(ImageConfirmActivity.this);
+                    builder.setTitle("Sorry , the food does not exist in the database currently ! ")
+                            .setMessage("Please customize your food in the next page.")//It will jump to Add Custom Food Page in 2 seconds
+                            .setCancelable(true);
+
+                    builder.create().show();
+
+                    final Timer t = new Timer();
+
+                    t.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+
+                            Looper.prepare();
+                            //结束当前的activity
+                            //finish();
+
+                            builder.create().dismiss();
+                            t.cancel();
+
+                            Intent intent = new Intent(ImageConfirmActivity.this, UserCustomizeActivity.class);
+                            ImageConfirmActivity.this.startActivity(intent);
+
+                            Looper.loop();
+                        }
+                    },2000);
+
+                }
+                //（有）- 将user-food 该用户输入的食物信息存入数据库
+                if(FoodExisted == true){
+
+                    //System.out.println("======food exist ^-^===="+addFoodName);
+                    UserFoodAdd();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
     public void UserFoodAdd(){
 
-        addFoodName = editTextFoodName.getText().toString();
+        addFoodName = editTextFoodName.getText().toString().toLowerCase();
         addFoodQuantity = editTextFoodQuantity.getText().toString();
 
         //if 用户输入不为空
@@ -234,20 +351,21 @@ public class ImageConfirmActivity extends Activity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        //跳转到food display页面
-                                        String message = editTextFoodName.getText().toString();
-                                        System.out.println("===================================我的天"+message);
-
-                                        // 实例化一个Bundle
-                                        Bundle bundle = new Bundle();
-                                        // 实例化一个intent
-                                        Intent intent = new Intent(ImageConfirmActivity.this, FoodDisplayActivity.class);
-                                        // 把数据保存到Bundle里
-                                        bundle.putString("foodname2", message);
-                                        // 把bundle放入intent里
-                                        intent.putExtra("data_image", bundle);
-                                        startActivity(intent);
-                                        finish();
+//                                        //跳转到food display页面
+//                                        String message = editTextFoodName.getText().toString();
+//                                        System.out.println("===================================我的天"+message);
+//
+//                                        // 实例化一个Bundle
+//                                        Bundle bundle = new Bundle();
+//                                        // 实例化一个intent
+//                                        Intent intent = new Intent(ImageConfirmActivity.this, FoodDisplayActivity.class);
+//                                        // 把数据保存到Bundle里
+//                                        bundle.putString("foodname2", message);
+//                                        // 把bundle放入intent里
+//                                        intent.putExtra("data_image", bundle);
+//                                        startActivity(intent);
+//                                        finish();
+                                        sendMessage();
                                     }
                                 });
                     }

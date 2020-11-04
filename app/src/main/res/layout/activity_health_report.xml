@@ -470,7 +470,7 @@
 
                     <TextView
                         android:id="@+id/report_display_percent_breakfast"
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="100dp"
                         android:layout_marginTop="5dp"
@@ -481,7 +481,7 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
@@ -506,10 +506,10 @@
 
                     <TextView
                         android:id="@+id/report_display_percent_lunch"
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:layout_marginStart="100dp"
+                        android:layout_marginTop="5dp"
                         android:text="" />
 
                     <TextView
@@ -517,7 +517,7 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
@@ -542,7 +542,7 @@
 
                     <TextView
                         android:id="@+id/report_display_percent_dinner"
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="100dp"
@@ -553,7 +553,7 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
@@ -578,7 +578,7 @@
 
                     <TextView
                         android:id="@+id/report_display_percent_other"
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="100dp"
@@ -589,7 +589,7 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>

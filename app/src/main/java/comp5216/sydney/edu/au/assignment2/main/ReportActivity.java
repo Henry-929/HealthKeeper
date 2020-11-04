@@ -233,6 +233,23 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
+
+    public void showPredictedWeight(){
+
+        //step
+        //1- 获取今天吃的calorie
+        //2 -获得今天的weight
+        //3 -预测weight并展示
+
+
+        //1- 获取今天吃的calorie
+
+        //2 -获得今天的weight
+        //3 -预测weight并展示
+
+
+
+    }
     public void getWeight(final WeightCallBack weightCallBack){
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -290,22 +307,6 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
-    public void showPredictedWeight(){
-
-        //step
-        //1- 获取今天吃的calorie
-        //2 -获得今天的weight
-        //3 -预测weight并展示
-
-
-        //1- 获取今天吃的calorie
-
-        //2 -获得今天的weight
-        //3 -预测weight并展示
-
-
-
-    }
 
 
 

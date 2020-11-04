@@ -98,7 +98,7 @@ public class UserCustomizeActivity extends AppCompatActivity {
 
     public void customFoodAdd(){
 
-        addFoodName = editTextFoodName.getText().toString();
+        addFoodName = editTextFoodName.getText().toString().toLowerCase();
         addCalorie = editTextFoodCalorie.getText().toString();
         addProtein = editTextFoodProtein.getText().toString();
         addCarbohydrate = editTextFoodCarbo.getText().toString();

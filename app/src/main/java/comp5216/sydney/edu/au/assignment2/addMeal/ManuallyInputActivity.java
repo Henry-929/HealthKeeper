@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,7 +32,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import comp5216.sydney.edu.au.assignment2.R;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.userSetting.MyProfileActivity;
 
 public class ManuallyInputActivity extends AppCompatActivity {
 
@@ -49,6 +55,8 @@ public class ManuallyInputActivity extends AppCompatActivity {
     public String addFoodName,addFoodQuantity,addFoodCategory;
     public Spinner categorySpinner;
     private ArrayAdapter<String> spinneradapter = null;
+
+    public boolean FoodExisted;
 
     private static final String [] FoodCategory ={"Breakfast","Lunch","Dinner","Other"};
 
@@ -87,8 +95,6 @@ public class ManuallyInputActivity extends AppCompatActivity {
             }
         });
 
-//        addFoodName = editTextFoodName.getText().toString();
-//        addFoodQuantity = editTextFoodQuantity.getText().toString();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -135,10 +141,15 @@ public class ManuallyInputActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //【steps】
+                //判断DB中是否有用户输入的食物
+                //（有）- 将该用户输入的食物信息存入 Users数据库
+                //（无）- 弹窗 提示用户"Food db中不存在该食物，令用户add custom food"
 
-                //将user-food 该用户输入的食物信息存入数据库
-                //sendMessage();
-                UserFoodAdd();
+
+                FoodExistOrNot();
+
+                //UserFoodAdd();
                 //UserFoodAdd_toDatabase();
 
 
@@ -149,15 +160,13 @@ public class ManuallyInputActivity extends AppCompatActivity {
 
     public void sendMessage() {
         editTextFoodName = (EditText)findViewById(R.id.custom_add_food_name);
-        String message = editTextFoodName.getText().toString();
+        String message = editTextFoodName.getText().toString().toLowerCase();
         editTextFoodQuantity = (EditText)findViewById(R.id.custom_add_food_quantity);
         String quantity = editTextFoodQuantity.getText().toString();
         categorySpinner = (Spinner)findViewById(R.id.custom_add_food_category);
         String category = categorySpinner.getSelectedItem().toString();
 
-//        getFoodImage(message);
-//        getCalorie(message);
-//        Toast.makeText(ManuallyInputActivity.this,"嗷嗷"+Calorie,Toast.LENGTH_SHORT).show();
+
         // 实例化一个Bundle
         Bundle bundle = new Bundle();
         // 实例化一个intent
@@ -172,14 +181,90 @@ public class ManuallyInputActivity extends AppCompatActivity {
         intent.putExtra("data", bundle);
         //Use the setResult() method with a response code and the Intent with the response data
         startActivity(intent);
-//        Toast.makeText(this, "Added:"+message, Toast.LENGTH_SHORT).show();
         finish();
     }
+    public void FoodExistOrNot(){
+        //判断DB中是否有用户输入的食物
+
+        FoodExisted = false;
+        addFoodName = editTextFoodName.getText().toString().toLowerCase();
+
+        //遍历Food db 查找食物是否存在
+        databaseReference.child("Food").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot d : dataSnapshot.getChildren()){
+                    for(DataSnapshot dd : d.getChildren()){
+                        String dd_key = dd.getKey();
+                        String dd_value = dd.getValue().toString();
+
+                        //System.out.println(dd_key+"==========addFoodName======="+dd_value);
+
+                        if(dd_key.equals("foodname") && dd_value.equals(addFoodName)){
+
+                            // db中存在该食物
+                            FoodExisted = true;
+                            //System.out.println(dd_key+"==========FoodExisted = true;======="+dd_value);
+
+                        }
+
+                    }//=======[end of] for(DataSnapshot dd : d.getChildren()){
+                }//=====[end of] for(DataSnapshot d : dataSnapshot.getChildren()){
+
+                //（无）- 弹窗 提示用户"db中不存在该食物，令用户add custom food"
+                if(FoodExisted == false){
+
+                    //System.out.println("======food NOOO exist===="+addFoodName);
+                    // 并跳转到 UserCustomizeActivity
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
+                            builder.setTitle("Sorry , the food does not exist in the database currently ! ")
+                                    .setMessage("Please customize your food in the next page.")//It will jump to Add Custom Food Page in 2 seconds
+                                    .setCancelable(true);
+
+                            builder.create().show();
+
+                            final Timer t = new Timer();
+
+                            t.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+
+                                    Looper.prepare();
+                                    //结束当前的activity
+                                    //finish();
+
+                                    builder.create().dismiss();
+                                    t.cancel();
+
+                                    Intent intent = new Intent(ManuallyInputActivity.this, UserCustomizeActivity.class);
+                                    ManuallyInputActivity.this.startActivity(intent);
+
+                                    Looper.loop();
+                                }
+                            },2000);
+
+                }
+                //（有）- 将user-food 该用户输入的食物信息存入数据库
+                if(FoodExisted == true){
+
+                    //System.out.println("======food exist ^-^===="+addFoodName);
+                    UserFoodAdd();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
+
+    }
     public void UserFoodAdd(){
 
-        addFoodName = editTextFoodName.getText().toString();
+        addFoodName = editTextFoodName.getText().toString().toLowerCase();
         addFoodQuantity = editTextFoodQuantity.getText().toString();
 
         //if 用户输入不为空
