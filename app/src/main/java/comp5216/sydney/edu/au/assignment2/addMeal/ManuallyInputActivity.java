@@ -230,7 +230,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
 
                                     Looper.loop();
                                 }
-                            },2000);
+                            },3200);
 
                 }
                 //（有）- 将user-food 该用户输入的食物信息存入数据库
