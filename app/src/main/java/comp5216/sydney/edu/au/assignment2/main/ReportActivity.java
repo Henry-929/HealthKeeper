@@ -46,6 +46,11 @@ public class ReportActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
+    //bmi bar
+    ImageView bubble_lean,bubble_normal,bubble_overweight,bubble_obese;
+    TextView text_lean,text_normal,text_overweight,text_obese;
+    ImageView bar_lean,bar_normal,bar_overweight,bar_obese;
+
     LinearLayout toMain;
     Button switchToCalorieView;
     Button switchToNutrientView;
@@ -59,7 +64,7 @@ public class ReportActivity extends AppCompatActivity {
     //weight prediction display textView
     //predicted_weight = current_weight + 0.4*calorie_intake - 600
     //based on the ML model Yukun created
-    TextView standardWeightTV,predictedWeightTV;
+    TextView currentWeightTV,predictedWeightTV;
 
     TextView calorieTotal,calorieGoal,calorieStatus;
     TextView proteinTotal,proteinGoal,proteinStatus;
@@ -73,6 +78,25 @@ public class ReportActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+
+        //bmi bar
+
+        bubble_lean = (ImageView) findViewById(R.id.bubble_lean);
+        bubble_normal = (ImageView) findViewById(R.id.bubble_normal);
+        bubble_overweight = (ImageView) findViewById(R.id.bubble_overweight);
+        bubble_obese = (ImageView) findViewById(R.id.bubble_obesity);
+
+        text_lean = (TextView) findViewById(R.id.text_lean);
+        text_normal = (TextView) findViewById(R.id.text_normal);
+        text_overweight = (TextView) findViewById(R.id.text_overweight);
+        text_obese = (TextView) findViewById(R.id.text_obesity);
+
+        bar_lean = (ImageView) findViewById(R.id.bar_lean);
+        bar_normal = (ImageView) findViewById(R.id.bar_normal);
+        bar_overweight = (ImageView) findViewById(R.id.bar_overweight);
+        bar_obese = (ImageView) findViewById(R.id.bar_obesity);
+
+
         toMain = (LinearLayout)findViewById(R.id.report_ll_quit);
         switchToCalorieView = (Button)findViewById(R.id.btn_report_calorie);
         switchToNutrientView =  (Button)findViewById(R.id.btn_report_nutrient);
@@ -80,8 +104,8 @@ public class ReportActivity extends AppCompatActivity {
         NutrientView = (LinearLayout)findViewById(R.id.ll_report_nutrient);
         LabelCalorie = (ImageView)findViewById(R.id.label_report_calorie);
         LabelNutrient = (ImageView)findViewById(R.id.label_report_nutrient);
-        textView_weight = (TextView) findViewById(R.id.report_display_current_weight);
-        textView_bmi = (TextView) findViewById(R.id.report_display_current_BMI);
+        //textView_weight = (TextView) findViewById(R.id.report_display_current_weight);
+
 
         percentBreakfast = (TextView)findViewById(R.id.report_display_percent_breakfast);
         statusBreakfast = (TextView)findViewById(R.id.report_display_status_breakfast);
@@ -95,7 +119,7 @@ public class ReportActivity extends AppCompatActivity {
         diversityNumber = (TextView)findViewById(R.id.report_display_diversity_number);
         energyStatus = (TextView)findViewById(R.id.report_display_energy_status);
 
-        standardWeightTV = (TextView)findViewById(R.id.standard_weight);
+        currentWeightTV = (TextView)findViewById(R.id.current_weight);
         predictedWeightTV = (TextView)findViewById(R.id.predicted_weight);
 
         calorieTotal = (TextView)findViewById(R.id.report_display_nutrient_calorie_total);
@@ -188,7 +212,8 @@ public class ReportActivity extends AppCompatActivity {
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
-                                                    textView_weight.setText(weight);
+                                                    //textView_weight.setText(weight);
+                                                    currentWeightTV.setText(weight+"kg");
                                                     //standardWeightTV.setText(weight);
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
@@ -199,18 +224,49 @@ public class ReportActivity extends AppCompatActivity {
 
                                                 if(d_Key.equals("bmi")){
                                                     bmi = d.getValue().toString();
-                                                    textView_bmi.setText(bmi);
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
+                                                    //textView_bmi.setText(bmi);
+
+
+                                                    Double d_bmi = Double.parseDouble(bmi);
+                                                    DecimalFormat df = new DecimalFormat("0.00");
+                                                    String str_bmi = df.format(d_bmi);
+                                                    if(d_bmi < 18.5){
+                                                        bar_lean.setVisibility(View.VISIBLE);
+                                                        bubble_lean.setVisibility(View.VISIBLE);
+                                                        text_lean.setText(str_bmi);
+                                                        text_lean.setVisibility(View.VISIBLE);
+                                                    }
+                                                    else if(18.5 <= d_bmi && d_bmi<25){
+                                                        bar_normal.setVisibility(View.VISIBLE);
+                                                        bubble_normal.setVisibility(View.VISIBLE);
+                                                        text_normal.setText(str_bmi);
+                                                        text_normal.setVisibility(View.VISIBLE);
+
+                                                    }
+                                                    else if(25 <= d_bmi && d_bmi <30){
+                                                        bar_overweight.setVisibility(View.VISIBLE);
+                                                        bubble_overweight.setVisibility(View.VISIBLE);
+                                                        text_overweight.setText(str_bmi);
+                                                        text_overweight.setVisibility(View.VISIBLE);
+
+                                                    }
+                                                    else if(30 <= d_bmi){
+                                                        bar_obese.setVisibility(View.VISIBLE);
+                                                        bubble_obese.setVisibility(View.VISIBLE);
+                                                        text_obese.setText(str_bmi);
+                                                        text_obese.setVisibility(View.VISIBLE);
+
+                                                    }
 
                                                 }
                                             }
-                                            //计算standard weight 范围
-                                            DecimalFormat df = new DecimalFormat("0.0");
-                                            Double min_weight = 18.5* Double.parseDouble(height)*Double.parseDouble(height)/10000;
-                                            Double max_weight = 24 *Double.parseDouble(height)*Double.parseDouble(height)/10000;
-                                            String str_min_weight = df.format(min_weight);
-                                            String str_max_weight = df.format(max_weight);
-                                            standardWeightTV.setText(str_min_weight+"kg - "+str_max_weight+"kg");
+//                                            //计算standard weight 范围
+//                                            DecimalFormat df = new DecimalFormat("0.0");
+//                                            Double min_weight = 18.5* Double.parseDouble(height)*Double.parseDouble(height)/10000;
+//                                            Double max_weight = 24 *Double.parseDouble(height)*Double.parseDouble(height)/10000;
+//                                            String str_min_weight = df.format(min_weight);
+//                                            String str_max_weight = df.format(max_weight);
+//                                            standardWeightTV.setText(str_min_weight+"kg - "+str_max_weight+"kg");
 
                                         }
 
@@ -278,7 +334,7 @@ public class ReportActivity extends AppCompatActivity {
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
-                                                    textView_weight.setText(weight);
+                                                   // textView_weight.setText(weight);
 
                                                     weightCallBack.onCallback(weight);
                                                 }
@@ -550,7 +606,7 @@ public class ReportActivity extends AppCompatActivity {
                                                             getWeight(new WeightCallBack() {
                                                                 @Override
                                                                 public void onCallback(String weight) {
-                                                                    DecimalFormat df = new DecimalFormat("0.0");
+                                                                    DecimalFormat df = new DecimalFormat("0.00");
                                                                     String str_predict = df.format(Double.parseDouble(weight)-less);
                                                                     predictedWeightTV.setText(str_predict+"kg");
                                                                 }
