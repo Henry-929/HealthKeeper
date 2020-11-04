@@ -3,6 +3,7 @@ package comp5216.sydney.edu.au.assignment2.userSetting;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.login.User;
@@ -181,8 +185,38 @@ public class MyProfileActivity extends AppCompatActivity {
 
         userInfoChange_toDatabase();
 
-        Intent intent = new Intent(MyProfileActivity.this, MainActivity.class);
-        MyProfileActivity.this.startActivity(intent);
+        // 弹窗 提示用户"用户信息已经更改成功"
+        // 并跳转到 MainActivity
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MyProfileActivity.this);
+        builder.setTitle("User info has changed successfully!")
+                .setMessage("It will jump to Main Page in 2 seconds")
+                .setCancelable(true);
+
+        builder.create().show();
+
+        final Timer t = new Timer();
+
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                Looper.prepare();
+                //结束当前的activity
+                //finish();
+
+                builder.create().dismiss();
+                t.cancel();
+
+                Intent intent = new Intent(MyProfileActivity.this, MainActivity.class);
+                MyProfileActivity.this.startActivity(intent);
+
+                Looper.loop();
+            }
+        },2000);
+
+
+//        Intent intent = new Intent(MyProfileActivity.this, MainActivity.class);
+//        MyProfileActivity.this.startActivity(intent);
 
     }
 
