@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import comp5216.sydney.edu.au.assignment2.R;
@@ -246,14 +247,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
-                                                    textView_weight.setText(weight);
+
+                                                    Double d_weight = Double.parseDouble(weight);
+                                                    DecimalFormat df = new DecimalFormat("0.00");
+                                                    String str_weight = df.format(d_weight);
+                                                    textView_weight.setText(str_weight);
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
                                                 }
 
                                                 if(d_Key.equals("bmi")){
                                                     bmi = d.getValue().toString();
-                                                    textView_bmi.setText(bmi);
+
+                                                    Double d_bmi = Double.parseDouble(bmi);
+                                                    DecimalFormat df = new DecimalFormat(("0.00"));
+                                                    String str_bmi = df.format(d_bmi);
+                                                    textView_bmi.setText(str_bmi);
                                                     //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
 
                                                 }
