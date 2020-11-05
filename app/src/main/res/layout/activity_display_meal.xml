@@ -45,43 +45,11 @@
             android:textColor="#869d9d"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:orientation="vertical">
+        <ListView
+            android:id="@+id/listView_breakfast"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp"/>
 
-            <TextView
-                android:id="@+id/breakfast1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-
-
-               />
-
-            <TextView
-                android:id="@+id/breakfast2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-
-                />
-
-            <TextView
-                android:id="@+id/breakfast3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-
-                />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="2dp"
@@ -98,40 +66,10 @@
             android:textSize="20sp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/lunch1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-
-                />
-
-            <TextView
-                android:id="@+id/lunch2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-               />
-
-            <TextView
-                android:id="@+id/lunch3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-            />
-        </LinearLayout>
+        <ListView
+            android:id="@+id/listView_lunch"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -148,39 +86,11 @@
             android:textColor="#869d9d"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:orientation="vertical">
+        <ListView
+            android:id="@+id/listView_dinner"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp"/>
 
-            <TextView
-                android:id="@+id/dinner1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-               />
-
-            <TextView
-                android:id="@+id/dinner2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-               />
-
-            <TextView
-                android:id="@+id/dinner3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-                />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="2dp"
@@ -196,39 +106,10 @@
             android:textColor="#869d9d"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/other1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-                />
-
-            <TextView
-                android:id="@+id/other2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-                />
-
-            <TextView
-                android:id="@+id/other3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:text="apple"
-                android:textSize="15dp"
-                />
-        </LinearLayout>
+        <ListView
+            android:id="@+id/listView_other"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp"/>
 
     </LinearLayout>
 </LinearLayout>

@@ -3,8 +3,10 @@ package comp5216.sydney.edu.au.assignment2.userSetting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,44 +35,51 @@ import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 import comp5216.sydney.edu.au.assignment2.main.WeightCallBack;
 
 public class MyFoodList extends AppCompatActivity {
+    DatabaseReference databaseReference;
+    ListView listView_breakfast,listView_lunch,listView_dinner,listView_other;
 
+    ArrayList<String> arrayList1 = new ArrayList<String>();
+    ArrayList<String> arrayList2 = new ArrayList<String>();
+    ArrayList<String> arrayList3 = new ArrayList<String>();
+    ArrayList<String> arrayList4 = new ArrayList<String>();
 
-
-    public TextView breakfast1,breakfast2,breakfast3;
-    public TextView lunch1,lunch2,lunch3;
-    public TextView dinner1,dinner2,dinner3;
-    public TextView other1,other2,other3;
-
-
-
-    public DatabaseReference databaseReference;
+    ArrayAdapter<String> arrayAdapter1;
+    ArrayAdapter<String> arrayAdapter2;
+    ArrayAdapter<String> arrayAdapter3;
+    ArrayAdapter<String> arrayAdapter4;
 
     LinearLayout MyFoodList_quit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_meal);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
+        //get breakfast data
+        listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
+        arrayAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList1);
+        listView_breakfast.setAdapter(arrayAdapter1);
+        getbreakfasetdata();
 
-        breakfast1 = (TextView) findViewById(R.id.breakfast1);
-        breakfast2 = (TextView) findViewById(R.id.breakfast2);
-        breakfast3 = (TextView) findViewById(R.id.breakfast3);
+        //get lunch data
+        listView_lunch = (ListView) findViewById(R.id.listView_lunch);
+        arrayAdapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList2);
+        listView_lunch.setAdapter(arrayAdapter2);
+        getlunchdata();
 
-        lunch1 = (TextView) findViewById(R.id.lunch1);
-        lunch2 = (TextView) findViewById(R.id.lunch2);
-        lunch3 = (TextView) findViewById(R.id.lunch3);
+        //get dinner data
+        listView_dinner = (ListView) findViewById(R.id.listView_dinner);
+        arrayAdapter3 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList3);
+        listView_dinner.setAdapter(arrayAdapter3);
+        getdinnerdata();
 
-        dinner1 = (TextView) findViewById(R.id.dinner1);
-        dinner2 = (TextView) findViewById(R.id.dinner2);
-        dinner3 = (TextView) findViewById(R.id.dinner3);
-
-        other1 = (TextView) findViewById(R.id.other1);
-        other2 = (TextView) findViewById(R.id.other2);
-        other3 = (TextView) findViewById(R.id.other3);
+        //get other data
+        listView_other = (ListView) findViewById(R.id.listView_other);
+        arrayAdapter4 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList4);
+        listView_other.setAdapter(arrayAdapter4);
+        getotherdata();
 
 
         MyFoodList_quit = (LinearLayout)findViewById(R.id.MyFoodList_quit);
@@ -89,14 +98,119 @@ public class MyFoodList extends AppCompatActivity {
         //todo...
         // get FoodList from Database
 
+    }
 
+    public void getbreakfasetdata(){
+        //获取userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("category")
+                .equalTo("Breakfast")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
 
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                UsersFood breakfast = data.getValue(UsersFood.class);
+                                arrayList1.add(breakfast.foodname);
+                                arrayAdapter1.notifyDataSetChanged();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
     }
 
+    public void getlunchdata(){
+        //获取userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("category")
+                .equalTo("Lunch")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
 
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                UsersFood breakfast = data.getValue(UsersFood.class);
+                                arrayList2.add(breakfast.foodname);
+                                arrayAdapter2.notifyDataSetChanged();
 
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    public void getdinnerdata(){
+        //获取userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("category")
+                .equalTo("Dinner")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                UsersFood breakfast = data.getValue(UsersFood.class);
+                                arrayList3.add(breakfast.foodname);
+                                arrayAdapter3.notifyDataSetChanged();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    public void getotherdata(){
+        //获取userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("category")
+                .equalTo("Other")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                UsersFood breakfast = data.getValue(UsersFood.class);
+                                arrayList4.add(breakfast.foodname);
+                                arrayAdapter4.notifyDataSetChanged();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
 
 
 }
