@@ -96,16 +96,6 @@ public class ImageConfirmActivity extends Activity {
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-//            public void onClick(View v){
-//                //todo 弹窗
-//                if(true){
-//                    Intent intent = new Intent(ImageConfirmActivity.this, MainActivity.class);
-//                    if (intent != null) {
-//                        ImageConfirmActivity.this.startActivity(intent);
-//                    }
-//                }
-//            }
-
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ImageConfirmActivity.this);
                 builder.setTitle(R.string.dialog_cancel_title)
@@ -113,10 +103,11 @@ public class ImageConfirmActivity extends Activity {
                         .setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 // Prepare data intent for sending it back
-                                Intent data = new Intent();
+                                Intent data = new Intent(ImageConfirmActivity.this, MainActivity.class);
 
                                 // Activity finished ok, return the data
                                 setResult(RESULT_CANCELED, data);
+                                ImageConfirmActivity.this.startActivity(data);
                                 // set result code and bundle data for response
                                 // closes the activity, pass data to parent
                                 finish();

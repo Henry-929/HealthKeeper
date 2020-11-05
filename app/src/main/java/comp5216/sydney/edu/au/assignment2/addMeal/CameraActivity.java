@@ -11,12 +11,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
@@ -24,8 +26,11 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Size;
 import android.util.SparseIntArray;
+import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -68,10 +73,11 @@ import java.util.Locale;
 
 import comp5216.sydney.edu.au.assignment2.R;
 import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.main.SquareFrameLayout;
 
 public class CameraActivity extends Activity{
     private ImageView mImageView;
-    private SurfaceView mSurfaceView;
+    private ResizeAbleSurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
     private ImageButton captureBtn;
     private CameraDevice mCameraDevice;
@@ -83,6 +89,7 @@ public class CameraActivity extends Activity{
     private TextView processLabel;
     private ProgressBar progressBar;
     public String foodName;
+    public SquareFrameLayout sl_surfaceView;
 
     private static final SparseIntArray ORIENTATION = new SparseIntArray();
 
@@ -103,9 +110,24 @@ public class CameraActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_camera);
+
+        sl_surfaceView = (SquareFrameLayout)findViewById(R.id.sl_surfaceView);
+        mSurfaceView = (ResizeAbleSurfaceView) findViewById(R.id.surfaceView);
+        captureBtn = (ImageButton) findViewById(R.id.capture);
+
+        try{
+            sl_surfaceView.setVisibility(View.VISIBLE);
+            mSurfaceView.setVisibility(View.VISIBLE);
+            captureBtn.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+
+        }
         initView();
 
-        captureBtn = (ImageButton) findViewById(R.id.capture);
+
+
+
+
         processLabel = (TextView)findViewById(R.id.progress_label);
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         captureBtn.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +141,7 @@ public class CameraActivity extends Activity{
     private void initView() {
 //        mImageView = (ImageView)findViewById(R.id.imageView);
 //        mTextureView = (TextureView) findViewById(R.id.textureView);
-        mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+
         mSurfaceHolder = mSurfaceView.getHolder();
         mSurfaceHolder.setKeepScreenOn(true);
 
@@ -159,6 +181,7 @@ public class CameraActivity extends Activity{
             public void onImageAvailable(ImageReader reader) {
                 Log.d("initCamera2","进入");
                 mCameraDevice.close();
+                sl_surfaceView.setVisibility(View.GONE);
                 mSurfaceView.setVisibility(View.GONE);
                 captureBtn.setVisibility(View.GONE);
 //                iv_show.setVisibility(View.VISIBLE);
@@ -207,7 +230,7 @@ public class CameraActivity extends Activity{
 
         @Override
         public void onError(CameraDevice camera, int error) {//发生错误
-            Toast.makeText(CameraActivity.this, "摄像头开启失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CameraActivity.this, "Fail to open Camera", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -226,6 +249,7 @@ public class CameraActivity extends Activity{
                     // 当摄像头已经准备好时，开始显示预览
                     mCameraCaptureSession = cameraCaptureSession;
                     try {
+
                         // 自动对焦
                         previewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                         // 打开闪光灯
