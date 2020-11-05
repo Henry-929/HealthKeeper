@@ -343,18 +343,18 @@ public class MyFoodList extends AppCompatActivity {
                                                                         CountBreakfast++;
                                                                         System.out.println("=====数字CountBreakfast=="+CountBreakfast);
                                                                         if(CountBreakfast == 1){
-                                                                            breakfast1.setVisibility(View.INVISIBLE);
+                                                                            breakfast1.setVisibility(View.VISIBLE);
 //                                                                            breakfast1.setText("AAAA");
                                                                             breakfast1.setText(customFoodArrayList.get(j).getFoodname());
 
                                                                             System.out.println("=====啊啊啊啊啊CountBreakfast=="+customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountBreakfast == 2){
-                                                                            breakfast2.setVisibility(View.INVISIBLE);
+                                                                            breakfast2.setVisibility(View.VISIBLE);
                                                                             breakfast2.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountBreakfast == 3){
-                                                                            breakfast3.setVisibility(View.INVISIBLE);
+                                                                            breakfast3.setVisibility(View.VISIBLE);
                                                                             breakfast3.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
 
@@ -383,17 +383,17 @@ public class MyFoodList extends AppCompatActivity {
                                                                         CountLunch++;
                                                                         System.out.println("===========CountLunch==="+CountLunch);
                                                                         if(CountLunch == 1){
-                                                                            lunch1.setVisibility(View.INVISIBLE);
+                                                                            lunch1.setVisibility(View.VISIBLE);
                                                                             lunch1.setText(customFoodArrayList.get(j).getFoodname());
                                                                             System.out.println("=====啊啊啊啊啊CountLunch=="+customFoodArrayList.get(j).getFoodname());
 
                                                                         }
                                                                         if(CountLunch == 2){
-                                                                            lunch2.setVisibility(View.INVISIBLE);
+                                                                            lunch2.setVisibility(View.VISIBLE);
                                                                             lunch2.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountLunch == 3){
-                                                                            lunch3.setVisibility(View.INVISIBLE);
+                                                                            lunch3.setVisibility(View.VISIBLE);
                                                                             lunch3.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
 
@@ -423,15 +423,15 @@ public class MyFoodList extends AppCompatActivity {
                                                                         CountDinner++;
                                                                         System.out.println("===========CountDinner==="+CountDinner);
                                                                         if(CountDinner == 1){
-                                                                            dinner1.setVisibility(View.INVISIBLE);
+                                                                            dinner1.setVisibility(View.VISIBLE);
                                                                             dinner1.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountDinner == 2){
-                                                                            dinner2.setVisibility(View.INVISIBLE);
+                                                                            dinner2.setVisibility(View.VISIBLE);
                                                                             dinner2.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountDinner == 3){
-                                                                            dinner3.setVisibility(View.INVISIBLE);
+                                                                            dinner3.setVisibility(View.VISIBLE);
                                                                             dinner3.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
 
@@ -460,15 +460,15 @@ public class MyFoodList extends AppCompatActivity {
                                                                         CountOther++;
                                                                         System.out.println("===========otherCount==="+CountOther);
                                                                         if(CountOther == 1){
-                                                                            other1.setVisibility(View.INVISIBLE);
+                                                                            other1.setVisibility(View.VISIBLE);
                                                                             other1.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountOther == 2){
-                                                                            other2.setVisibility(View.INVISIBLE);
+                                                                            other2.setVisibility(View.VISIBLE);
                                                                             other2.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountOther == 3){
-                                                                            other3.setVisibility(View.INVISIBLE);
+                                                                            other3.setVisibility(View.VISIBLE);
                                                                             other3.setText(customFoodArrayList.get(j).getFoodname());
                                                                         }
 
