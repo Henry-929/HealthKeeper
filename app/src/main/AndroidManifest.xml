@@ -18,7 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".login.SplashActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".login.LoginActivity"
             android:label="signin"/>
@@ -35,12 +38,7 @@
         <activity android:name=".addMeal.UserCustomizeActivity"
             android:label="custom_food"/>
         <activity android:name=".userSetting.UserActivity"
-            android:label="user_setting">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:label="user_setting"/>
         <activity android:name=".userSetting.MyProfileActivity"
             android:label="profile"/>
         <activity android:name=".userSetting.MyFoodList"
