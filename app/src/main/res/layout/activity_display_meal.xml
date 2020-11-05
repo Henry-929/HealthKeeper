@@ -1,115 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/ll_report_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorMint">
-
+        android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/MyFoodList_quit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/icon_cancel"/>
+            android:id="@+id/ll_report_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorMint">
+
+            <LinearLayout
+                android:id="@+id/MyFoodList_quit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/icon_cancel"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Review Today"
+                android:textColor="#fff"
+                android:textSize="25sp" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="Review Today"
-            android:textColor="#fff"
-            android:textSize="25sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Breakfast"
+                android:textColor="#869d9d"
+                android:textSize="20sp" />
+
+            <comp5216.sydney.edu.au.assignment2.userSetting.MyListView
+                android:id="@+id/listView_breakfast"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lunch"
+                android:textColor="#869d9d"
+                android:textSize="20sp" />
+
+
+            <comp5216.sydney.edu.au.assignment2.userSetting.MyListView
+                android:id="@+id/listView_lunch"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dinner"
+                android:textColor="#869d9d"
+                android:textSize="20sp" />
+
+            <comp5216.sydney.edu.au.assignment2.userSetting.MyListView
+                android:id="@+id/listView_dinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other/Snack"
+                android:textColor="#869d9d"
+                android:textSize="20sp" />
+
+            <comp5216.sydney.edu.au.assignment2.userSetting.MyListView
+                android:id="@+id/listView_other"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Breakfast"
-            android:textColor="#869d9d"
-            android:textSize="20sp" />
-
-        <ListView
-            android:id="@+id/listView_breakfast"
-            android:layout_width="fill_parent"
-            android:layout_height="130dp"/>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorGrey"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingEnd="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lunch"
-            android:textColor="#869d9d"
-            android:textSize="20sp" />
-
-
-        <ListView
-            android:id="@+id/listView_lunch"
-            android:layout_width="fill_parent"
-            android:layout_height="130dp"/>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorGrey"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingEnd="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dinner"
-            android:textColor="#869d9d"
-            android:textSize="20sp" />
-
-        <ListView
-            android:id="@+id/listView_dinner"
-            android:layout_width="fill_parent"
-            android:layout_height="130dp"/>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorGrey"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingEnd="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other/Snack"
-            android:textColor="#869d9d"
-            android:textSize="20sp" />
-
-        <ListView
-            android:id="@+id/listView_other"
-            android:layout_width="fill_parent"
-            android:layout_height="130dp"/>
-
-    </LinearLayout>
-</LinearLayout>
+</ScrollView>

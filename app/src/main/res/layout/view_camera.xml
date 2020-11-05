@@ -10,16 +10,16 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
-        <comp5216.sydney.edu.au.assignment2.main.SquareFrameLayout
-            android:id="@+id/sl_surfaceView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+<!--        <comp5216.sydney.edu.au.assignment2.main.SquareFrameLayout-->
+<!--            android:id="@+id/sl_surfaceView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center">-->
             <comp5216.sydney.edu.au.assignment2.addMeal.ResizeAbleSurfaceView
                 android:id="@+id/surfaceView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </comp5216.sydney.edu.au.assignment2.main.SquareFrameLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+<!--        </comp5216.sydney.edu.au.assignment2.main.SquareFrameLayout>-->
 
         <TextView
             android:id="@+id/progress_label"

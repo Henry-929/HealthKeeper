@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -63,6 +64,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -90,6 +92,7 @@ public class CameraActivity extends Activity{
     private ProgressBar progressBar;
     public String foodName;
     public SquareFrameLayout sl_surfaceView;
+    private Size imageDimension;
 
     private static final SparseIntArray ORIENTATION = new SparseIntArray();
 
@@ -111,7 +114,7 @@ public class CameraActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_camera);
 
-        sl_surfaceView = (SquareFrameLayout)findViewById(R.id.sl_surfaceView);
+//        sl_surfaceView = (SquareFrameLayout)findViewById(R.id.sl_surfaceView);
         mSurfaceView = (ResizeAbleSurfaceView) findViewById(R.id.surfaceView);
         captureBtn = (ImageButton) findViewById(R.id.capture);
 
@@ -123,10 +126,6 @@ public class CameraActivity extends Activity{
 
         }
         initView();
-
-
-
-
 
         processLabel = (TextView)findViewById(R.id.progress_label);
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
@@ -181,7 +180,7 @@ public class CameraActivity extends Activity{
             public void onImageAvailable(ImageReader reader) {
                 Log.d("initCamera2","进入");
                 mCameraDevice.close();
-                sl_surfaceView.setVisibility(View.GONE);
+//                sl_surfaceView.setVisibility(View.GONE);
                 mSurfaceView.setVisibility(View.GONE);
                 captureBtn.setVisibility(View.GONE);
 //                iv_show.setVisibility(View.VISIBLE);
@@ -236,6 +235,8 @@ public class CameraActivity extends Activity{
 
     private void takePreview() {
         try {
+//            mSurfaceView.resize(imageDimension.getHeight(),imageDimension.getWidth());
+
             // 创建预览需要的CaptureRequest.Builder
             final CaptureRequest.Builder previewRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             // 将SurfaceView的surface作为CaptureRequest.Builder的目标
@@ -249,7 +250,6 @@ public class CameraActivity extends Activity{
                     // 当摄像头已经准备好时，开始显示预览
                     mCameraCaptureSession = cameraCaptureSession;
                     try {
-
                         // 自动对焦
                         previewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                         // 打开闪光灯
