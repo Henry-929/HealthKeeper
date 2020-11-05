@@ -80,6 +80,17 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
+        final LinearLayout MyFoodList = findViewById(R.id.MyFoodList);
+        MyFoodList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserActivity.this,MyFoodList.class);
+                if(intent!=null){
+                    UserActivity.this.startActivity(intent);
+                }
+            }
+        });
+
         final LinearLayout llreport = findViewById(R.id.setting_ll_report);
         llreport.setOnClickListener(new View.OnClickListener() {
             @Override

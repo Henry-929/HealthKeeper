@@ -41,6 +41,8 @@
             android:label="user_setting"/>
         <activity android:name=".userSetting.MyProfileActivity"
             android:label="profile"/>
+        <activity android:name=".userSetting.MyFoodList"
+            android:label="MyFoodList"/>
         <activity android:name=".addMeal.CameraActivity"
             android:label="take_photo"/>
         <activity android:name=".main.ReportActivity"

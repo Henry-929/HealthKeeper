@@ -53,27 +53,31 @@
 
             <TextView
                 android:id="@+id/breakfast1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"
+               />
 
             <TextView
                 android:id="@+id/breakfast2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/breakfast3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
@@ -99,27 +103,30 @@
 
             <TextView
                 android:id="@+id/lunch1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/lunch2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/lunch3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -145,27 +152,30 @@
 
             <TextView
                 android:id="@+id/dinner1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/dinner2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/dinner3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
@@ -190,27 +200,30 @@
 
             <TextView
                 android:id="@+id/other1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/other2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/other3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
                 android:baselineAligned="false"
                 android:text="apple"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </LinearLayout>

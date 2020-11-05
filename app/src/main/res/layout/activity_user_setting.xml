@@ -125,6 +125,46 @@
                     android:background="@color/colorGrey"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"/>
+                <LinearLayout
+                    android:id="@+id/MyFoodList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/icon_setting_food_list" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="My Food List"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:background="@null"
+                        android:text="@string/right"
+                        android:textSize="20sp"
+                        android:textColor="#869d9d" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
 
                 <LinearLayout
                     android:id="@+id/setting_ll_report"
@@ -177,7 +217,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="20dp"
-                        android:background="@drawable/icon_setting_report"/>
+                        android:background="@drawable/icon_setting_log_out"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_marginStart="20dp"
