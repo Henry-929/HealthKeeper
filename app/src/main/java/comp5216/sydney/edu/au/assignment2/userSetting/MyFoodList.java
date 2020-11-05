@@ -1,8 +1,10 @@
 package comp5216.sydney.edu.au.assignment2.userSetting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,8 @@ import comp5216.sydney.edu.au.assignment2.addMeal.CustomFood;
 import comp5216.sydney.edu.au.assignment2.addMeal.MarshmallowPermission;
 import comp5216.sydney.edu.au.assignment2.addMeal.MyCallBack;
 import comp5216.sydney.edu.au.assignment2.addMeal.UsersFood;
+import comp5216.sydney.edu.au.assignment2.main.MainActivity;
+import comp5216.sydney.edu.au.assignment2.main.ReportActivity;
 import comp5216.sydney.edu.au.assignment2.main.WeightCallBack;
 
 public class MyFoodList extends AppCompatActivity {
@@ -48,6 +52,8 @@ public class MyFoodList extends AppCompatActivity {
 
 
     public DatabaseReference databaseReference;
+
+    LinearLayout MyFoodList_quit;
 
 
 
@@ -74,6 +80,19 @@ public class MyFoodList extends AppCompatActivity {
         other1 = (TextView) findViewById(R.id.other1);
         other2 = (TextView) findViewById(R.id.other2);
         other3 = (TextView) findViewById(R.id.other3);
+
+
+        MyFoodList_quit = (LinearLayout)findViewById(R.id.MyFoodList_quit);
+
+        MyFoodList_quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MyFoodList.this, UserActivity.class);
+                if (intent != null) {
+                    MyFoodList.this.startActivity(intent);
+                }
+            }
+        });
 
 
         getFoodList_fromDatabase();
@@ -325,7 +344,9 @@ public class MyFoodList extends AppCompatActivity {
                                                                         System.out.println("=====数字CountBreakfast=="+CountBreakfast);
                                                                         if(CountBreakfast == 1){
                                                                             breakfast1.setVisibility(View.INVISIBLE);
+//                                                                            breakfast1.setText("AAAA");
                                                                             breakfast1.setText(customFoodArrayList.get(j).getFoodname());
+
                                                                             System.out.println("=====啊啊啊啊啊CountBreakfast=="+customFoodArrayList.get(j).getFoodname());
                                                                         }
                                                                         if(CountBreakfast == 2){
