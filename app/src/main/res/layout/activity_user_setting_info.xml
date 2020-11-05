@@ -96,9 +96,10 @@
 
                     <EditText
                         android:id="@+id/profile_display_name"
-                        android:layout_width="150dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:hint=""
                         android:textSize="20sp" />
 
@@ -141,8 +142,9 @@
                     <EditText
                         android:id="@+id/profile_display_gender"
                         android:layout_marginStart="10dp"
-                        android:layout_width="150dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -183,7 +185,8 @@
                     <EditText
                         android:id="@+id/profile_display_height"
                         android:layout_marginStart="10dp"
-                        android:layout_width="150dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp" />
 
@@ -226,7 +229,8 @@
                     <EditText
                         android:id="@+id/profile_display_weight"
                         android:layout_marginStart="10dp"
-                        android:layout_width="150dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp" />
 
@@ -269,7 +273,8 @@
                     <EditText
                         android:id="@+id/profile_display_birth"
                         android:layout_marginStart="10dp"
-                        android:layout_width="150dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp" />
                 </LinearLayout>
