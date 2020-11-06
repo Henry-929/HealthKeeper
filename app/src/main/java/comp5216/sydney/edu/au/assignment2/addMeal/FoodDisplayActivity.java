@@ -101,14 +101,14 @@ public class FoodDisplayActivity extends AppCompatActivity {
     }
 
     public void getQuantityCategory(final MyCallBack myCallBack){
-        //获取userID
+        //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
-                            //d.getKey()是userInfo的key
+                            //d.getKey()is key of userInfo
                             final String userInfo_Key = d.getKey();
 
                             //final al_UsersFood al_usersFood = new al_UsersFood();
@@ -127,7 +127,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
 //                                    System.out.println("==============foodname======" + foodname);
 
 
-                                    //获取 quantity &category
+                                    //get quantity &category
                                     Query q1 = databaseReference.child("Users").child(uid)
                                             .orderByChild("foodname")
                                             .equalTo(foodname);
@@ -179,7 +179,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
     public void getIntakefromDatabaseandDisplay(){
 
         //1. select * from Users
-        //2. select * from Food where foodname = "从User哪里获取到的"
+        //2. select * from Food where foodname = "where can get it from User"
 
 
         //1. select * from Users
@@ -190,7 +190,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
-                            //d.getKey()是userInfo的key
+                            //d.getKey()is Key of userInfo
                             final String userInfo_Key = d.getKey();
 
                             //final al_UsersFood al_usersFood = new al_UsersFood();
@@ -200,12 +200,12 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                 String dd_Value = dd.getValue().toString();
 
 
-                                //所有的meal
+                                //all meal
                                 if (dd_Key.equals("foodname")) {
                                     foodname = dd_Value;
                                     customFood.setFoodname(foodname);
 
-                                    //2. select * from Food where foodname = "从User哪里获取到的"
+                                    //2. select * from Food where foodname = "where can get it from User"
                                     Query query = databaseReference.child("Food")
                                             .orderByChild("foodname")
                                             .equalTo(foodname);
@@ -239,7 +239,8 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     customFood.setFat(fat);
                                                     customFood.setProtein(protein);
 
-//                                                    System.out.println("===alINFO====="+customFood.getFoodname()+"+"+customFood.getCalorie()+"+"+customFood.getCarbs()+"+"+customFood.getFat()+"+"+customFood.getProtein());
+//                                                    System.out.println("===alINFO====="+customFood.getFoodname()+"+"+customFood.getCalorie()+"+"
+//                                                    +customFood.getCarbs()+"+"+customFood.getFat()+"+"+customFood.getProtein());
 
                                                     //al_usersFood.incrementFoodCount();
                                                     customFood.incrementFoodCount();
@@ -271,7 +272,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     double allCalorieCount_o = 0;
 
                                                     //for(usersFoodArrayList)
-                                                    //【？？】为啥两种食物？各个print两遍？？！！
                                                     int typesCount = 0;
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
                                                         typesCount = customFoodArrayList.size();
@@ -297,11 +297,11 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
                                                         }
                                                         //set total intake
-                                                        //已经摄入的
+                                                        //Already ingested
                                                         calorieIntake.setText(Double.toString(allCalorieCount));
 
-                                                        //推荐总量 默认2078cal = 8700kj
-                                                        //todo.. 按照年龄大小分总量（从数据库获取）
+                                                        //Recommended total amount default 2078cal = 8700kj
+                                                        //todo.. Divide the total amount by age (obtained from the database)
                                                         //2500cal
                                                         calorieTotal.setText("2078 cal");
 
@@ -337,12 +337,12 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
 
                                                                 //todo..
-                                                                //show 早餐的list （icon，foodname，calorie）
-                                                                //午餐，晚餐，other同理
+                                                                //show Breakfast list（icon，foodname，calorie）
+                                                                //the same for Lunch, dinner, Others
                                                             }
 
                                                         }
-                                                        //计算午餐餐Calorie
+                                                        //Calculate lunch meal Calorie
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String lunch_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String lunch_category = usersFoodArrayList1.get(i).getCategory();
@@ -364,7 +364,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                             }
 
                                                         }
-                                                        //计算晚餐Calorie
+                                                        //Calculate dinner Calorie
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String dinner_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String dinner_category = usersFoodArrayList1.get(i).getCategory();
@@ -386,7 +386,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                             }
 
                                                         }
-                                                        //计算other餐Calorie
+                                                        //Calculate other meals Calorie
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String other_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String other_category = usersFoodArrayList1.get(i).getCategory();
@@ -437,11 +437,11 @@ public class FoodDisplayActivity extends AppCompatActivity {
     }
 
     public void getPassItent(){
-        //获取数据
+        //retrieve data
         Intent intent = getIntent();
 
         //manually input
-        //从intent取出bundle
+        //get bundle from intent
         Bundle data = intent.getBundleExtra("data");
         if (data != null) {
 
@@ -455,7 +455,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
         }
 
         //image confirmed
-        //从intent取出bundle
+        //get bundle from intent
         Bundle data2 = intent.getBundleExtra("data_image");
         if (data2 != null) {
 

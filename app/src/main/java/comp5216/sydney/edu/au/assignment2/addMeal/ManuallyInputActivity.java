@@ -69,7 +69,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
         storageReference = storage.getReference();
 
         categorySpinner.setAdapter(spinneradapter);
-        categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
+        categorySpinner.setVisibility(View.VISIBLE);//Set default display
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -156,17 +156,17 @@ public class ManuallyInputActivity extends AppCompatActivity {
         String category = categorySpinner.getSelectedItem().toString();
 
 
-        // 实例化一个Bundle
+        // Instantiate a Bundle
         Bundle bundle = new Bundle();
-        // 实例化一个intent
+        // Instantiate an intent
         Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-        // 把数据保存到Bundle里
+        // Save the data in Bundle
         bundle.putString("foodname", message);
         bundle.putString("calorie", message);
         bundle.putString("icon", message);
         bundle.putString("quantity",quantity);
         bundle.putString("category",category);
-        // 把bundle放入intent里
+        // Put the bundle into the intent
         intent.putExtra("data", bundle);
         //Use the setResult() method with a response code and the Intent with the response data
         startActivity(intent);

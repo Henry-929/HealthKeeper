@@ -61,25 +61,25 @@ public class MyFoodList extends AppCompatActivity {
         listView_breakfast = (ListView) findViewById(R.id.listView_breakfast);
         arrayAdapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList1);
         listView_breakfast.setAdapter(arrayAdapter1);
-        getbreakfasetdata();
+        getBreakfastData();
 
         //get lunch data
         listView_lunch = (ListView) findViewById(R.id.listView_lunch);
         arrayAdapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList2);
         listView_lunch.setAdapter(arrayAdapter2);
-        getlunchdata();
+        getLunchData();
 
         //get dinner data
         listView_dinner = (ListView) findViewById(R.id.listView_dinner);
         arrayAdapter3 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList3);
         listView_dinner.setAdapter(arrayAdapter3);
-        getdinnerdata();
+        getDinnerData();
 
         //get other data
         listView_other = (ListView) findViewById(R.id.listView_other);
         arrayAdapter4 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayList4);
         listView_other.setAdapter(arrayAdapter4);
-        getotherdata();
+        getOtherData();
 
 
         MyFoodList_quit = (LinearLayout)findViewById(R.id.MyFoodList_quit);
@@ -100,8 +100,8 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
-    public void getbreakfasetdata(){
-        //获取userID
+    public void getBreakfastData(){
+        //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
                 .orderByChild("category")
@@ -128,8 +128,8 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
-    public void getlunchdata(){
-        //获取userID
+    public void getLunchData(){
+        //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
                 .orderByChild("category")
@@ -140,8 +140,8 @@ public class MyFoodList extends AppCompatActivity {
                         if(snapshot.exists()){
 
                             for(DataSnapshot data: snapshot.getChildren()){
-                                UsersFood breakfast = data.getValue(UsersFood.class);
-                                arrayList2.add(breakfast.foodname);
+                                UsersFood lunch = data.getValue(UsersFood.class);
+                                arrayList2.add(lunch.foodname);
                                 arrayAdapter2.notifyDataSetChanged();
 
                             }
@@ -156,8 +156,8 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
-    public void getdinnerdata(){
-        //获取userID
+    public void getDinnerData(){
+        //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
                 .orderByChild("category")
@@ -168,8 +168,8 @@ public class MyFoodList extends AppCompatActivity {
                         if(snapshot.exists()){
 
                             for(DataSnapshot data: snapshot.getChildren()){
-                                UsersFood breakfast = data.getValue(UsersFood.class);
-                                arrayList3.add(breakfast.foodname);
+                                UsersFood dinner = data.getValue(UsersFood.class);
+                                arrayList3.add(dinner.foodname);
                                 arrayAdapter3.notifyDataSetChanged();
 
                             }
@@ -184,8 +184,8 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
-    public void getotherdata(){
-        //获取userID
+    public void getOtherData(){
+        //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
                 .orderByChild("category")
@@ -196,8 +196,8 @@ public class MyFoodList extends AppCompatActivity {
                         if(snapshot.exists()){
 
                             for(DataSnapshot data: snapshot.getChildren()){
-                                UsersFood breakfast = data.getValue(UsersFood.class);
-                                arrayList4.add(breakfast.foodname);
+                                UsersFood other = data.getValue(UsersFood.class);
+                                arrayList4.add(other.foodname);
                                 arrayAdapter4.notifyDataSetChanged();
 
                             }

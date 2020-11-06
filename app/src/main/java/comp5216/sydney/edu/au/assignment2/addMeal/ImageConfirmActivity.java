@@ -207,17 +207,17 @@ public class ImageConfirmActivity extends Activity {
         String category = categorySpinner.getSelectedItem().toString();
 
 
-        // 实例化一个Bundle
+        // Instantiate a Bundle
         Bundle bundle = new Bundle();
-        // 实例化一个intent
+        // Instantiate an intent
         Intent intent = new Intent(ImageConfirmActivity.this, FoodDisplayActivity.class);
-        // 把数据保存到Bundle里
+        // Save the data in Bundle
         bundle.putString("foodname", message);
         bundle.putString("calorie", message);
         bundle.putString("icon", message);
         bundle.putString("quantity",quantity);
         bundle.putString("category",category);
-        // 把bundle放入intent里
+        //Put the bundle into the intent
         intent.putExtra("data", bundle);
         //Use the setResult() method with a response code and the Intent with the response data
         startActivity(intent);
