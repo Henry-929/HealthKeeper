@@ -451,20 +451,37 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="20dp"/>
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="240dp"
-                        android:text="calories               statues"
+                        android:layout_marginStart="10dp"
+                        android:text="" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="calories statues"
                         android:textSize="12sp" />
-
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"/>
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="230dp"
-                        android:text="(percentage)"
+                        android:text="(%)"
+                        android:gravity="center"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -487,21 +504,28 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
                         android:text="@string/breakfast" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/report_display_percent_breakfast"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="100dp"
                         android:layout_marginTop="5dp"
                         android:text="" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"/>
 
                     <TextView
                         android:id="@+id/report_display_status_breakfast"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
@@ -523,21 +547,27 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
                         android:text="@string/lunch" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/report_display_percent_lunch"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="100dp"
                         android:layout_marginTop="5dp"
                         android:text="" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"/>
 
                     <TextView
                         android:id="@+id/report_display_status_lunch"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
@@ -559,21 +589,27 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
                         android:text="@string/dinner" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/report_display_percent_dinner"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="100dp"
                         android:text="" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"/>
 
                     <TextView
                         android:id="@+id/report_display_status_dinner"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
@@ -595,21 +631,27 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
                         android:text="@string/snack_other" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/report_display_percent_other"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="100dp"
                         android:text="" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"/>
 
                     <TextView
                         android:id="@+id/report_display_status_other"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>
@@ -650,18 +692,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:text="@string/diversity"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="240dp"/>
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="10dp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/diversity"
+                        android:textSize="12sp" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"/>
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
@@ -669,15 +725,15 @@
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:text="@string/energy"
-                            android:layout_marginStart="55dp"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp"
+                            android:gravity="center"/>
 
                         <TextView
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:text="@string/calorie_with"
-                            android:layout_marginStart="50dp"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp"
+                            android:gravity="center"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -694,21 +750,26 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="10dp"
                         android:text="@string/food" />
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/report_display_diversity_number"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="130dp"
                         android:layout_marginTop="5dp"
                         android:text="" />
-
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"/>
                     <TextView
                         android:id="@+id/report_display_energy_status"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="40dp"
                         android:text="" />
 
                 </LinearLayout>

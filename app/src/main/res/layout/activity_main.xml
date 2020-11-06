@@ -95,26 +95,39 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_gravity="center"
                         android:orientation="horizontal">
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:gravity="center"
                             android:text="@string/now_kg"
                             android:textColor="#869d9d"
                             android:textSize="15sp" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="55dp"
                             android:layout_marginTop="5dp"
+                            android:gravity="center"
                             android:text="@string/bmi"
                             android:textColor="#869d9d"
                             android:textSize="15sp" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -125,28 +138,39 @@
                         android:layout_marginEnd="5dp"/>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
                         <TextView
                             android:id="@+id/main_display_user_weight"
-                            android:layout_width="match_parent"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="35dp"
+                            android:gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:text=""
                             android:textSize="20sp" />
-
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
                         <TextView
                             android:id="@+id/main_display_user_BMI"
-                            android:layout_width="match_parent"
+                            android:layout_width="80dp"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="50dp"
                             android:layout_marginTop="5dp"
                             android:text=""
                             android:textSize="20sp" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
                     </LinearLayout>
                 </LinearLayout>
 
