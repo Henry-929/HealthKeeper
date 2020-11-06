@@ -113,7 +113,7 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood breakfast = data.getValue(UsersFood.class);
-                                arrayList1.add(breakfast.foodname);
+                                arrayList1.add(captureName(breakfast.foodname));
                                 arrayAdapter1.notifyDataSetChanged();
 
                             }
@@ -141,7 +141,7 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood lunch = data.getValue(UsersFood.class);
-                                arrayList2.add(lunch.foodname);
+                                arrayList2.add(captureName(lunch.foodname));
                                 arrayAdapter2.notifyDataSetChanged();
 
                             }
@@ -169,7 +169,7 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood dinner = data.getValue(UsersFood.class);
-                                arrayList3.add(dinner.foodname);
+                                arrayList3.add(captureName(dinner.foodname));
                                 arrayAdapter3.notifyDataSetChanged();
 
                             }
@@ -197,7 +197,7 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood other = data.getValue(UsersFood.class);
-                                arrayList4.add(other.foodname);
+                                arrayList4.add(captureName(other.foodname));
                                 arrayAdapter4.notifyDataSetChanged();
 
                             }
@@ -209,6 +209,13 @@ public class MyFoodList extends AppCompatActivity {
 
                     }
                 });
+
+    }
+
+    //Capitalize the first letter
+    public static String captureName(String name) {
+        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+        return  name;
 
     }
 
