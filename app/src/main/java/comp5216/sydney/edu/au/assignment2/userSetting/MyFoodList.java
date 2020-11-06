@@ -113,7 +113,8 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood breakfast = data.getValue(UsersFood.class);
-                                arrayList1.add(captureName(breakfast.foodname));
+                                String name_quantity = breakfast.foodname+"  "+breakfast.quantity+" pcs";
+                                arrayList1.add(captureName(name_quantity));
                                 arrayAdapter1.notifyDataSetChanged();
 
                             }
@@ -141,7 +142,8 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood lunch = data.getValue(UsersFood.class);
-                                arrayList2.add(captureName(lunch.foodname));
+                                String name_quantity = lunch.foodname+"  "+lunch.quantity+" pcs";
+                                arrayList2.add(captureName(name_quantity));
                                 arrayAdapter2.notifyDataSetChanged();
 
                             }
@@ -169,7 +171,8 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood dinner = data.getValue(UsersFood.class);
-                                arrayList3.add(captureName(dinner.foodname));
+                                String name_quantity = dinner.foodname+"  "+dinner.quantity+" pcs";
+                                arrayList3.add(captureName(name_quantity));
                                 arrayAdapter3.notifyDataSetChanged();
 
                             }
@@ -197,7 +200,8 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 UsersFood other = data.getValue(UsersFood.class);
-                                arrayList4.add(captureName(other.foodname));
+                                String name_quantity = other.foodname+"  "+other.quantity+" pcs";
+                                arrayList4.add(captureName(name_quantity));
                                 arrayAdapter4.notifyDataSetChanged();
 
                             }
