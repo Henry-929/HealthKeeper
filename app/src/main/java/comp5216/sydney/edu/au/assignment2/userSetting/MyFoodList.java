@@ -1,8 +1,12 @@
 package comp5216.sydney.edu.au.assignment2.userSetting;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -69,6 +73,8 @@ public class MyFoodList extends AppCompatActivity {
         listView_other.setAdapter(arrayAdapter4);
         getOtherData();
 
+        //delete item
+        setupListViewListener();
 
         MyFoodList_quit = (LinearLayout)findViewById(R.id.MyFoodList_quit);
 
@@ -82,9 +88,124 @@ public class MyFoodList extends AppCompatActivity {
             }
         });
 
+    }
 
-        //todo...
-        // get FoodList from Database
+    private void setupListViewListener() {
+        listView_breakfast.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int
+                    position, long rowId)
+            {
+                Log.i("MyFoodList", "Long Clicked item " + position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyFoodList.this);
+                builder.setTitle(R.string.dialog_delete_title_2)
+                        .setMessage(R.string.dialog_delete_msg_2)
+                        .setPositiveButton(R.string.delete_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // Remove item from the ArrayList
+                                        arrayList1.remove(position);
+                                        // Notify listView adapter to update the list
+                                        arrayAdapter1.notifyDataSetChanged();
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // User cancelled the dialog
+                                        // Nothing happens
+                                    }
+                                });
+                builder.create().show();
+                return true; }
+        });
+
+        listView_lunch.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int
+                    position, long rowId)
+            {
+                Log.i("MyFoodList", "Long Clicked item " + position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyFoodList.this);
+                builder.setTitle(R.string.dialog_delete_title_2)
+                        .setMessage(R.string.dialog_delete_msg_2)
+                        .setPositiveButton(R.string.delete_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // Remove item from the ArrayList
+                                        arrayList2.remove(position);
+                                        // Notify listView adapter to update the list
+                                        arrayAdapter2.notifyDataSetChanged();
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // User cancelled the dialog
+                                        // Nothing happens
+                                    }
+                                });
+                builder.create().show();
+                return true; }
+        });
+
+        listView_dinner.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int
+                    position, long rowId)
+            {
+                Log.i("MyFoodList", "Long Clicked item " + position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyFoodList.this);
+                builder.setTitle(R.string.dialog_delete_title_2)
+                        .setMessage(R.string.dialog_delete_msg_2)
+                        .setPositiveButton(R.string.delete_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // Remove item from the ArrayList
+                                        arrayList3.remove(position);
+                                        // Notify listView adapter to update the list
+                                        arrayAdapter3.notifyDataSetChanged();
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // User cancelled the dialog
+                                        // Nothing happens
+                                    }
+                                });
+                builder.create().show();
+                return true; }
+        });
+
+        listView_other.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int
+                    position, long rowId)
+            {
+                Log.i("MyFoodList", "Long Clicked item " + position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyFoodList.this);
+                builder.setTitle(R.string.dialog_delete_title_2)
+                        .setMessage(R.string.dialog_delete_msg_2)
+                        .setPositiveButton(R.string.delete_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // Remove item from the ArrayList
+                                        arrayList4.remove(position);
+                                        // Notify listView adapter to update the list
+                                        arrayAdapter4.notifyDataSetChanged();
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel_2, new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // User cancelled the dialog
+                                        // Nothing happens
+                                    }
+                                });
+                builder.create().show();
+                return true; }
+        });
 
     }
 

@@ -10,6 +10,11 @@
     <string name="YES">YES</string>
     <string name="NO">NO</string>
 
+    <string name="dialog_delete_title_2">Delete an item</string>
+    <string name="dialog_delete_msg_2">Do you want to delete this item?</string>
+    <string name="delete_2">YES</string>
+    <string name="cancel_2">NO</string>
+
     <string name="Manual_dialog_confirm">The food has added successfully. </string>
     <string name="Manual_check_healthReport">check today Health Report</string>
     <string name="Manual_check_healthReport_btn">GO</string>
