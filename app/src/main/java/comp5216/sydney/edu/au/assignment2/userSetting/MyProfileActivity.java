@@ -99,47 +99,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
         getUsername_fromDatabse();
         getUserInfo_fromDatabase();
-
-        //add click listener on LinerLayout
-        final LinearLayout llEditName = findViewById(R.id.profile_ll_edit_name);
-        llEditName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-
-            }
-        });
-
-        final LinearLayout llEditGender = findViewById(R.id.profile_ll_edit_gender);
-        llEditGender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-
-            }
-        });
-
-        final LinearLayout llEditHeight = findViewById(R.id.profile_ll_edit_height);
-        llEditHeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-
-            }
-        });
-
-        final LinearLayout llEditWight = findViewById(R.id.profile_ll_edit_weight);
-        llEditWight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-
-            }
-        });
-
-        final LinearLayout llEditBirth = findViewById(R.id.profile_ll_edit_birth);
-        llEditBirth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-
-            }
-        });
     }
 
     public void userInfoChange(){
