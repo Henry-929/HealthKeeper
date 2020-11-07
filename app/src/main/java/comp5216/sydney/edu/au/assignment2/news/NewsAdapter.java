@@ -44,7 +44,8 @@ public class NewsAdapter extends BaseAdapter{
             view = convertView;
         }else {
 
-            view = View.inflate(context, R.layout.view_main_article, null);//将一个布局文件转换成一个view对象
+            //Convert a layout file into a view object
+            view = View.inflate(context, R.layout.view_main_article, null);
 
         }
         ImageView item_img_icon = (ImageView) view.findViewById(R.id.item_img_icon);

@@ -36,7 +36,8 @@ public class MyProfileActivity extends AppCompatActivity {
     public static String uid;
 
     public EditText textView_name,textView_gender,textView_height,textView_weight,textView_age;
-    public String username,gender,height,weight,age,bmi;//用于获取数据库存储的身高体重信息
+    //Used to obtain the height and weight information stored in the database
+    public String username,gender,height,weight,age,bmi;
     LinearLayout cancelEdit;
     Button confirmEdit;
 
@@ -82,7 +83,7 @@ public class MyProfileActivity extends AppCompatActivity {
         confirmEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //【第一步
+                //first step
                 userInfoChange();
 
             }
@@ -105,7 +106,7 @@ public class MyProfileActivity extends AppCompatActivity {
         llEditName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //todo 修改弹框
+
             }
         });
 
@@ -180,13 +181,13 @@ public class MyProfileActivity extends AppCompatActivity {
             return;
         }
 
-        //【第二步】
+        //second step
         usernameChange_toDatabase();
 
         userInfoChange_toDatabase();
 
-        // 弹窗 提示用户"用户信息已经更改成功"
-        // 并跳转到 MainActivity
+        // A pop-up window prompts the user "User information has been successfully changed"
+        // And jump to MainActivity
         final AlertDialog.Builder builder = new AlertDialog.Builder(MyProfileActivity.this);
         builder.setTitle("User info has changed successfully!")
                 .setMessage("It will jump to Main Page in 2 seconds")
@@ -201,7 +202,7 @@ public class MyProfileActivity extends AppCompatActivity {
             public void run() {
 
                 Looper.prepare();
-                //结束当前的activity
+                //End the current activity
                 //finish();
 
                 builder.create().dismiss();
@@ -213,15 +214,10 @@ public class MyProfileActivity extends AppCompatActivity {
                 Looper.loop();
             }
         },2000);
-
-
-//        Intent intent = new Intent(MyProfileActivity.this, MainActivity.class);
-//        MyProfileActivity.this.startActivity(intent);
-
     }
 
     public void usernameChange_toDatabase(){
-        //获取userID
+        //Get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         databaseReference.child("Users").child(uid)
@@ -233,11 +229,10 @@ public class MyProfileActivity extends AppCompatActivity {
                         if(user!=null){
 
                             for(DataSnapshot d: snapshot.getChildren()) {
-                                //d.getKey()是userInfo的key
-
+                                //d.getKey()is key of userInfo
                                 final String userInfo_Key = d.getKey();
                                 if (userInfo_Key.equals("username")) {
-                                    //将 username 写入数据库
+                                    //Write username to the database
                                     databaseReference.child("Users").child(uid)
                                             .child("username").setValue(username);
                                 }
@@ -253,7 +248,7 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     public void userInfoChange_toDatabase(){
-        //获取userID
+        //Get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         databaseReference.child("Users").child(uid)
@@ -263,17 +258,16 @@ public class MyProfileActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
+                            //Write birthday weight to database
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
+                                //d.getKey()is key of userInfo
 
                                 final String userInfo_Key = d.getKey();
-                                //if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")&& !userInfo_Key.equals("notFirstTime")) {
                                 for(DataSnapshot dd:d.getChildren()){
 
                                     if(dd.getKey().equals("gender")){
-                                        //将 gender 写入数据库
+                                        //Write gender into the database
                                         databaseReference.child("Users").child(uid)
                                                 .child(userInfo_Key)
                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -282,7 +276,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                                         for(DataSnapshot ss:snapshot.getChildren()){
                                                             String ss_key = ss.getKey();
                                                             if(ss_key.equals("gender")){
-                                                                //将 height 写入数据库
+                                                                //Write height to database
                                                                 databaseReference.child("Users").child(uid)
                                                                         .child(userInfo_Key).child("gender").setValue(gender);
 
@@ -297,7 +291,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                                     }
                                     if(dd.getKey().equals("height")){
-                                        //将 height 写入数据库
+                                        //Write height to database
                                         databaseReference.child("Users").child(uid)
                                                 .child(userInfo_Key)
                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -306,7 +300,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                                         for(DataSnapshot ss:snapshot.getChildren()){
                                                             String ss_key = ss.getKey();
                                                             if(ss_key.equals("height")){
-                                                                //将 height 写入数据库
+                                                                //Write height to database
                                                                 databaseReference.child("Users").child(uid)
                                                                         .child(userInfo_Key).child("height").setValue(height);
                                                             }
@@ -319,7 +313,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                                     }
                                     if(dd.getKey().equals("weight")){
-                                        //将 weight 写入数据库
+                                        //Write weight to database
                                         databaseReference.child("Users").child(uid)
                                                 .child(userInfo_Key)
                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -328,7 +322,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                                         for(DataSnapshot ss:snapshot.getChildren()){
                                                             String ss_key = ss.getKey();
                                                             if(ss_key.equals("weight")){
-                                                                //将 height 写入数据库
+                                                                //Write weight to database
                                                                 databaseReference.child("Users").child(uid)
                                                                         .child(userInfo_Key).child("weight").setValue(weight);
 
@@ -342,7 +336,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                                     }
                                     if(dd.getKey().equals("age")){
-                                        //将 age 写入数据库
+                                        //Write age to the database
                                         databaseReference.child("Users").child(uid)
                                                 .child(userInfo_Key)
                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -351,7 +345,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                                         for(DataSnapshot ss:snapshot.getChildren()){
                                                             String ss_key = ss.getKey();
                                                             if(ss_key.equals("age")){
-                                                                //将 height 写入数据库
+                                                                //Write age to the database
                                                                 databaseReference.child("Users").child(uid)
                                                                         .child(userInfo_Key).child("age").setValue(age);
 
@@ -364,41 +358,38 @@ public class MyProfileActivity extends AppCompatActivity {
                                                 });
                                     }
                                     if(dd.getKey().equals("bmi")){
-                                        //将 bmi写入数据库
-                                        //先获取 height- 再计算bmi- 再将bmi写入数据库
+                                        //Write bmi to the database
+                                        //First get the height- then calculate the bmi- and then write the bmi to the database
                                         databaseReference.child("Users").child(uid)
                                                 .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 for(DataSnapshot d: dataSnapshot.getChildren()) {
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                                                     String d_Key = d.getKey();
                                                     if (d_Key.equals("height")) {
                                                         String str_height = d.getValue().toString();
 
-                                                        //计算bmi
-                                                        //将String转Double,并保留2位小数：
+                                                        //Calculate bmi
+                                                        //Convert String to Double, and keep 2 decimal places:
                                                         DecimalFormat df = new DecimalFormat("0.00");
 
-                                                        //将weight height的String转换为double
+                                                        //Convert the String of weight height to double
                                                         double d_weight = Double.parseDouble(weight);
                                                         weight = df.format(d_weight);
 
                                                         double d_height = Double.parseDouble(str_height);
                                                         d_height = d_height/100;
 
-                                                        //计算BMI
+                                                        //Calculate bmi
                                                         //BMI = (kg) / (m)x(m)
                                                         double d_bmi = d_weight / (d_height*d_height);
-                                                        //bmi = Float.toString(f_bmi);
-                                                        //DecimalFormat decimalFormat= new  DecimalFormat( ".00" ); //构造方法的字符格式这里如果小数不足2位,会以0补足.
-                                                        bmi =df.format(d_bmi); //format 返回的是字符串
+                                                        // The character format of the construction method will be filled with 0 if the decimal is less than 2 digits.
+                                                        bmi =df.format(d_bmi); //format returns a string
 
-                                                        //将bmi写入数据库
+                                                        //Write bmi to the database
                                                         databaseReference.child("Users").child(uid)
                                                                 .child(userInfo_Key).child("bmi").setValue(bmi);
-
 
                                                     }
                                                 }
@@ -411,75 +402,6 @@ public class MyProfileActivity extends AppCompatActivity {
                                         });
                                     }
 
-
-
-
-
-
-//                                    //将 gender 写入数据库
-//                                    databaseReference.child("Users").child(uid)
-//                                            .child(userInfo_Key).child("gender").setValue(gender);
-//
-//                                    //将 birthday 写入数据库
-//                                    databaseReference.child("Users").child(uid)
-//                                            .child(userInfo_Key).child("height").setValue(height);
-//
-//                                    //将 weight 写入数据库
-//                                    databaseReference.child("Users").child(uid)
-//                                            .child(userInfo_Key).child("weight").setValue(weight);
-//
-//
-//                                    //将 birthday 写入数据库
-//                                    databaseReference.child("Users").child(uid)
-//                                            .child(userInfo_Key).child("age").setValue(age);
-//
-//
-//
-//                                    //将 bmi写入数据库
-//                                    //先获取 height- 再计算bmi- 再将bmi写入数据库
-//                                    databaseReference.child("Users").child(uid)
-//                                            .child(userInfo_Key).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                            for(DataSnapshot d: dataSnapshot.getChildren()) {
-//                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
-//
-//                                                String d_Key = d.getKey();
-//                                                if (d_Key.equals("height")) {
-//                                                    height = d.getValue().toString();
-//
-//                                                    //计算bmi
-//                                                    //将String转Double,并保留2位小数：
-//                                                    DecimalFormat df = new DecimalFormat("0.00");
-//
-//                                                    //将weight height的String转换为double
-//                                                    double d_weight = Double.parseDouble(weight);
-//                                                    weight = df.format(d_weight);
-//
-//                                                    double d_height = Double.parseDouble(height);
-//                                                    d_height = d_height/100;
-//
-//                                                    //计算BMI
-//                                                    //BMI = (kg) / (m)x(m)
-//                                                    double d_bmi = d_weight / (d_height*d_height);
-//                                                    //bmi = Float.toString(f_bmi);
-//                                                    //DecimalFormat decimalFormat= new  DecimalFormat( ".00" ); //构造方法的字符格式这里如果小数不足2位,会以0补足.
-//                                                    bmi =df.format(d_bmi); //format 返回的是字符串
-//
-//                                                    //将bmi写入数据库
-//                                                    databaseReference.child("Users").child(uid)
-//                                                            .child(userInfo_Key).child("bmi").setValue(bmi);
-//
-//
-//                                                }
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                        }
-//                                    });
                                 }
 
                             }
@@ -496,9 +418,9 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     public void getUsername_fromDatabse(){
-        //获取userID
+        //Get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //从数据库获取当前用户的username
+        //Get the username of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -508,7 +430,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         if(user!=null){
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo[层级的key]
+                                //d.getKey()is key of userInfo
 
                                 String userInfo_Key = d.getKey();
                                 if(userInfo_Key.equals("username")) {
@@ -529,10 +451,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
     public void getUserInfo_fromDatabase(){
-        //获取userID
+        //Get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //从数据库获取当前用户的 weight height
+        //Get the weight height of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -540,10 +462,10 @@ public class MyProfileActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
+                            //Write birthday and weight to database
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
+                                //d.getKey()is key of userInfo
 
                                 String userInfo_Key = d.getKey();
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
@@ -553,33 +475,24 @@ public class MyProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for(DataSnapshot d: dataSnapshot.getChildren()) {
-                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("gender")){
                                                     gender = d.getValue().toString();
                                                     textView_gender.setHint(gender);
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
-
                                                 }
                                                 if(d_Key.equals("height")){
                                                     height = d.getValue().toString();
                                                     textView_height.setHint(height+" cm");
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
-
                                                 }
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
                                                     textView_weight.setHint(weight+" kg");
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
-
                                                 }
 
                                                 if(d_Key.equals("age")){
                                                     age = d.getValue().toString();
                                                     textView_age.setHint(age);
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
-
                                                 }
                                             }
 
