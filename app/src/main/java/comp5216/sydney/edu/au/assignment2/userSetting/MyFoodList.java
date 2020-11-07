@@ -287,7 +287,7 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 data.getRef().removeValue();
-
+                                
                             }
                         }
                     }
