@@ -46,7 +46,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private TextView calorieIntake,calorieTotal,calorieLeft;
 
-    public Bitmap bmp;
     public String mCalorie,mProtein,mCarbohydrate,mFat;
     private TextView custom_get_food_name,custom_get_food_calorie,custom_get_food_protein,
             custom_get_food_carbohydrate,custom_get_food_fat;
@@ -80,11 +79,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.calorie_progress_bar);
         getIntakefromDatabaseandDisplay();
 
-        //todo..
-        //listview breakfast lunch dinner
-
-        //---------------------------------------------------------------------------
-
         custom_get_food_name = (TextView) findViewById(R.id.custom_get_food_name);
         custom_get_food_calorie = (TextView) findViewById(R.id.custom_get_food_calorie);
         custom_get_food_protein = (TextView) findViewById(R.id.custom_get_food_protein);
@@ -96,7 +90,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         food_display_photo = (ImageView) findViewById(R.id.food_display_photo);
-
 
     }
 
@@ -121,11 +114,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                 if (dd_Key.equals("foodname")) {
                                     foodname = dd_Value;
                                     usersFood.setFoodname(foodname);
-                                    //al_usersFood.setFoodname(foodname);
-
-                                    //Toast.makeText(ReportActivity.this, al_usersFood.getFoodname() + "!name!" + foodname, Toast.LENGTH_LONG).show();
-//                                    System.out.println("==============foodname======" + foodname);
-
 
                                     //get quantity &category
                                     Query q1 = databaseReference.child("Users").child(uid)
@@ -142,29 +130,18 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
                                                     usersFood.setQuantity(quantity);
                                                     usersFood.setCategory(category);
-//                                                    al_usersFood.setQuantity(quantity);
-//                                                    al_usersFood.setCategory(category);
-//                                                    System.out.println("=====quantity*category====" + quantity + " " + category);
-
-                                                    //al_usersFood.incrementFoodCount();
-
-                                                    //allFoodArrayList.add(al_usersFood);
                                                     usersFood.incrementFoodCount();
                                                     usersFoodArrayList.add(usersFood);
-                                                    //System.out.println("===allfoodlist=====" + usersFood.toString());
-
                                                     myCallBack.onCallback(usersFoodArrayList);
                                                 }
                                             }
                                         }
-
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
 
                                         }
                                     });
                                 }
-
                             }
                         }
                     }
@@ -181,9 +158,8 @@ public class FoodDisplayActivity extends AppCompatActivity {
         //1. select * from Users
         //2. select * from Food where foodname = "where can get it from User"
 
-
         //1. select * from Users
-        //获取userID
+        //access userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -193,12 +169,10 @@ public class FoodDisplayActivity extends AppCompatActivity {
                             //d.getKey()is Key of userInfo
                             final String userInfo_Key = d.getKey();
 
-                            //final al_UsersFood al_usersFood = new al_UsersFood();
                             final CustomFood customFood = new CustomFood();
                             for (DataSnapshot dd : d.getChildren()) {
                                 String dd_Key = dd.getKey();
                                 String dd_Value = dd.getValue().toString();
-
 
                                 //all meal
                                 if (dd_Key.equals("foodname")) {
@@ -214,24 +188,13 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             //clear
-                                            //al_usersFood.clear_al_UsersFood();
-//                                            System.out.println("==============al======"+al_usersFood.toString());
-
-//                                            al_usersFood.setFoodname(foodname);
                                             if(dataSnapshot.exists()){
-
-//                                                System.out.println("==============dataS======"+dataSnapshot.getValue().toString());
-
                                                 for(DataSnapshot data:dataSnapshot.getChildren()){
-//                                                    System.out.println("==============data======"+data.getValue().toString());
-
                                                     String name = data.child("foodname").getValue().toString();
                                                     calorie = data.child("calorie").getValue().toString();
                                                     carbohydrate = data.child("carbs").getValue().toString();
                                                     fat = data.child("fat").getValue().toString();
                                                     protein = data.child("protein").getValue().toString();
-//                                                    System.out.println("===allinfo====="+name+"+"+calorie+"+"+carbohydrate+"+"+fat+"+"+protein);
-
 
                                                     customFood.setFoodname(name);
                                                     customFood.setCalorie(calorie);
@@ -239,22 +202,11 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     customFood.setFat(fat);
                                                     customFood.setProtein(protein);
 
-//                                                    System.out.println("===alINFO====="+customFood.getFoodname()+"+"+customFood.getCalorie()+"+"
-//                                                    +customFood.getCarbs()+"+"+customFood.getFat()+"+"+customFood.getProtein());
-
-                                                    //al_usersFood.incrementFoodCount();
                                                     customFood.incrementFoodCount();
-//                                                    System.out.println("==============foodcount======"+customFood.getFoodCount());
-                                                    //allFoodArrayList.add(al_UsersFood);
-                                                    customFoodArrayList.add(customFood);
-//                                                    System.out.println("==============allFoodArrayList======"+customFoodArrayList.size());
 
+                                                    customFoodArrayList.add(customFood);
                                                 }
                                             }
-
-//                                            System.out.println("==========a嗷嗷=="+customFoodArrayList.size());
-
-
                                             getQuantityCategory(new MyCallBack() {
                                                 @Override
                                                 public void onCallback(ArrayList<UsersFood> usersFoodArrayList1) {
@@ -275,15 +227,10 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     int typesCount = 0;
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
                                                         typesCount = customFoodArrayList.size();
-//                                                        System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
-
-                                                        //计算所有meal的Calorie
+                                                        //Calculate the Calorie of all meal
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String tmp_foodname = usersFoodArrayList1.get(i).getFoodname();
-//                                                            System.out.println("=====customFoodArrayList=="+tmp_foodname);
-
                                                             totQuan = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
-
 
                                                             for(int j =0; j < customFoodArrayList.size();j++){
                                                                 if(customFoodArrayList.get(j).getFoodname().equals(tmp_foodname)){
@@ -293,34 +240,28 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                 }
                                                             }
                                                             allCalorieCount = allCalorieCount + totCalorie;
-//                                                            System.out.println("=====allCalorieCount=="+allCalorieCount);
-
                                                         }
                                                         //set total intake
                                                         //Already ingested
                                                         calorieIntake.setText(Double.toString(allCalorieCount));
 
                                                         //Recommended total amount default 2078cal = 8700kj
-                                                        //todo.. Divide the total amount by age (obtained from the database)
                                                         //2500cal
                                                         calorieTotal.setText("2078 cal");
 
-                                                        //剩余量
+                                                        //intake left
                                                         Double d_calorieLeft = 2078- allCalorieCount;
                                                         calorieLeft.setText(Double.toString(d_calorieLeft)+" cal");
 
                                                         //progressBar
                                                         int progress = (int)allCalorieCount/25;
-//                                                        progressBar.incrementProgressBy(progress);
                                                         progressBar.setProgress(progress);
 
 
-                                                        //计算早餐Calorie
+                                                        //Log breakfast
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String breakfast_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String breakfast_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
-
                                                             totQuan_b = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
                                                             if(breakfast_category.equals("Breakfast")){
@@ -333,12 +274,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_b = allCalorieCount_b + totCalorie_b;
-//                                                                System.out.println("=====BREAKFASTCalorieCount=="+allCalorieCount_b);
-
-
-                                                                //todo..
-                                                                //show Breakfast list（icon，foodname，calorie）
-                                                                //the same for Lunch, dinner, Others
                                                             }
 
                                                         }
@@ -346,7 +281,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String lunch_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String lunch_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan_l = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -360,7 +294,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_l = allCalorieCount_l + totCalorie_l;
-//                                                                System.out.println("=====LUNCHCalorieCount=="+allCalorieCount_l);
                                                             }
 
                                                         }
@@ -368,7 +301,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String dinner_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String dinner_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan_d = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -382,7 +314,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_d = allCalorieCount_d + totCalorie_d;
-//                                                                System.out.println("=====DINNERCalorieCount=="+allCalorieCount_d);
                                                             }
 
                                                         }
@@ -390,7 +321,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String other_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String other_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan_o = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -404,17 +334,11 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 allCalorieCount_o = allCalorieCount_o + totCalorie_o;
-//                                                                System.out.println("=====OtherCalorieCount=="+allCalorieCount_o);
                                                             }
-
                                                         }
-
                                                     }
-
-
                                                 }
                                             });
-
                                         }
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
@@ -450,8 +374,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
             System.out.println("---------------------------------------------------"+addFoodName);
             getAddFoodName_FoodInfo(addFoodName);
 
-//            Bitmap getbmp = getFoodImage(addImage);
-
         }
 
         //image confirmed
@@ -463,9 +385,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
             custom_get_food_name.setText(addFoodName2);
             System.out.println("---------------------------------------------------"+addFoodName2);
             getAddFoodName_FoodInfo(addFoodName2);
-            //getCalorie_ImageConfirm(addFoodName2);
-//            Bitmap getbmp = getFoodImage(addImage);
-
         }
     }
 
@@ -517,10 +436,5 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
-
-
-
 }

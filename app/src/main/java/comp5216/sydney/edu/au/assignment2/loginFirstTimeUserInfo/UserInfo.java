@@ -1,6 +1,5 @@
 package comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo;
 
-
 import java.util.HashMap;
 
 public class UserInfo {

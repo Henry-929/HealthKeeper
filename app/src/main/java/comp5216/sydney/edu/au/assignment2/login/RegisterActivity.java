@@ -2,7 +2,6 @@ package comp5216.sydney.edu.au.assignment2.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -10,21 +9,14 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.main.*;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -52,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity{
         Confirm_password=(EditText) findViewById(R.id.logger_signup_password_confirm);
         progressBar=(ProgressBar) findViewById(R.id.sign_up_progress_bar);
         progressBar.setVisibility(View.GONE);
-        //Security=(EditText) findViewById(R.id.logger_signup_security_code);
 
         BackToSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,15 +58,12 @@ public class RegisterActivity extends AppCompatActivity{
             public void onClick(View v){
                 progressBar.setVisibility(View.VISIBLE);
                 registerusers(v);
-                //将Users-username存入UsersFood中
+                //Store Users-username in UsersFood
                 initUsersFood_username();
 
             }
         });
     }
-
-
-
 
     public void registerusers(final View v){
 
@@ -152,20 +140,6 @@ public class RegisterActivity extends AppCompatActivity{
                                                     }
                                                 });
 
-//                                        FirebaseUser fuser = mAuth.getCurrentUser();
-//                                        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        }).addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-//                                            }
-//                                        });
-
-//                                        Toast.makeText(RegisterActivity.this, "Registered Successfully", Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                                         if ( i != null) {
                                             RegisterActivity.this.startActivity(i);
@@ -189,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         final String str_usename =Name.getText().toString().trim();
 
-        //将Users-username存入UsersFood中
+        //Store Users-username in UsersFood
         databaseReference =  FirebaseDatabase.getInstance().getReference("UsersFood");
 
         String newKey = databaseReference.push().getKey();

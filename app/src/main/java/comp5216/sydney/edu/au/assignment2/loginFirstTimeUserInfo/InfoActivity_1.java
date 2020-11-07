@@ -27,7 +27,7 @@ public class InfoActivity_1 extends AppCompatActivity {
     public static String uid;
 
     private EditText Height;
-    public String height,gender;//用于数据库存储的String值
+    public String height,gender;//String values for database storage
 
 
     private DatabaseReference databaseReference;
@@ -38,12 +38,10 @@ public class InfoActivity_1 extends AppCompatActivity {
         setContentView(R.layout.activity_user_info_1);
 
         //define buttons
-        //获取性别，通过监听RadioGroup的点击来获得
+        //Get the gender by listening for RadioGroup clicks
         final Button nextBtn=findViewById(R.id.btn_gender_to_birth);
         final RadioGroup genderGroup = findViewById(R.id.gender_radioGroup);
-//        final RadioButton maleBtn = findViewById(R.id.label_gender_male);
-//        final RadioButton femaleBtn = findViewById(R.id.label_gender_female);
-        //获取身高
+        //Get the height
         Height = (EditText)findViewById(R.id.input_user_height);
 
         //get user info_1
@@ -60,19 +58,13 @@ public class InfoActivity_1 extends AppCompatActivity {
                     case R.id.label_gender_male: gender = "Male";break;
                     case R.id.label_gender_female: gender = "Female";break;
                 }
-
-//                Toast.makeText(InfoActivity_1.this,gender,Toast.LENGTH_LONG).show();
-
             }
         });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //notFirstTime = "true";
                 userInfoAdd();
-                //userInfoAdd_toDatabase();
-
             }
         });
     }
@@ -82,26 +74,21 @@ public class InfoActivity_1 extends AppCompatActivity {
 
         height = Height.getText().toString();
 
-        //if 用户输入不为空
+        //if User input is not null
         if(height.isEmpty()){
             Height.setError("Height is required");
             Height.requestFocus();
             return;
         }
         if(gender.isEmpty()){
-            // Toast.makeText(InfoActivity_1.this,"Gender is not chosen!",Toast.LENGTH_LONG).show();
             return;
         }
         userInfoAdd_toDatabase();
-//        Intent intent = new Intent(InfoActivity_1.this, InfoActivity_2.class);
-//        InfoActivity_1.this.startActivity(intent);
-
-
     }
 
     public void userInfoAdd_toDatabase(){
 
-        //获取userID
+        //Get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
@@ -112,7 +99,7 @@ public class InfoActivity_1 extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将gender height 写入database
+                            //Write Gender Height to database
 
                             String newKey = databaseReference.child("Users").child(uid).push().getKey();
 

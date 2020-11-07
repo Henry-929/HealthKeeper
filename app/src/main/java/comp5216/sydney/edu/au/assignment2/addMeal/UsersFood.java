@@ -1,7 +1,6 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 
 public class UsersFood {
 

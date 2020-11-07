@@ -1,5 +1,7 @@
 package comp5216.sydney.edu.au.assignment2.addMeal;
-
+/*
+A class to store custom food
+ */
 public class CustomFood {
     private static int CustomfoodCount = 0;
 
