@@ -1,6 +1,5 @@
 package comp5216.sydney.edu.au.assignment2.userSetting;
 
-
 import android.content.Context;
 import android.widget.ListView;
 
