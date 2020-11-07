@@ -33,11 +33,9 @@ import comp5216.sydney.edu.au.assignment2.login.User;
 public class ReportActivity extends AppCompatActivity {
 
     public static String uid;
-    //用于获取数据库存储的体重信息和bmi值
     public String weight,bmi,height;
     public String foodname,quantity,category;
     public String calorie,carbohydrate,fat,protein;
-
 
     public ArrayList<UsersFood> usersFoodArrayList = new ArrayList<>();
     public ArrayList<CustomFood> customFoodArrayList = new ArrayList<>();
@@ -60,9 +58,6 @@ public class ReportActivity extends AppCompatActivity {
     TextView percentBreakfast,statusBreakfast,percentLunch,statusLunch,percentDinner,statusDinner,percentOther,statusOther;
     TextView diversityNumber,energyStatus;
 
-    //weight prediction display textView
-    //predicted_weight = current_weight + 0.4*calorie_intake - 600
-    //based on the ML model Yukun created
     TextView currentWeightTV,predictedWeightTV;
 
     TextView calorieTotal,calorieGoal,calorieStatus;
@@ -135,14 +130,10 @@ public class ReportActivity extends AppCompatActivity {
         fatStatus = (TextView) findViewById(R.id.report_display_nutrient_fat_condition);
 
 
-
-
-        //获取BMI和weight from database
+        //display weight and BMI from database
         get_Weight_BMI_fromDatabase();
 
-
-        //获取Calorie（Today）
-        //setNutrient()
+        //get Calorie and Nutrient info from database
         initCalorie_initNutrient();
 
         toMain.setOnClickListener(new View.OnClickListener() {
@@ -179,10 +170,10 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     public void get_Weight_BMI_fromDatabase(){
-        //获取userID
+        //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //从数据库获取当前用户的 weight height
+        //Get the weight and BMI of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -273,7 +264,7 @@ public class ReportActivity extends AppCompatActivity {
     public void getWeight(final WeightCallBack weightCallBack){
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //从数据库获取当前用户的 weight height
+        //Get the weight of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -281,10 +272,8 @@ public class ReportActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
 
                                 String userInfo_Key = d.getKey();
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
@@ -298,16 +287,10 @@ public class ReportActivity extends AppCompatActivity {
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("weight")){
                                                     weight = d.getValue().toString();
-                                                   // textView_weight.setText(weight);
-
                                                     weightCallBack.onCallback(weight);
                                                 }
-
                                             }
-
-
                                         }
-
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
 
@@ -327,37 +310,27 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
-
-
-
     public void getQuantityCategory(final MyCallBack myCallBack){
-        //获取userID
+
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
-                            //d.getKey()是userInfo的key
-                            final String userInfo_Key = d.getKey();
 
-                            //final al_UsersFood al_usersFood = new al_UsersFood();
                             final UsersFood usersFood = new UsersFood();
                             for (DataSnapshot dd : d.getChildren()) {
                                 String dd_Key = dd.getKey();
                                 String dd_Value = dd.getValue().toString();
 
-
                                 if (dd_Key.equals("foodname")) {
                                     foodname = dd_Value;
                                     usersFood.setFoodname(foodname);
-                                    //al_usersFood.setFoodname(foodname);
 
-                                    //Toast.makeText(ReportActivity.this, al_usersFood.getFoodname() + "!name!" + foodname, Toast.LENGTH_LONG).show();
                                     System.out.println("==============foodname======" + foodname);
 
-
-                                    //获取 quantity &category
+                                    //query quantity & category of the food
                                     Query q1 = databaseReference.child("Users").child(uid)
                                             .orderByChild("foodname")
                                             .equalTo(foodname);
@@ -372,16 +345,10 @@ public class ReportActivity extends AppCompatActivity {
 
                                                     usersFood.setQuantity(quantity);
                                                     usersFood.setCategory(category);
-//                                                    al_usersFood.setQuantity(quantity);
-//                                                    al_usersFood.setCategory(category);
                                                     System.out.println("=====quantity*category====" + quantity + " " + category);
 
-                                                    //al_usersFood.incrementFoodCount();
-
-                                                    //allFoodArrayList.add(al_usersFood);
                                                     usersFood.incrementFoodCount();
                                                     usersFoodArrayList.add(usersFood);
-                                                    //System.out.println("===allfoodlist=====" + usersFood.toString());
 
                                                     myCallBack.onCallback(usersFoodArrayList);
                                                 }
@@ -406,37 +373,32 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
-
     public void initCalorie_initNutrient(){
 
-        //1. select * from Users
-        //2. select * from Food where foodname = "从User哪里获取到的"
+        //[steps]
+        //1. select * food information from UsersDB
+        //2. select * from FoodDB where foodname = foodname from UsersDB
 
 
-        //1. select * from Users
-        //获取userID
+        //1. select * food information from UsersDB
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
-                            //d.getKey()是userInfo的key
-                            final String userInfo_Key = d.getKey();
 
-                            //final al_UsersFood al_usersFood = new al_UsersFood();
                             final CustomFood customFood = new CustomFood();
                             for (DataSnapshot dd : d.getChildren()) {
                                 String dd_Key = dd.getKey();
                                 String dd_Value = dd.getValue().toString();
 
-
-                                //所有的meal
+                                //Traverse the UsersDB and get all food information
                                 if (dd_Key.equals("foodname")) {
                                     foodname = dd_Value;
                                     customFood.setFoodname(foodname);
 
-                                    //2. select * from Food where foodname = "从User哪里获取到的"
+                                    //2. select * from FoodDB where foodname = foodname from UsersDB
                                     Query query = databaseReference.child("Food")
                                             .orderByChild("foodname")
                                             .equalTo(foodname);
@@ -444,14 +406,8 @@ public class ReportActivity extends AppCompatActivity {
                                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            //clear
-                                            //al_usersFood.clear_al_UsersFood();
-//                                            System.out.println("==============al======"+al_usersFood.toString());
 
-//                                            al_usersFood.setFoodname(foodname);
                                             if(dataSnapshot.exists()){
-
-                                                System.out.println("==============dataS======"+dataSnapshot.getValue().toString());
 
                                                 for(DataSnapshot data:dataSnapshot.getChildren()){
                                                     System.out.println("==============data======"+data.getValue().toString());
@@ -463,19 +419,16 @@ public class ReportActivity extends AppCompatActivity {
                                                     protein = data.child("protein").getValue().toString();
                                                     System.out.println("===allinfo====="+name+"+"+calorie+"+"+carbohydrate+"+"+fat+"+"+protein);
 
-
                                                     customFood.setFoodname(name);
                                                     customFood.setCalorie(calorie);
                                                     customFood.setCarbs(carbohydrate);
                                                     customFood.setFat(fat);
                                                     customFood.setProtein(protein);
-
                                                     System.out.println("===alINFO====="+customFood.getFoodname()+"+"+customFood.getCalorie()+"+"+customFood.getCarbs()+"+"+customFood.getFat()+"+"+customFood.getProtein());
 
-                                                    //al_usersFood.incrementFoodCount();
+
                                                     customFood.incrementFoodCount();
                                                     System.out.println("==============foodcount======"+customFood.getFoodCount());
-                                                    //allFoodArrayList.add(al_UsersFood);
                                                     customFoodArrayList.add(customFood);
                                                     System.out.println("==============allFoodArrayList======"+customFoodArrayList.size());
 
@@ -506,20 +459,18 @@ public class ReportActivity extends AppCompatActivity {
                                                     double totFat = 0, allFatCount =0;
 
 
-                                                    //for(usersFoodArrayList)
-                                                    //【？？】为啥两种食物？各个print两遍？？！！
+
                                                     int typesCount = 0;
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
                                                         typesCount = customFoodArrayList.size();
                                                         System.out.println("==========呵呵=="+customFoodArrayList.size()+usersFoodArrayList1.size());
 
-                                                        //计算所有meal的Calorie
+                                                        //calculate calorie of all food
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String tmp_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
-
 
                                                             for(int j =0; j < customFoodArrayList.size();j++){
                                                                 if(customFoodArrayList.get(j).getFoodname().equals(tmp_foodname)){
@@ -545,7 +496,6 @@ public class ReportActivity extends AppCompatActivity {
 
                                                         }
 
-
                                                         //setFoodIntake diversity
                                                         diversityNumber.setText(typesCount+" types");
                                                         System.out.println("=========typesCount=="+typesCount);
@@ -563,8 +513,7 @@ public class ReportActivity extends AppCompatActivity {
                                                         }
                                                         if(calStatus){
                                                             calorieStatus.setText("+");
-                                                            //predictedWeight 变轻
-                                                            //每少吃1000calorie 变轻0。25kg
+                                                            //predictedWeight - loss weight
                                                             Double left = (2078 - allCalorieCount)/1000;
                                                             final Double less = left*0.25;
                                                             getWeight(new WeightCallBack() {
@@ -577,8 +526,7 @@ public class ReportActivity extends AppCompatActivity {
                                                             });
                                                         }else{
                                                             calorieStatus.setText("-");
-                                                            //predictedWeight 变重
-                                                            //每多吃1000calorie 变重0。5kg
+                                                            //predictedWeight - earn weight
                                                             Double left = (allCalorieCount - 2078)/1000;
                                                             final Double more = left*0.5;
                                                             getWeight(new WeightCallBack() {
@@ -629,14 +577,10 @@ public class ReportActivity extends AppCompatActivity {
                                                             fatStatus.setText("-");
                                                         }
 
-
-
-
-                                                        //计算早餐Calorie
+                                                        //calculate calorie of breakfast
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String breakfast_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String breakfast_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan_b = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -654,11 +598,10 @@ public class ReportActivity extends AppCompatActivity {
                                                             }
 
                                                         }
-                                                        //计算午餐餐Calorie
+                                                        //calculate calorie of lunch
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String lunch_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String lunch_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan_l = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -676,11 +619,10 @@ public class ReportActivity extends AppCompatActivity {
                                                             }
 
                                                         }
-                                                        //计算晚餐Calorie
+                                                        //calculate calorie of dinner
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String dinner_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String dinner_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan_d = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -698,11 +640,10 @@ public class ReportActivity extends AppCompatActivity {
                                                             }
 
                                                         }
-                                                        //计算other餐Calorie
+                                                        //calculate calorie of snacks/others
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String other_foodname = usersFoodArrayList1.get(i).getFoodname();
                                                             String other_category = usersFoodArrayList1.get(i).getCategory();
-                                                            //System.out.println("=====customFoodArrayList=="+tmp_foodname);
 
                                                             totQuan_o = Double.parseDouble(usersFoodArrayList1.get(i).getQuantity());
 
@@ -723,8 +664,7 @@ public class ReportActivity extends AppCompatActivity {
 
                                                     }
 
-                                                    //设置早餐的比例和status
-                                                    //计算并保留1位小数
+                                                    //Calculate the proportion and status of breakfast,lunch,dinner,snacks
                                                     DecimalFormat df = new DecimalFormat("0.0");
                                                     double d_breakfastPercent = allCalorieCount_b/allCalorieCount;
                                                     double d_lunchPercent = allCalorieCount_l/allCalorieCount;
@@ -741,9 +681,7 @@ public class ReportActivity extends AppCompatActivity {
                                                     String str_dinnerPercent = df.format(d_dinnerPercent);
                                                     String str_otherPercent = df.format(d_otherPercent);
 
-
-                                                    //判断当d_breakfastPercent值存在
-                                                    //早：中：晚 ：other = 2.75  :3.5: 2.75：1
+                                                    //breakfast：lunch：dinner ：other = 2.75  :3.5: 2.75：1
                                                     if(d_breakfastPercent >0 || d_breakfastPercent ==0){
                                                         System.out.println("=======d_breakfastPercent=="+d_breakfastPercent);
                                                         boolean status = false;
@@ -799,8 +737,6 @@ public class ReportActivity extends AppCompatActivity {
                                                             statusOther.setText("-");
                                                         }
                                                     }
-
-
 
                                                 }
                                             });

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public TextView textView_bmi,textView_weight,textView_name;
     public ImageView imageView_userImage;
-    public String weight,gender,bmi,username;//用于获取数据库存储的身高体重信息
+    public String weight,gender,bmi,username;//get the height and weight from the database
 
     private static final int REQUEST_TAKE_PHOTO = 101;
     MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
@@ -64,20 +64,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mContext = this;
 
-        //1.获取新闻数据用list封装
+        //Get all news data packaged with list
         ArrayList<NewsBean> allNews = NewsUtils.getAllNews(mContext);
-        //2.找到控件
         ListView lv_news = (ListView) findViewById(R.id.lv_news);
-        //3.创建一个adapter设置给listview
+        //Create an adapter to listview
         NewsAdapter newsAdapter = new NewsAdapter(mContext, allNews);
         lv_news.setAdapter(newsAdapter);
-        //4.设置listview条目的点击事件
+        //Set the click event of the listview item
         lv_news.setOnItemClickListener(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
 
         textView_name=(TextView) findViewById(R.id.main_display_user_name);
         textView_weight = (TextView) findViewById(R.id.main_display_user_weight);
@@ -130,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         String url = bean.news_url;
 
-        //跳转浏览器
+        //open browser
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
@@ -144,17 +142,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         builder.setTitle("Record Method");
         final String []items=new String[]{"Manual","Photo"};
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-            //which指的是用户选择的条目的下标
-            //dialog:触发这个方法的对话框
+            //'which' refers to the subscript of the item selected by the user
+            //'dialog' triggers this method
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
                     onManualClick();
-                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                    dialog.dismiss();
                 }
                 if (which == 1){
                     onTakePhotoClick();
-                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                    dialog.dismiss();
                 }
             }
         });
@@ -185,9 +183,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     public void getUsername_fromDatabse(){
-        //获取userID
+        //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //从数据库获取当前用户的username
+        //Get the username of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -197,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         if(user!=null){
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo[层级的key]
 
                                 String userInfo_Key = d.getKey();
                                 if(userInfo_Key.equals("username")) {
@@ -218,10 +215,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     public void getWeight_BMI_fromDatabase(){
-        //获取userID
+        //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //从数据库获取当前用户的 weight height
+        //Get the weight and height of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -229,10 +226,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
 
                                 String userInfo_Key = d.getKey();
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
@@ -242,7 +237,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for(DataSnapshot d: dataSnapshot.getChildren()) {
-                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("weight")){
@@ -252,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                     DecimalFormat df = new DecimalFormat("0.00");
                                                     String str_weight = df.format(d_weight);
                                                     textView_weight.setText(str_weight);
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+weight,Toast.LENGTH_SHORT).show();
 
                                                 }
 
@@ -263,7 +256,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                     DecimalFormat df = new DecimalFormat(("0.00"));
                                                     String str_bmi = df.format(d_bmi);
                                                     textView_bmi.setText(str_bmi);
-                                                    //Toast.makeText(MainActivity.this,"嗷嗷"+d.getKey()+"/"+d.getValue().toString()+"/"+height,Toast.LENGTH_SHORT).show();
 
                                                 }
                                             }
@@ -292,9 +284,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void getUserImage_fromDatabase(){
 
 
-        //获取userID
+        //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //从数据库获取当前用户的gender
+        //Get the gender of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -302,10 +294,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
 
                                 String userInfo_Key = d.getKey();
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
@@ -315,7 +305,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for(DataSnapshot d: dataSnapshot.getChildren()) {
-                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("gender")){
@@ -325,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                     StorageReference maleRef = storageReference.child("UserImage/icon_male.png");
 
 
+                                                    //set the Image of the current user by his/her gender
                                                     final long ONE_MEGABYTE = 1024 * 1024;
                                                     if(gender.equals("Male")){
 
