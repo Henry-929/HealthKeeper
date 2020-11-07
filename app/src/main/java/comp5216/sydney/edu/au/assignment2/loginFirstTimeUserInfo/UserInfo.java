@@ -56,15 +56,6 @@ public class UserInfo {
         this.weight = weight;
     }
 
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("gender", gender);
-        //result.put("age", age);
-        result.put("height", height);
-        //result.put("weight", weight);
-
-        return result;
-    }
 
 
 }

@@ -73,12 +73,10 @@ public class ManuallyInputActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                // TODO Auto-generated method stub
                 addFoodCategory = FoodCategory[arg2];
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
 
             }
         });
@@ -198,7 +196,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                 public void run() {
 
                                     Looper.prepare();
-                                    //End the current activity
+
                                     builder.create().dismiss();
                                     t.cancel();
 

@@ -22,7 +22,6 @@ public class UserCustomizeActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     private EditText editTextFoodName,editTextFoodCalorie,editTextFoodProtein,editTextFoodCarbo,editTextFoodFat;
-    //Get food information: calories, protein, carbohydrates, fats
     public String addFoodName,addCalorie,addProtein,addCarbohydrate,addFat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,6 @@ public class UserCustomizeActivity extends AppCompatActivity {
 
                 //Put Food information: calories, protein, carbohydrates, fat into the Food database
                 customFoodAdd();
-                //customFoodAdd_toDatabase();
 
             }
         });
@@ -134,9 +132,7 @@ public class UserCustomizeActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        //The popover tells the user "Food has been successfully added"
 
-                        //manuallyInput view
                         Intent intent = new Intent(UserCustomizeActivity.this, ManuallyInputActivity.class);
                         startActivity(intent);
                     }

@@ -84,7 +84,6 @@ public class InfoActivity_2 extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        //Birthday weight is written into database
                         for(DataSnapshot d: snapshot.getChildren()){
                             //d.getKey() is the key of userInfo
                             final String userInfo_Key = d.getKey();

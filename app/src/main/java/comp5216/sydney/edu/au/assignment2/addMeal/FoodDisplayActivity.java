@@ -101,10 +101,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
-                            //d.getKey()is key of userInfo
-                            final String userInfo_Key = d.getKey();
 
-                            //final al_UsersFood al_usersFood = new al_UsersFood();
                             final UsersFood usersFood = new UsersFood();
                             for (DataSnapshot dd : d.getChildren()) {
                                 String dd_Key = dd.getKey();
@@ -159,15 +156,13 @@ public class FoodDisplayActivity extends AppCompatActivity {
         //2. select * from Food where foodname = "where can get it from User"
 
         //1. select * from Users
-        //access userID
+        //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot d : snapshot.getChildren()) {
-                            //d.getKey()is Key of userInfo
-                            final String userInfo_Key = d.getKey();
 
                             final CustomFood customFood = new CustomFood();
                             for (DataSnapshot dd : d.getChildren()) {
@@ -187,7 +182,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            //clear
+
                                             if(dataSnapshot.exists()){
                                                 for(DataSnapshot data:dataSnapshot.getChildren()){
                                                     String name = data.child("foodname").getValue().toString();
@@ -211,7 +206,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onCallback(ArrayList<UsersFood> usersFoodArrayList1) {
 
-                                                    double totQuan,totCalorie = 0,totCarbs,totFat,totPro;
+                                                    double totQuan,totCalorie = 0;
                                                     double totQuan_b,totCalorie_b=0;
                                                     double totQuan_l,totCalorie_l=0;
                                                     double totQuan_d,totCalorie_d=0;
@@ -223,10 +218,8 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                     double allCalorieCount_d = 0;
                                                     double allCalorieCount_o = 0;
 
-                                                    //for(usersFoodArrayList)
-                                                    int typesCount = 0;
+
                                                     if(usersFoodArrayList1.size() == customFoodArrayList.size()){
-                                                        typesCount = customFoodArrayList.size();
                                                         //Calculate the Calorie of all meal
                                                         for(int i=0; i < usersFoodArrayList1.size();i++){
                                                             String tmp_foodname = usersFoodArrayList1.get(i).getFoodname();
@@ -246,7 +239,6 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                         calorieIntake.setText(Double.toString(allCalorieCount));
 
                                                         //Recommended total amount default 2078cal = 8700kj
-                                                        //2500cal
                                                         calorieTotal.setText("2078 cal");
 
                                                         //intake left
@@ -309,7 +301,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
                                                                 for(int j =0; j < customFoodArrayList.size();j++){
                                                                     if(customFoodArrayList.get(j).getFoodname().equals(dinner_foodname)){
                                                                         totCalorie_d = Double.parseDouble(customFoodArrayList.get(j).getCalorie());
-                                                                        totCalorie_d = totCalorie_b * totQuan_d;
+                                                                        totCalorie_d = totCalorie_d * totQuan_d;
 
                                                                     }
                                                                 }

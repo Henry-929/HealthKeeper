@@ -210,7 +210,6 @@ public class UserActivity extends AppCompatActivity {
                         if(user!=null){
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()is key of userInfo
 
                                 String userInfo_Key = d.getKey();
                                 if(userInfo_Key.equals("username")) {

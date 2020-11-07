@@ -4,7 +4,6 @@ import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.*;
 
 public class User {
 
-    public UserInfo userInfo;
     public String userID;
     public String notFirstTime;
     public String username,email,password,confirm_password;

@@ -73,7 +73,7 @@ public class ImageConfirmActivity extends Activity {
         spinneradapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,FoodCategory);
 
         categorySpinner.setAdapter(spinneradapter);
-        categorySpinner.setVisibility(View.VISIBLE);//设置默认显示
+        categorySpinner.setVisibility(View.VISIBLE);
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -126,7 +126,6 @@ public class ImageConfirmActivity extends Activity {
         addCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //todo 弹窗
                 if(true){
                     Intent intent = new Intent(ImageConfirmActivity.this, UserCustomizeActivity.class);
                     if (intent != null) {
@@ -249,8 +248,6 @@ public class ImageConfirmActivity extends Activity {
                         public void run() {
 
                             Looper.prepare();
-                            //End the current activity
-                            //finish();
 
                             builder.create().dismiss();
                             t.cancel();

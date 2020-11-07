@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -202,8 +201,6 @@ public class MyProfileActivity extends AppCompatActivity {
             public void run() {
 
                 Looper.prepare();
-                //End the current activity
-                //finish();
 
                 builder.create().dismiss();
                 t.cancel();
@@ -229,10 +226,9 @@ public class MyProfileActivity extends AppCompatActivity {
                         if(user!=null){
 
                             for(DataSnapshot d: snapshot.getChildren()) {
-                                //d.getKey()is key of userInfo
                                 final String userInfo_Key = d.getKey();
                                 if (userInfo_Key.equals("username")) {
-                                    //Write username to the database
+                                    //re-write username to the database
                                     databaseReference.child("Users").child(uid)
                                             .child("username").setValue(username);
                                 }
@@ -258,7 +254,6 @@ public class MyProfileActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //Write birthday weight to database
 
                             for(DataSnapshot d: snapshot.getChildren()){
                                 //d.getKey()is key of userInfo
@@ -276,7 +271,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                                         for(DataSnapshot ss:snapshot.getChildren()){
                                                             String ss_key = ss.getKey();
                                                             if(ss_key.equals("gender")){
-                                                                //Write height to database
+                                                                //Write gender to database
                                                                 databaseReference.child("Users").child(uid)
                                                                         .child(userInfo_Key).child("gender").setValue(gender);
 
@@ -430,7 +425,6 @@ public class MyProfileActivity extends AppCompatActivity {
                         if(user!=null){
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()is key of userInfo
 
                                 String userInfo_Key = d.getKey();
                                 if(userInfo_Key.equals("username")) {
@@ -462,7 +456,6 @@ public class MyProfileActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //Write birthday and weight to database
 
                             for(DataSnapshot d: snapshot.getChildren()){
                                 //d.getKey()is key of userInfo
