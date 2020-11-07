@@ -278,8 +278,8 @@ public class MyFoodList extends AppCompatActivity {
         //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
-                .orderByChild("category")
-                .equalTo("Breakfast")
+                .orderByChild("foodname")
+                .equalTo(foodName)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -287,6 +287,7 @@ public class MyFoodList extends AppCompatActivity {
 
                             for(DataSnapshot data: snapshot.getChildren()){
                                 data.getRef().removeValue();
+
                             }
                         }
                     }
