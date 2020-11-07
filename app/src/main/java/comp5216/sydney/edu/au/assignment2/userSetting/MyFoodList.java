@@ -102,8 +102,17 @@ public class MyFoodList extends AppCompatActivity {
                         .setPositiveButton(R.string.delete_2, new
                                 DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        //get click position food name
+                                        String getItem = arrayList1.get(position);
+                                        String str = getItem.substring(0,getItem.length()-7);
+                                        String getFoodName = captureName2(str);
+
+                                        //remove food name from database
+                                        deleteBreakfastData(getFoodName);
+
                                         // Remove item from the ArrayList
                                         arrayList1.remove(position);
+
                                         // Notify listView adapter to update the list
                                         arrayAdapter1.notifyDataSetChanged();
 
@@ -131,8 +140,17 @@ public class MyFoodList extends AppCompatActivity {
                         .setPositiveButton(R.string.delete_2, new
                                 DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        //get click position food name
+                                        String getItem = arrayList2.get(position);
+                                        String str = getItem.substring(0,getItem.length()-7);
+                                        String getFoodName = captureName2(str);
+
+                                        //remove food name from database
+                                        deleteLunchData(getFoodName);
+
                                         // Remove item from the ArrayList
                                         arrayList2.remove(position);
+
                                         // Notify listView adapter to update the list
                                         arrayAdapter2.notifyDataSetChanged();
 
@@ -160,8 +178,17 @@ public class MyFoodList extends AppCompatActivity {
                         .setPositiveButton(R.string.delete_2, new
                                 DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        //get click position food name
+                                        String getItem = arrayList3.get(position);
+                                        String str = getItem.substring(0,getItem.length()-7);
+                                        String getFoodName = captureName2(str);
+
+                                        //remove food name from database
+                                        deleteDinnerData(getFoodName);
+
                                         // Remove item from the ArrayList
                                         arrayList3.remove(position);
+
                                         // Notify listView adapter to update the list
                                         arrayAdapter3.notifyDataSetChanged();
 
@@ -189,8 +216,17 @@ public class MyFoodList extends AppCompatActivity {
                         .setPositiveButton(R.string.delete_2, new
                                 DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        //get click position food name
+                                        String getItem = arrayList4.get(position);
+                                        String str = getItem.substring(0,getItem.length()-7);
+                                        String getFoodName = captureName2(str);
+
+                                        //remove food name from database
+                                        deleteOtherData(getFoodName);
+
                                         // Remove item from the ArrayList
                                         arrayList4.remove(position);
+
                                         // Notify listView adapter to update the list
                                         arrayAdapter4.notifyDataSetChanged();
 
@@ -238,6 +274,31 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
+    public void deleteBreakfastData(final String foodName){
+        //get userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("category")
+                .equalTo("Breakfast")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                data.getRef().removeValue();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
     public void getLunchData(){
         //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -254,6 +315,32 @@ public class MyFoodList extends AppCompatActivity {
                                 String name_quantity = lunch.foodname+"  "+lunch.quantity+" pcs";
                                 arrayList2.add(captureName(name_quantity));
                                 arrayAdapter2.notifyDataSetChanged();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    public void deleteLunchData(String foodName){
+        //get userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("foodname")
+                .equalTo(foodName)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                data.getRef().removeValue();
 
                             }
                         }
@@ -296,6 +383,32 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
+    public void deleteDinnerData(String foodName){
+        //get userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("foodname")
+                .equalTo(foodName)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                data.getRef().removeValue();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
     public void getOtherData(){
         //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -325,9 +438,42 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
+    public void deleteOtherData(String foodName){
+        //get userID
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference.child(uid)
+                .orderByChild("foodname")
+                .equalTo(foodName)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+
+                            for(DataSnapshot data: snapshot.getChildren()){
+                                data.getRef().removeValue();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
     //Capitalize the first letter
     public static String captureName(String name) {
         name = name.substring(0, 1).toUpperCase() + name.substring(1);
+        return  name;
+
+    }
+
+    //Lower case the first letter
+    public static String captureName2(String name) {
+        name = name.substring(0, 1).toLowerCase() + name.substring(1);
         return  name;
 
     }
