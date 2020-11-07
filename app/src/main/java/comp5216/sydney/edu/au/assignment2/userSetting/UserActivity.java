@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,7 +40,8 @@ public class UserActivity extends AppCompatActivity {
 
     public TextView textView_name;
     public ImageView imageView_userImage;
-    public String gender,username;//用于获取数据库存储的username信息
+    //Used to get the username information stored in the database
+    public String gender,username;
 
     MarshmallowPermission marshmallowPermission = new MarshmallowPermission(this);
 
@@ -107,7 +107,6 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Log.i("LogOutActivity", "Log out ");
-                //todo .. 弹窗给用户，提示信息"确定是否要登出？"
 
                 // Use the Builder class for convenient dialog construction
                 AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
@@ -168,11 +167,11 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
                     onManualClick();
-                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                    dialog.dismiss(); //When the user selects a value, the dialog box disappears
                 }
                 if (which == 1){
                     onTakePhotoClick();
-                    dialog.dismiss(); //当用户选择了一个值后，对话框消失
+                    dialog.dismiss(); //When the user selects a value, the dialog box disappears
                 }
             }
         });
@@ -185,10 +184,6 @@ public class UserActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
-    /*
-    Take Photo action
-     */
 
     public void onTakePhotoClick(){
         // Check permissions
@@ -203,9 +198,9 @@ public class UserActivity extends AppCompatActivity {
 
 
     public void getUsername_fromDatabse(){
-        //获取userID
+        //Get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //从数据库获取当前用户的username
+        //Get the username of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -215,7 +210,7 @@ public class UserActivity extends AppCompatActivity {
                         if(user!=null){
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo[层级的key]
+                                //d.getKey()is key of userInfo
 
                                 String userInfo_Key = d.getKey();
                                 if(userInfo_Key.equals("username")) {
@@ -235,11 +230,9 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void getUserImage_fromDatabase(){
-
-
-        //获取userID
+        //Get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //从数据库获取当前用户的gender
+        //Get the image of the current user from the database
         databaseReference.child("Users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -247,10 +240,9 @@ public class UserActivity extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
 
                         if(user!=null){
-                            //将birthday weight 写入database
 
                             for(DataSnapshot d: snapshot.getChildren()){
-                                //d.getKey()是userInfo的key
+                                //d.getKey()is key of userInfo
 
                                 String userInfo_Key = d.getKey();
                                 if(!userInfo_Key.equals("userID") && !userInfo_Key.equals("username") && !userInfo_Key.equals("email") && !userInfo_Key.equals("password")&& !userInfo_Key.equals("confirm_password")&& !userInfo_Key.equals("security")) {
@@ -260,7 +252,6 @@ public class UserActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for(DataSnapshot d: dataSnapshot.getChildren()) {
-                                                //Toast.makeText(MainActivity.this,"嗷嗷"+dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
 
                                                 String d_Key = d.getKey();
                                                 if(d_Key.equals("gender")){
@@ -325,10 +316,6 @@ public class UserActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
 
     }
 }

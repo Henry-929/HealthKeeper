@@ -4,36 +4,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import comp5216.sydney.edu.au.assignment2.R;
-import comp5216.sydney.edu.au.assignment2.main.MainActivity;
 
 public class UserCustomizeActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
     private EditText editTextFoodName,editTextFoodCalorie,editTextFoodProtein,editTextFoodCarbo,editTextFoodFat;
-    //获取食物信息：卡路里，蛋白质，碳水化物，脂肪
+    //Get food information: calories, protein, carbohydrates, fats
     public String addFoodName,addCalorie,addProtein,addCarbohydrate,addFat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +76,7 @@ public class UserCustomizeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                //将食物信息：卡路里，蛋白质，碳水化物，脂肪 存入Food数据库
+                //Put Food information: calories, protein, carbohydrates, fat into the Food database
                 customFoodAdd();
                 //customFoodAdd_toDatabase();
 
@@ -104,7 +93,7 @@ public class UserCustomizeActivity extends AppCompatActivity {
         addCarbohydrate = editTextFoodCarbo.getText().toString();
         addFat = editTextFoodFat.getText().toString();
 
-        //if 用户输入不为空
+        //if User input is not null
         if(addFoodName.isEmpty()){
             editTextFoodName.setError("Food Name is required");
             editTextFoodName.requestFocus();
@@ -131,12 +120,12 @@ public class UserCustomizeActivity extends AppCompatActivity {
             return;
         }
 
-        //将custom food的食物信息存入数据库
+        //Store the food information for Custom Food into the database
         customFoodAdd_toDatabase();
     }
     public void customFoodAdd_toDatabase(){
 
-        //每存放一个custom food食物信息 就创建一个新节点
+        //A new node is created for each custom Food information stored
         String newKey = databaseReference.child("Food").push().getKey();
 
         CustomFood customFood = new CustomFood(addFoodName, addCalorie, addProtein,addCarbohydrate,addFat);
@@ -145,9 +134,9 @@ public class UserCustomizeActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        //弹窗提示用户"已经成功添加食物"
+                        //The popover tells the user "Food has been successfully added"
 
-                        //manuallyInput 页面
+                        //manuallyInput view
                         Intent intent = new Intent(UserCustomizeActivity.this, ManuallyInputActivity.class);
                         startActivity(intent);
                     }

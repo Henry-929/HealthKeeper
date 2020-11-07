@@ -2,7 +2,6 @@ package comp5216.sydney.edu.au.assignment2.addMeal;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -129,20 +128,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //【steps】
-                //判断DB中是否有用户输入的食物
-                //（有）- 将该用户输入的食物信息存入 Users数据库
-                //（无）- 弹窗 提示用户"Food db中不存在该食物，令用户add custom food"
-
-
                 FoodExistOrNot();
-
-                //UserFoodAdd();
-                //UserFoodAdd_toDatabase();
-
-
-
             }
         });
     }
@@ -173,12 +159,12 @@ public class ManuallyInputActivity extends AppCompatActivity {
         finish();
     }
     public void FoodExistOrNot(){
-        //判断DB中是否有用户输入的食物
+        //Determine if the DB has any food entered by the user
 
         FoodExisted = false;
         addFoodName = editTextFoodName.getText().toString().toLowerCase();
 
-        //遍历Food db 查找食物是否存在
+        //Go through the Food DB to see if the Food is present
         databaseReference.child("Food").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -186,25 +172,18 @@ public class ManuallyInputActivity extends AppCompatActivity {
                     for(DataSnapshot dd : d.getChildren()){
                         String dd_key = dd.getKey();
                         String dd_value = dd.getValue().toString();
-
-                        //System.out.println(dd_key+"==========addFoodName======="+dd_value);
-
                         if(dd_key.equals("foodname") && dd_value.equals(addFoodName)){
 
-                            // db中存在该食物
+                            // If the food is exist in db
                             FoodExisted = true;
-                            //System.out.println(dd_key+"==========FoodExisted = true;======="+dd_value);
-
                         }
 
                     }//=======[end of] for(DataSnapshot dd : d.getChildren()){
                 }//=====[end of] for(DataSnapshot d : dataSnapshot.getChildren()){
 
-                //（无）- 弹窗 提示用户"db中不存在该食物，令用户add custom food"
+                //If false - the popover prompts the user "this food does not exist in DB, make the user add Custom Food"
                 if(FoodExisted == false){
-
-                    //System.out.println("======food NOOO exist===="+addFoodName);
-                    // 并跳转到 UserCustomizeActivity
+                    // jump to  UserCustomizeActivity
                             final AlertDialog.Builder builder = new AlertDialog.Builder(ManuallyInputActivity.this);
                             builder.setTitle("Sorry , the food does not exist in the database currently ! ")
                                     .setMessage("Please customize your food in the next page.")//It will jump to Add Custom Food Page in 2 seconds
@@ -219,9 +198,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                 public void run() {
 
                                     Looper.prepare();
-                                    //结束当前的activity
-                                    //finish();
-
+                                    //End the current activity
                                     builder.create().dismiss();
                                     t.cancel();
 
@@ -233,15 +210,12 @@ public class ManuallyInputActivity extends AppCompatActivity {
                             },3200);
 
                 }
-                //（有）- 将user-food 该用户输入的食物信息存入数据库
+                //(true) - Store user-food information entered by the user into the database
                 if(FoodExisted == true){
-
-                    //System.out.println("======food exist ^-^===="+addFoodName);
                     UserFoodAdd();
 
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -256,7 +230,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
         addFoodName = editTextFoodName.getText().toString().toLowerCase();
         addFoodQuantity = editTextFoodQuantity.getText().toString();
 
-        //if 用户输入不为空
+        //if User input is not null
         if(addFoodName.isEmpty()){
             editTextFoodName.setError("Food Name is required");
             editTextFoodName.requestFocus();
@@ -267,18 +241,12 @@ public class ManuallyInputActivity extends AppCompatActivity {
             editTextFoodQuantity.requestFocus();
             return;
         }
-        //判断（点击confirm按钮后，
-        // 若foodname中输入的是一个 在Food db中检索不到的食物，则提示弹窗“用户需要custom food”）
-        // todo
-
-
-
-        //将user-food 该用户输入的食物信息存入数据库
+        //Store the food information entered by the user-food in the database
        UserFoodAdd_toDatabase();
     }
     public void UserFoodAdd_toDatabase(){
 
-        //获取userID
+        //get userID
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         databaseReference.child("Users").child(uid)
@@ -286,7 +254,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        //每存放一个食物信息 就创建一个新节点
+                        //A new node is created for each food information stored
                         String newKey = databaseReference.child("Users").child(uid).push().getKey();
 
                         UsersFood usersFood = new UsersFood(addFoodName, addFoodQuantity, addFoodCategory);
@@ -295,9 +263,7 @@ public class ManuallyInputActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        //跳转到food display页面
-//                                        Intent intent = new Intent(ManuallyInputActivity.this, FoodDisplayActivity.class);
-//                                        startActivity(intent);
+                                        //jump to food display view
                                         sendMessage();
                                     }
                                 });

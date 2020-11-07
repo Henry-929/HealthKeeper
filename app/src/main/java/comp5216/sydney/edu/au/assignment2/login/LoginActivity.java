@@ -10,17 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
@@ -50,8 +46,6 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_logger_signin);
         mAuth = FirebaseAuth.getInstance();
 
-        //define user input name& password
-        //todo xxxxxx
         //define buttons
         final Button SignInBtn = findViewById(R.id.btn_sign_in);
         final Button SignUpBtn = findViewById(R.id.btn_sign_up);
@@ -120,13 +114,10 @@ public class LoginActivity extends AppCompatActivity{
                 if (task.isSuccessful()){
 
                     if(mAuth.getCurrentUser().isEmailVerified()){
-//                        Toast.makeText(LoginActivity.this, "Verified successfully",
-//                                Toast.LENGTH_SHORT).show();
-
                         databaseReference =  FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                        //判断是否是第一次登录 从database中 【读取数据】
+                        //Determine if it is the first time to log in from the database
                         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -135,20 +126,17 @@ public class LoginActivity extends AppCompatActivity{
                                     if(data.getKey().equals("notFirstTime")){
 
                                         if(data.getValue().equals("false")){
-                                            //是第一次登录，进入user info add界面
+                                            //if this is the first time user log in, then enter the User Info Add interface
 
-                                            //进入user info add界面
+                                            //Enter the User Info Add interface
                                             Toast.makeText(LoginActivity.this,"Verified successfully, please add your information!",Toast.LENGTH_LONG).show();
                                             startActivity(new Intent(LoginActivity.this, InfoActivity_1.class));
                                             break;
-                                            // The user is new
-
                                         }
                                         else{
+                                            // This is an existing user
                                             Toast.makeText(LoginActivity.this,"Sign in successfully,welcome back!",Toast.LENGTH_LONG).show();
                                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                            // This is an existing user
-
                                         }
                                     }
                                 }

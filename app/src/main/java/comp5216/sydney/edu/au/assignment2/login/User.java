@@ -1,6 +1,5 @@
 package comp5216.sydney.edu.au.assignment2.login;
 
-
 import comp5216.sydney.edu.au.assignment2.loginFirstTimeUserInfo.*;
 
 public class User {
@@ -18,12 +17,8 @@ public class User {
         this.password=password;
         this.confirm_password=confirm_password;
         this.notFirstTime = "false";
-        //this.userInfo = "null";
     }
 
-//    public void setUserInfo(UserInfo userInfo){
-//        this.userInfo = userInfo;
-//    }
 
     public void setUserID(String userID) {
         this.userID = userID;
@@ -72,11 +67,5 @@ public class User {
     public String getNotFirstTime() {
         return notFirstTime;
     }
-
-//    public UserInfo getUserInfo() {
-//        return userInfo;
-//    }
-
-
 
 }
