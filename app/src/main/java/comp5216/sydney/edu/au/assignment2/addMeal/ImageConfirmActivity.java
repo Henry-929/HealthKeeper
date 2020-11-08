@@ -145,41 +145,75 @@ public class ImageConfirmActivity extends Activity {
     
     //to translate chinese API language to English
     public void Translation(){
+
+        int flag = 0;
         if(foodNameInChinse.equals("苹果")){
             editTextFoodName.setText("apple");
+            flag = 1;
         }
         if(foodNameInChinse.equals("香蕉")){
             editTextFoodName.setText("banana");
+            flag = 1;
         }
         if(foodNameInChinse.equals("胡萝卜")){
             editTextFoodName.setText("carrot");
+            flag = 1;
         }
         if(foodNameInChinse.equals("黄瓜")){
             editTextFoodName.setText("cucumber");
+            flag = 1;
         }
         if(foodNameInChinse.equals("洋葱")){
             editTextFoodName.setText("onion");
+            flag = 1;
         }
         if(foodNameInChinse.equals("甜橙")){
             editTextFoodName.setText("orange");
+            flag = 1;
         }
         if(foodNameInChinse.equals("土豆")){
             editTextFoodName.setText("potato");
+            flag = 1;
         }
         if(foodNameInChinse.equals("番茄")){
             editTextFoodName.setText("tomato");
+            flag = 1;
         }
         if(foodNameInChinse.equals("猕猴桃")){
             editTextFoodName.setText("kiwifruit");
+            flag = 1;
         }
         if(foodNameInChinse.equals("花椰菜")){
             editTextFoodName.setText("broccoli");
+            flag = 1;
         }
         if(foodNameInChinse.equals("番薯")){
             editTextFoodName.setText("sweet potato");
+            flag = 1;
         }
         if(foodNameInChinse.equals("草莓")){
             editTextFoodName.setText("strawberry");
+            flag = 1;
+        }
+        System.out.println(flag);
+        if(flag == 0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(ImageConfirmActivity.this);
+            builder.setTitle(R.string.food_recognition_fail_title)
+                    .setMessage(R.string.food_recognition_fail_content)
+                    .setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // Prepare data intent for sending it back
+                            Intent data = new Intent(ImageConfirmActivity.this, MainActivity.class);
+
+                            // Activity finished ok, return the data
+                            setResult(RESULT_CANCELED, data);
+                            ImageConfirmActivity.this.startActivity(data);
+                            // set result code and bundle data for response
+                            // closes the activity, pass data to parent
+                            finish();
+                        }
+                    });
+            builder.create().show();
         }
     }
 

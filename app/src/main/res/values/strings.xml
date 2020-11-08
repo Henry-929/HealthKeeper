@@ -136,4 +136,6 @@
     <string name="review_today">Review Today</string>
     <string name="status_means_you_can_eat_more">*status + means you can eat more;</string>
     <string name="means_you_need_to_eat_less">- means you need to eat less.</string>
+    <string name="food_recognition_fail_title">Sorry, Food Recognition failed.</string>
+    <string name="food_recognition_fail_content">Did you get the right food? Please try again or input manually.</string>
 </resources>
