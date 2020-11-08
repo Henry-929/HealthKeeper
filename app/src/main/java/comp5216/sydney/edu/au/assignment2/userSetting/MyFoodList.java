@@ -278,15 +278,17 @@ public class MyFoodList extends AppCompatActivity {
         //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
-                .orderByChild("foodname")
-                .equalTo(foodName)
+                .orderByChild("category")
+                .equalTo("Breakfast")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
 
                             for(DataSnapshot data: snapshot.getChildren()){
-                                data.getRef().removeValue();
+                                if (foodName.equals(data.child("foodname").getValue(String.class))) {
+                                    data.getRef().removeValue();
+                                }
                                 
                             }
                         }
@@ -329,19 +331,21 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
-    public void deleteLunchData(String foodName){
+    public void deleteLunchData(final String foodName){
         //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
-                .orderByChild("foodname")
-                .equalTo(foodName)
+                .orderByChild("category")
+                .equalTo("Lunch")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
 
                             for(DataSnapshot data: snapshot.getChildren()){
-                                data.getRef().removeValue();
+                                if (foodName.equals(data.child("foodname").getValue(String.class))) {
+                                    data.getRef().removeValue();
+                                }
 
                             }
                         }
@@ -384,19 +388,21 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
-    public void deleteDinnerData(String foodName){
+    public void deleteDinnerData(final String foodName){
         //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
-                .orderByChild("foodname")
-                .equalTo(foodName)
+                .orderByChild("category")
+                .equalTo("Dinner")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
 
                             for(DataSnapshot data: snapshot.getChildren()){
-                                data.getRef().removeValue();
+                                if (foodName.equals(data.child("foodname").getValue(String.class))) {
+                                    data.getRef().removeValue();
+                                }
 
                             }
                         }
@@ -439,19 +445,21 @@ public class MyFoodList extends AppCompatActivity {
 
     }
 
-    public void deleteOtherData(String foodName){
+    public void deleteOtherData(final String foodName){
         //get userID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference.child(uid)
-                .orderByChild("foodname")
-                .equalTo(foodName)
+                .orderByChild("category")
+                .equalTo("Other")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
 
                             for(DataSnapshot data: snapshot.getChildren()){
-                                data.getRef().removeValue();
+                                if (foodName.equals(data.child("foodname").getValue(String.class))) {
+                                    data.getRef().removeValue();
+                                }
 
                             }
                         }
