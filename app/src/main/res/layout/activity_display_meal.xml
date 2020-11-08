@@ -31,7 +31,7 @@
                 android:paddingStart="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Review Today"
+                android:text="@string/review_today"
                 android:textColor="#fff"
                 android:textSize="25sp" />
         </LinearLayout>
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Breakfast"
+                android:text="@string/breakfast"
                 android:textColor="#869d9d"
                 android:textSize="20sp" />
 
@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lunch"
+                android:text="@string/lunch"
                 android:textColor="#869d9d"
                 android:textSize="20sp" />
 
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dinner"
+                android:text="@string/dinner"
                 android:textColor="#869d9d"
                 android:textSize="20sp" />
 
@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Other/Snack"
+                android:text="@string/other_snack"
                 android:textColor="#869d9d"
                 android:textSize="20sp" />
 
@@ -91,6 +91,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:text="@string/you_can_long_click_the_record_to_delete_it" />
         </LinearLayout>
     </LinearLayout>
 

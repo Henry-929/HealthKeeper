@@ -131,4 +131,9 @@
     <string name="age">Age</string>
     <string name="image_processing">Image Processing</string>
     <string name="predicted_weight">Predicted weight</string>
+    <string name="you_can_long_click_the_record_to_delete_it">*You can long click the record to delete it.</string>
+    <string name="other_snack">Other/Snack</string>
+    <string name="review_today">Review Today</string>
+    <string name="status_means_you_can_eat_more">*status + means you can eat more;</string>
+    <string name="means_you_need_to_eat_less">- means you need to eat less.</string>
 </resources>

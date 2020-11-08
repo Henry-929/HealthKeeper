@@ -656,6 +656,21 @@
                         android:text="" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:textStyle="italic"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status_means_you_can_eat_more"/>
+
+                <TextView
+                    android:layout_gravity="right"
+                    android:textStyle="italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/means_you_need_to_eat_less"/>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -664,7 +679,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <TextView
