@@ -23,9 +23,12 @@ Healthkeeper keeps track of the user's diet and analyses the user's health statu
 - Device2: HUAWEI P30
     - Display Resolution: 2340 x 1080 pixels, 19.5:9 ratio (~398 ppi density)
     - Android OS: version 10.0.0.316
-- Device3: Xiaomi CC 9
+- Device3: Xiaomi CC 9 
     - Display Resolution: 2340 x 1080 pixels, 19.5:9 ratio (~403 ppi density)
     - Android OS: version 9 (MIUI-V11.3.4.PFCCNXM)
+- Device4: Razer Phone 2.0
+    - Display Resolution: 2560 x 1440 pixels, 16:9 ratio
+    - Android OS: version 9
 - API: Android under API 29
 - Java: Java 8
 - IDE: Android Studio 4.0.1
