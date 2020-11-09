@@ -30,7 +30,7 @@ Healthkeeper keeps track of the user's diet and analyses the user's health statu
     - Display Resolution: 2560 x 1440 pixels, 16:9 ratio
     - Android OS: version 9
 - API: Android under API 29
-- Java: Java 8
+- Java: Java 8  
 - IDE: Android Studio 4.0.1
 
 ### Android Studio
@@ -49,3 +49,12 @@ implementation group:'com.google.android.material', name:'material', version: '1
 - json-20160810
 - slf4j-api-1.7.25
 - slf4j-simple-1.7.25
+
+##Food stored in database
+We currently have stored 35 types of food in our database, including: Apple, Avocado, Banana, 
+Beetroot, Blueberry, Brinjal, Broccoli, Cake, Capsicum, Carrot, Cheese, Chips, Cucumber, Curry, 
+Fish, Garlic, Hamburger, Honey, Kiwifruit, Milk, Onion, Orange, Pancake, Pea, Pizza, Potato, 
+Pumpkin, Rice, Sandwich, Sausage, Shrimp, Steak, Strawberry, Sweet Potato, Tomato
+
+Most of them can be image recognized, and all of them can be recorded manually.
+
