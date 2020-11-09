@@ -151,16 +151,64 @@ public class ImageConfirmActivity extends Activity {
             editTextFoodName.setText("apple");
             flag = 1;
         }
+        if(foodNameInChinse.equals("牛油果")){
+            editTextFoodName.setText("avocado");
+            flag = 1;
+        }
         if(foodNameInChinse.equals("香蕉")){
             editTextFoodName.setText("banana");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("红菜头")){
+            editTextFoodName.setText("beetroot");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("蓝莓")){
+            editTextFoodName.setText("blueberry");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("茄子")){
+            editTextFoodName.setText("brinjal");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("西兰花")){
+            editTextFoodName.setText("broccoli");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("甜椒")){
+            editTextFoodName.setText("capsicum");
             flag = 1;
         }
         if(foodNameInChinse.equals("胡萝卜")){
             editTextFoodName.setText("carrot");
             flag = 1;
         }
+        if(foodNameInChinse.equals("芝士")){
+            editTextFoodName.setText("cheese");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("薯条")){
+            editTextFoodName.setText("chips");
+            flag = 1;
+        }
         if(foodNameInChinse.equals("黄瓜")){
             editTextFoodName.setText("cucumber");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("鱼")){
+            editTextFoodName.setText("fish");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("汉堡")){
+            editTextFoodName.setText("hamburger");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("蜂蜜")){
+            editTextFoodName.setText("honey");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("猕猴桃")){
+            editTextFoodName.setText("kiwifruit");
             flag = 1;
         }
         if(foodNameInChinse.equals("洋葱")){
@@ -173,6 +221,10 @@ public class ImageConfirmActivity extends Activity {
         }
         if(foodNameInChinse.equals("土豆")){
             editTextFoodName.setText("potato");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("松饼")){
+            editTextFoodName.setText("pancake");
             flag = 1;
         }
         if(foodNameInChinse.equals("番茄")){
@@ -195,7 +247,34 @@ public class ImageConfirmActivity extends Activity {
             editTextFoodName.setText("strawberry");
             flag = 1;
         }
-        System.out.println(flag);
+        if(foodNameInChinse.equals("披萨")){
+            editTextFoodName.setText("pizza");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("南瓜")){
+            editTextFoodName.setText("pumpkin");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("米饭")){
+            editTextFoodName.setText("rice");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("三明治")){
+            editTextFoodName.setText("sandwich");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("香肠")){
+            editTextFoodName.setText("sausage");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("虾")){
+            editTextFoodName.setText("shrimp");
+            flag = 1;
+        }
+        if(foodNameInChinse.equals("牛排")){
+            editTextFoodName.setText("steak");
+            flag = 1;
+        }
         if(flag == 0){
             AlertDialog.Builder builder = new AlertDialog.Builder(ImageConfirmActivity.this);
             builder.setTitle(R.string.food_recognition_fail_title)
